@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SalesIQ – 30% mehr Abschlüsse in 90 Tagen | KI-gestütztes B2B Sales Coaching</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-dark: #0f1e35;
+      --blue-mid: #1a3a5c;
+      --blue-light: #2563a8;
+      --anthrazit: #2d3748;
+      --anthrazit-light: #4a5568;
+      --orange: #f97316;
+      --orange-dark: #ea6c0a;
+      --white: #ffffff;
+      --gray-light: #f7f9fc;
+      --gray-border: #e2e8f0;
+      --text-main: #1a202c;
+      --text-muted: #64748b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-main);
+      background: var(--white);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--blue-dark);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .nav-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover { background: var(--orange-dark); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, #1e4a7a 100%);
+      color: var(--white);
+      padding: 4rem 1.5rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(37,99,168,0.25) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(249,115,22,0.18);
+      border: 1px solid rgba(249,115,22,0.4);
+      color: #fba96e;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+      letter-spacing: -0.5px;
+    }
+
+    .hero h1 .highlight { color: var(--orange); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.8);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      padding: 1rem 2.2rem;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(249,115,22,0.4);
+      letter-spacing: 0.2px;
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(249,115,22,0.5);
+    }
+
+    .hero-note {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3.5rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 900;
+      color: var(--orange);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.3rem;
+    }
+
+    .stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.15);
+      align-self: stretch;
+    }
+
+    /* PROBLEM */
+    .section { padding: 4.5rem 1.5rem; }
+
+    .section-inner { max-width: 960px; margin: 0 auto; }
+
+    .section-label {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--blue-dark);
+      margin-bottom: 1rem;
+      letter-spacing: -0.3px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .problem-card {
+      background: var(--gray-light);
+      border-left: 4px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .problem-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+    .problem-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--anthrazit);
+      margin-bottom: 0.3rem;
+    }
+
+    .problem-card p { font-size: 0.92rem; color: var(--text-muted); }
+
+    .solution-box {
+      margin-top: 3rem;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .solution-box::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
+    }
+
+    .solution-box h3 {
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .solution-box p { color: rgba(255,255,255,0.78); font-size: 1rem; line-height: 1.7; max-width: 580px; margin: 0 auto; }
+
+    /* BENEFITS */
+    .benefits-section { background: var(--gray-light); }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .benefit-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1px solid var(--gray-border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .benefit-icon-wrap {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.06));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(249,115,22,0.2);
+    }
+
+    .benefit-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .benefit-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* HOW IT WORKS */
+    .steps { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0; }
+
+    .step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      bottom: -20px;
+      width: 2px;
+      background: var(--gray-border);
+    }
+
+    .step-num {
+      width: 40px; height: 40px;
+      background: var(--blue-dark);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-content { padding-bottom: 2rem; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: var(--blue-dark); margin-bottom: 0.35rem; }
+    .step-content p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* SOCIAL PROOF */
+    .proof-section { background: var(--blue-dark); color: var(--white); }
+
+    .proof-section .section-title { color: var(--white); }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+    }
+
+    .testimonial-stars { color: var(--orange); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+
+    .testimonial-text {
+      font-size: 0.98rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+
+    .testimonial-author { display: flex; align-items: center; gap: 0.85rem; }
+
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-light), var(--orange));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .author-name { font-weight: 700; font-size: 0.92rem; }
+    .author-role { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+    .proof-logos {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .proof-logos p {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem 2.5rem;
+      opacity: 0.4;
+    }
+
+    .logo-placeholder {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+    }
+
+    /* FAQ */
+    .faq-section { background: var(--gray-light); }
+
+    .faq-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.2rem 1.5rem;
+      text-align: left;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+
+    .faq-question:hover { background: var(--gray-light); }
+
+    .faq-icon {
+      width: 24px; height: 24px;
+      background: var(--blue-dark);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 400;
+      flex-shrink: 0;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--orange);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s;
+    }
+
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.25rem;
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, #1a3a5c 100%);
+      text-align: center;
+      padding: 5rem 1.5rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 65%);
+      border-radius: 50%;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.3px;
+    }
+
+    .final-cta h2 .highlight { color: var(--orange); }
+
+    .final-cta p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .final-cta-note {
+      margin-top: 1.25rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .guarantee-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px;
+      padding: 0.55rem 1.25rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #080f1a;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+
+    footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+
+    /* RESPONSIVE */
+    @media (min-width: 640px) {
+      .problem-grid { grid-template-columns: 1fr 1fr; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 900px) {
+      .benefits-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 768px) {
+      .section { padding: 6rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Sales<span>IQ</span></div>
+    <a href="#cta" class="nav-cta">Strategiegespräch buchen</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🤖 KI-gestütztes Sales Coaching</div>
+    <h1>Dein Vertriebsteam schließt in 90 Tagen <span class="highlight">30% mehr Deals</span> ab – garantiert.</h1>
+    <p class="hero-sub">SalesIQ analysiert jedes Gespräch deines Teams, erkennt Muster, die Abschlüsse verhindern – und liefert präzises, datenbasiertes Coaching, das wirkt.</p>
+    <a href="#cta" class="btn-primary">Kostenloses Strategiegespräch buchen →</a>
+    <p class="hero-note">Keine Vertragsbindung. Kein Risiko. 30 Minuten, die deinen Vertrieb verändern.</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-value">+30%</span>
+        <span class="stat-label">Abschlussquote</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">90</span>
+        <span class="stat-label">Tage bis zum Ergebnis</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">150+</span>
+        <span class="stat-label">B2B-Teams erfolgreich</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM / LÖSUNG -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="section-label">Das Problem</span>
+      <h2 class="section-title">Warum dein Vertrieb sein Potenzial nicht ausschöpft</h2>
+      <p class="section-subtitle">Die meisten Vertriebsteams verlieren Deals nicht wegen schlechter Produkte – sondern wegen blinder Flecken im Gesprächsverhalten, die niemand erkennt.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="problem-icon">📉</span>
+          <div>
+            <h3>Coaching nach Bauchgefühl</h3>
+            <p>Klassisches Sales-Coaching basiert auf Erfahrung und Meinung – nicht auf Daten. Wertvolles Feedback bleibt aus.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <span class="problem-icon">🕳️</span>
+          <div>
+            <h3>Fehler wiederholen sich</h3>
+            <p>Dieselben Einwände führen immer wieder zum Deal-Verlust – weil niemand die Muster systemisch auswertet.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <span class="problem-icon">⏳</span>
+          <div>
+            <h3>Zeit für Coaching fehlt</h3>
+            <p>Vertriebsleiter stecken im Tagesgeschäft. Strukturiertes Coaching findet selten oder nie statt.</p>
+          </div>
+        </div>
+        <div class="problem-card">
+          <span class="problem-icon">🎯</span>
+          <div>
+            <h3>Unklare Prioritäten</h3>
+            <p>Wer braucht welches Training? Ohne Daten wird das Budget für Weiterbildung falsch eingesetzt.</p>
+          </div>
+        </div>
+      </div>
+      <div class="solution-box">
+        <h3>SalesIQ macht Schluss mit dem Rätselraten – und liefert dir präzise Diagnosen, automatisiertes Coaching und messbare Ergebnisse.</h3>
+        <p>Unsere KI analysiert Calls, Demos und E-Mails deines Teams und übersetzt Daten in konkretes, individuelles Coaching – skalierbar für jede Teamgröße.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="section benefits-section">
+    <div class="section-inner">
+      <span class="section-label">Deine Vorteile</span>
+      <h2 class="section-title">Was SalesIQ für dein Team bedeutet</h2>
+      <p class="section-subtitle">Kein generisches Training. Kein Rätselraten. Stattdessen: datenbasierte Präzision, die dein Team schneller besser macht.</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">🔬</div>
+          <h3>Gesprächsanalyse in Echtzeit</h3>
+          <p>SalesIQ analysiert automatisch Sprache, Einwandbehandlung und Gesprächsstruktur – und liefert sofortiges Feedback nach jedem Call.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">🎯</div>
+          <h3>Individuelles Coaching pro Rep</h3>
+          <p>Jeder Vertriebler bekommt seinen persönlichen Entwicklungsplan – basierend auf seinen tatsächlichen Stärken und Schwächen.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">📊</div>
+          <h3>Echtzeit-Dashboard für Leads</h3>
+          <p>Du siehst auf einen Blick, wo dein Team steht, welche Deals gefährdet sind und wo Coaching-Bedarf besteht.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">⚡</div>
+          <h3>Schnelle Implementierung</h3>
+          <p>Integration in dein CRM und Kommunikations-Stack in unter 48 Stunden. Keine IT-Projekte, kein langer Onboarding-Prozess.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">📈</div>
+          <h3>Messbare Ergebnisse</h3>
+          <p>Nach 30 Tagen siehst du erste Verbesserungen. Nach 90 Tagen liefern wir dir den Beweis – oder wir arbeiten weiter kostenlos.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">🤝</div>
+          <h3>Menschliches Coaching bleibt</h3>
+          <p>KI ersetzt keine guten Sales Leader – sie macht sie effektiver. Unsere Coaches nutzen die Daten für tiefes 1:1-Coaching.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="section-inner">
+      <span class="section-label">So funktioniert's</span>
+      <h2 class="section-title">In 3 Schritten zu 30% mehr Abschlüssen</h2>
+      <p class="section-subtitle">Kein langer Einführungsprozess. Keine monatelange Wartezeit auf Ergebnisse.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Analyse & Diagnose (Woche 1–2)</h3>
+            <p>Wir integrieren SalesIQ in eure Tools, analysieren bestehende Calls und Daten und erstellen eine genaue Diagnose eurer Engpässe – individuell für jedes Teammitglied und die Gesamtperformance.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Personalisierter Coaching-Plan (Woche 3–8)</h3>
+            <p>Basierend auf der Diagnose aktivieren wir automatisiertes Micro-Coaching, wöchentliche Live-Sessions und gezielte Trainingsmodule. Jeder lernt genau das, was ihm am meisten bringt.</p>
+          </div>
+        </div>
+        <div class
