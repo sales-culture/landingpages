@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Research Angebot – SSD Consulting</title>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-elevated: #111114;
+    --surface: #16161a;
+    --surface-elevated: #1c1c22;
+    --text: #f5f5f7;
+    --text-secondary: #c7c7cc;
+    --text-muted: rgba(245, 245, 247, 0.55);
+    --primary: #4d8eff;
+    --primary-bright: #5d9eff;
+    --primary-dim: rgba(77, 142, 255, 0.12);
+    --primary-border: rgba(77, 142, 255, 0.25);
+    --accent: #4d8eff;
+    --border: rgba(245, 245, 247, 0.08);
+    --border-strong: rgba(245, 245, 247, 0.16);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @keyframes drawLine {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes slowFloat {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(30px, -20px); }
+    66% { transform: translate(-20px, 20px); }
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+    50% { box-shadow: 0 0 40px rgba(77, 142, 255, 0.3); }
+  }
+  @keyframes rotateBackground {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    background-image:
+      linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 24px; }
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+  }
+  .header-contact {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .header-contact:hover { color: var(--primary); }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 128px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -100px;
+    right: -150px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle at center, rgba(77, 142, 255, 0.18) 0%, rgba(77, 142, 255, 0.06) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: slowFloat 20s infinite ease-in-out;
+    z-index: 0;
+  }
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-left {
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+  .hero-right {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 24px;
+  }
+  .eyebrow-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 600;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 28px;
+    animation: fadeInUp 0.8s ease-out both;
+  }
+  .hero-subline {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 55ch;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out 0.15s both;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 28px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 24px var(--primary-dim);
+    transition: transform 0.25s, filter 0.25s;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+  }
+  .btn-primary:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 28px;
+    background: transparent;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid var(--border-strong);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, filter 0.25s, border-color 0.25s;
+  }
+  .btn-secondary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite 0.5s;
+    pointer-events: none;
+  }
+  .btn-secondary:hover {
+    transform: scale(1.02);
+    border-color: var(--primary);
+  }
+
+  /* Hero decorative card */
+  .hero-card {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    padding: 36px;
+    animation: fadeInUp 0.8s ease-out 0.4s both, float 6s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 24px;
+    right: 24px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  }
+  .hero-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .hero-card-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+  .hero-card-item:last-child { margin-bottom: 0; }
+  .hero-card-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .hero-card-total {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .hero-card-total-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .hero-card-total-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner { flex-direction: column; }
+    .hero-left, .hero-right { flex: 0 0 100%; max-width: 100%; }
+    .hero { padding: 64px 0 80px; }
+  }
+
+  /* SECTIONS COMMON */
+  section {
+    padding: 128px 0;
+  }
+  @media (max-width: 768px) {
+    section { padding: 80px 0; }
+  }
+
+  .section-border {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-number {
+    font-size: clamp(88px, 10vw, 112px);
+    font-weight: 200;
+    color: var(--primary);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    opacity: 0.5;
+    animation: fadeInUp 0.6s both;
+    display: block;
+    margin-bottom: -20px;
+  }
+
+  /* PERSONAL ADDRESS */
+  .personal-address {
+    animation: fadeInUp 0.8s both;
+  }
+  .personal-address-inner {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  .accent-line {
+    width: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+    min-height: 120px;
+    flex-shrink: 0;
+    transform-origin: top;
+    animation: drawLine 1s 0.2s both;
+  }
+  .personal-address-content {}
+  .personal-address-content .eyebrow {
+    margin-bottom: 20px;
+  }
+  .personal-address-content p {
+    font-size: 20px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 65ch;
+  }
+
+  /* SECTION 01 */
+  .section-01-grid {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 80px;
+    align-items: start;
+    animation: fadeInUp 0.8s both;
+  }
+  .section-01-left {}
+  .section-01-right {}
+  .section-01-right h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .section-01-right p {
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 60ch;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 768px) {
+    .section-01-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* SECTION 02 */
+  .section-02-inner {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 80px;
+    align-items: start;
+    animation: fadeInUp 0.8s both;
+  }
+  .section-02-right h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .section-02-right p {
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 60ch;
+    margin-bottom: 20px;
+  }
+  .section-02-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--primary-dim);
+    border: 1px solid var(--primary-border);
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .section-02-svg {
+    padding-top: 16px;
+    opacity: 0.7;
+  }
+  @media (max-width: 768px) {
+    .section-02-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* SECTION 03 CARDS */
+  .section-03-header {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 64px;
+    animation: fadeInUp 0.8s both;
+  }
+  .section-03-header h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .section-03-header p {
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 55ch;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .section-03-header { grid-template-columns: 1fr; gap: 24px; }
+    .section-01-grid, .section-02-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+    position: relative;
+  }
+  .card:nth-child(1) { animation: fadeInUp 0.6s 0.1s both; }
+  .card:nth-child(2) { animation: fadeInUp 0.6s 0.2s both; }
+  .card:nth-child(3) { animation: fadeInUp 0.6s 0.3s both; }
+  .card:nth-child(4) { animation: fadeInUp 0.6s 0.4s both; }
+  .card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(77, 142, 255, 0.15);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--primary-dim);
+    border: 1px solid var(--primary-border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .card-arrow {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform 0.25s, color 0.25s;
+    display: inline-block;
+  }
+  .card:hover .card-arrow {
+    transform: rotate(45deg);
+    color: var(--primary);
+  }
+  .card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .card p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .card ul {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .card ul li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 12px;
+  }
+
+  /* SECTION 04 TIMELINE */
+  .section-04-header {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 72px;
+    animation: fadeInUp 0.8s both;
+  }
+  .section-04-header h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .section-04-header p {
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 55ch;
+  }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    animation: fadeInUp 0.8s 0.2s both;
+  }
+  @media (max-width: 768px) {
+    .timeline { grid-template-columns: 1fr; }
+    .timeline-connector { display: none; }
+    .section-04-header { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 24px 0 0;
+  }
+  .timeline-item:last-child { padding-right: 0; }
+  .timeline-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .timeline-dot {
+    width: 36px;
+    height: 36px;
+    background: var(--primary-dim);
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    flex-shrink: 0;
+    z-index: 1;
+    position: relative;
+  }
+  .timeline-line {
+    flex: 1;
+    height: 1px;
+    border-top: 2px dashed var(--border-strong);
+    margin-left: 8px;
+  }
+  .timeline-item:last-child .timeline-line { display: none; }
+  .timeline-step-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .timeline-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .timeline-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* SECTION 05 PRICING */
+  .pricing-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInUp 0.8s both;
+  }
+  .pricing-eyebrow-row {
+    width: 100%;
+    max-width: 720px;
+    margin-bottom: 16px;
+  }
+  .pricing-card {
+    max-width: 720px;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    animation: glow 4s ease-in-out infinite;
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 48px;
+    right: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  }
+  .pricing-card-header {
+    margin-bottom: 32px;
+  }
+  .pricing-card-header h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .pricing-card-header p {
+    color: var(--text-secondary);
+    font-size: 16px;
+  }
+  .pricing-line-items {
+    border-top: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .pricing-line-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 24px;
+  }
+  .pricing-item-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .pricing-item-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .pricing-item-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pricing-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--border-strong);
+    margin-bottom: 32px;
+  }
+  .pricing-total-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .pricing-total-value {
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: -0.03em;
+  }
+  .pricing-conditions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .pricing-condition-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .pricing-condition-item::before {
+    content: '✓';
+    color: var(--primary);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .pricing-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.25s;
+  }
+  .pricing-link:hover { opacity: 0.8; }
+  .pricing-link-arrow {
+    display: inline-block;
+    transition: transform 0.25s;
+  }
+  .pricing-link:hover .pricing-link-arrow { transform: translateX(4px); }
+  .pricing-validity {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 12px 16px;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  /* SECTION 06 CTA */
+  .cta-section {
+    padding: 128px 0;
+    animation: fadeInUp 0.8s both;
+  }
+  .cta-card {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 24px;
+    padding: 80px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-svg-decorator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.06;
+  }
+  .cta-svg-rotate {
+    animation: rotateBackground 60s linear infinite;
+    transform-origin: center center;
+  }
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .cta-card h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.15;
+  }
+  .cta-subline {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 55ch;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .cta-contact-options {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cta-contact-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .cta-contact-option:hover { color: var(--primary); }
+  .cta-contact-option-icon {
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .cta-card { padding: 48px 24px; }
+    .cta-contact-options { gap: 16px; flex-direction: column; align-items: center; }
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 0;
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo img { height: 32px; width: auto; }
+  .footer-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .footer-disclaimer {
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0.7;
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  @media (max-width: 768px) {
+    .footer-top { flex-direction: column; align-items: flex-start; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-logo">
+        <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture">
+      </div>
+      <a href="mailto:david@sales-culture.de" class="header-contact">david@sales-culture.de</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Angebot für SSD Consulting
+        </div>
+        <h1>Sales<br>Research</h1>
+        <p class="hero-subline">
+          Wir übernehmen die komplette Recherche deines ICPs – von Tibco-Firmen bis zu HR-Entscheidern in drei Kampagnen. Fertige Listen mit verifizierten Kontakten, direkt einsatzbereit.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://angebot.sales-culture.de/Salesresearch" class="btn-primary">Angebot annehmen ↗</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin vereinbaren →</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-label">Angebot im Überblick</div>
+          <div class="hero-card-item">
+            <span class="hero-card-dot"></span>
+            <span>40–75 Tibco-Firmen mit 2–4 Ansprechpartnern</span>
+          </div>
+          <div class="hero-card-item">
+            <span class="hero-card-dot"></span>
+            <span>500–1.000 HR-Entscheider in 3 Kampagnen (DE)</span>
+          </div>
+          <div class="hero-card-item">
+            <span class="hero-card-dot"></span>
+            <span>Web-Research-Agent für HR-Tool-Analyse</span>
+          </div>
+          <div class="hero-card-item">
+            <span class="hero-card-dot"></span>
+            <span>10 Stunden Sparring & SDR-Enablement</span>
+          </div>
+          <div class="hero-card-total">
+            <span class="hero-card-total-label">Gesamtinvestment</span>
+            <span class="hero-card-total-value">5.300 €</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSÖNLICHE ANSPRACHE -->
+<section class="section-border" style="padding: 96px 0;">
+  <div class="container">
+    <div class="personal-address">
+      <div class="personal-address-inner">
+        <div class="accent-line"></div>
+        <div class="personal-address-content">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Hi Sarah
+          </div>
+          <p>
+            Danke für dein Interesse – ich freue mich, dass wir ins Gespräch gekommen sind. Du stehst vor der Aufgabe, qualifizierte Kontaktlisten für klar definierte Zielgruppen aufzubauen: Tibco-Firmen auf der einen Seite, HR-Entscheider in Industrie, Bau und Logistik auf der anderen. Das ist genau das, was wir im Schlaf können. Dieses Angebot zeigt dir, was wir gemeinsam in vier Tagen auf die Beine stellen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 01 – WAS WIR VERSTANDEN HABEN -->
+<section class="section-border">
+  <div class="container">
+    <div class="section-01-grid">
+      <div class="section-01-left">
+        <span class="section-number">01</span>
+        <div class="eyebrow" style="margin-top: 16px;">
+          <span class="eyebrow-dot"></span>
+          Was wir verstanden haben
+        </div>
+      </div>
+      <div class="section-01-right">
+        <h2>Zwei Listen, drei Kampagnen, ein klares Ziel.</h2>
+        <p>
+          Du brauchst zwei unterschiedliche Recherchen: Erstens eine gezielte Liste von 40–75 Tibco-Firmen mitsamt 2–4 passenden Ansprechpartnern. Zweitens eine deutlich größere Kampagne mit 500–1.000 HR-Entscheidern auf Director-Ebene – aufgeteilt in Industrie/Produzierendes Gewerbe, Bauwirtschaft/Bauzulieferer/SHK-Großhandel und Logistik/Transport/Kontraktlogistik.
+        </p>
+        <p>
+          Alle Firmen und Personen mit Headquarter und Personenstandort in Deutschland, Mitarbeiterzahl 200–500. Und on top soll ein Web-Research-Agent Hinweise liefern, welche HR-Tools im Einsatz sind. Das ist das Briefing – und genau darauf arbeiten wir hin.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 – UNSER VORSCHLAG -->
+<section class="section-border">
+  <div class="container">
+    <div class="section-02-inner">
+      <div class="section-02-left">
+        <span class="section-number">02</span>
+        <div class="eyebrow" style="margin-top: 16px;">
+          <span class="eyebrow-dot"></span>
+          Unser Vorschlag
+        </div>
+        <div class="section-02-svg">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" stroke="rgba(77,142,255,0.3)" stroke-width="1" stroke-dasharray="6 4"/>
+            <circle cx="60" cy="60" r="35" stroke="rgba(77,142,255,0.2)" stroke-width="1"/>
+            <circle cx="60" cy="60" r="6" fill="rgba(77,142,255,0.6)"/>
+            <line x1="60" y1="10" x2="60" y2="25" stroke="rgba(77,142,255,0.4)" stroke-width="1.5"/>
+            <line x1="60" y1="95" x2="60" y2="110" stroke="rgba(77,142,255,0.4)" stroke-width="1.5"/>
+            <line x1="10" y1="60" x2="25" y2="60" stroke="rgba(77,142,255,0.4)" stroke-width="1.5"/>
+            <line x1="95" y1="60" x2="110" y2="60" stroke="rgba(77,142,255,0.4)" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="section-02-right">
+        <h2>Done-4-You Research plus echtes Enablement.</h2>
+        <p>
+          Wir übernehmen die komplette Recherche mit dem gesamten Tool-Stack – LinkedIn Sales Navigator, Lusha, Clay, Theirstack und je nach Kampagne weitere Tools. Du bekommst am Ende fertige Listen mit Firmenname, LinkedIn-Profil, E-Mail-Adresse und Telefonnummer – soweit möglich.
+        </p>
+        <p>
+          Die zweite Recherche wird zusätzlich durch einen Web-Research-Agent angereichert, der dir Hinweise zum Ist-Stand der jeweiligen HR-Abteilung liefert und wo möglich erkennen lässt, welche Tools im Einsatz sind.
+        </p>
+        <div class="section-02-badge">4 Tagessätze Research</div>
+        <div class="section-02-badge" style="margin-left: 8px;">10 Stunden Sparring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 – WAS DU BEKOMMST -->
+<section class="section-border">
+  <div class="container">
+    <div class="section-03-header">
+      <div>
+        <span class="section-number">03</span>
+        <div class="eyebrow" style="margin-top: 16px;">
+          <span class="eyebrow-dot"></span>
+          Was du bekommst
+        </div>
+      </div>
+      <div>
+        <h2>Alles inklusive – von der ersten Abfrage bis zur sauberen Übergabe.</h2>
+        <p>Keine halben Sachen. Du bekommst beides: die fertige Liste und das Wissen, wie du damit weiterarbeitest.</p>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">🎯</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Tibco-Recherche</h3>
+        <p>40–75 Tibco-Firmen mit je 2–4 geeigneten Ansprechpartnern. Output: Firmenname, LinkedIn-URL der Person, E-Mail und Telefonnummer (soweit möglich).</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">📋</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>HR-Kampagnen (3 Stück)</h3>
+        <p>500–1.000 HR-Entscheider auf Director-Ebene in DE, Mitarbeiterzahl 200–500, aufgeteilt in:</p>
+        <ul>
+          <li>Industrie / Produzierendes Gewerbe</li>
+          <li>Bauwirtschaft / Bauzulieferer / SHK-Großhandel</li>
+          <li>Logistik / Transport / Kontraktlogistik</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">🤖</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Web-Research-Agent</h3>
+        <p>Für die zweite Recherche analysiert ein Agent den Ist-Stand der HR-Abteilungen: Welches Tool ist im Einsatz? Was lässt sich aus öffentlich verfügbaren Quellen ableiten?</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">🚀</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Sparring & SDR-Enablement</h3>
+        <p>10 Stunden nutzbar über 3 Monate. Beinhalten kann das:</p>
+        <ul>
+          <li>Best Practices aus über 150 Kunden</li>
+          <li>Telefonleitfaden, E-Mail-Outlines, Meeting-Vorbereitung</li>
+          <li>Tool-Einarbeitung für eigenständige Recherchen</li>
+          <li>Multi-Channel-Kampagnen (LinkedIn + lemlist)</li>
+          <li>CRM-Empfehlungen & Sales-Aktivitäten steigern</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 – WIE WIR STARTEN -->
+<section class="section-border">
+  <div class="container">
+    <div class="section-04-header">
+      <div>
+        <span class="section-number">04</span>
+        <div class="eyebrow" style="margin-top: 16px;">
+          <span class="eyebrow-dot"></span>
+          Wie wir starten
+        </div>
+      </div>
+      <div>
+        <h2>Vier klare Schritte. Kein Rätselraten.</h2>
+        <p>Von der Beauftragung bis zur sauberen Übergabe läuft alles nach einem erprobten Ablauf.</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-top">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-step-label">Phase 01</div>
+        <div class="timeline-title">Kick-off Call</div>
+        <div class="timeline-desc">Bis zu 1 Stunde, um den richtigen Outline sicherzustellen. Wir klären ICP, Priorisierungen und Tool-Absprachen.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-top">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-step-label">Phase 02</div>
+        <div class="timeline-title">Recherche</div>
+        <div class="timeline-desc">Wir arbeiten 4 Tage mit dem vollen Tool-Stack. Zwischendurch bekommst du einen Testdatensatz zur Überprüfung.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-top">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-step-label">Phase 03</div>
+        <div class="timeline-title">Übergabe-Call</div>
+        <div class="timeline-desc">Bis zu 1 Stunde für eine saubere Übergabe der fertigen Listen inklusive Walkthrough und erste Fragen.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-top">
+          <div class="timeline-dot">4</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-step-label">Phase 04</div>
+        <div class="timeline-title">Sparring (3 Monate)</div>
+        <div class="timeline-desc">10 Stunden Enablement flexibel abrufbar – für SDR-Einarbeitung, Kampagnen-Setup und laufende Optimierung.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 – INVESTMENT -->
+<section class="section-border">
+  <div class="container">
+    <div class="pricing-wrapper">
+      <div class="pricing-eyebrow-row">
+        <span class="section-number" style="display: block; margin-bottom: -20px;">05</span>
+        <div class="eyebrow" style="margin-top: 24px;">
+          <span class="eyebrow-dot"></span>
+          Investment & Konditionen
+        </div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <h2>Dein Investment</h2>
+          <p>Einmalige Leistung, keine versteckten Kosten. Lizenzkosten für externe Tools sind ausgeschlossen.</p>
+        </div>
+
+        <div class="pricing-line-items">
+          <div class="pricing-line-item">
+            <div>
+              <div class="pricing-item-name">Sales Research Done-4-You</div>
+              <div class="pricing-item-desc">4 Tagessätze à 950,00 € – ICP-Listen, beide Recherchen, Web-Agent, Testdatensatz, zwei Calls</div>
+            </div>
+            <div class="pricing-item-price">3.800,00 €</div>
+          </div>
+          <div class="pricing-line-item">
+            <div>
+              <div class="pricing-item-name">Sparring-Partner Enablement</div>
+              <div class="pricing-item-desc">10 Stunden à 150,00 € – flexibel nutzbar über 3 Monate</div>
+            </div>
+            <div class="pricing-item-price">1.500,00 €</div>
+          </div>
+        </div>
+
+        <div class="pricing-total">
+          <span class="pricing-total-label">Gesamt (einmalig)</span>
+          <span class="pricing-total-value">5.300,00 €</span>
+        </div>
+
+        <div class="pricing-conditions">
+          <div class="pricing-condition-item">Fällig sofort ab Bestelldatum ohne Abzug</div>
+          <div class="pricing-condition-item">Sparring-Stunden stehen 3 Monate flexibel zur Verfügung</div>
+          <div class="pricing-condition-item">Enthaltene Tools: LinkedIn Sales Navigator, Lusha, Clay, Theirstack, lemlist u.a. (variiert je Kampagne)</div>
+        </div>
+
+        <a href="https://angebot.sales-culture.de/Salesresearch" class="pricing-link">
+          Die vollständigen Konditionen findest du im Angebot
+          <span class="pricing-link-arrow">→</span>
+        </a>
+
+        <div class="pricing-validity">
+          ⏳ Dieses Angebot (Ref. 20260428-102355414) ist gültig bis zum <strong>28. Mai 2026</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 06 – ABSCHLUSS CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <svg class="cta-svg-decorator" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g class="cta-svg-rotate">
+          <circle cx="400" cy="200" r="180" stroke="white" stroke-width="1" stroke-dasharray="8 6"/>
+          <circle cx="400" cy="200" r="280" stroke="white" stroke-width="0.5" stroke-dasharray="4 8"/>
+          <circle cx="400" cy="200" r="350" stroke="white" stroke-width="0.5"/>
+        </g>
+        <line x1="0" y1="200" x2="800" y2="200" stroke="white" stroke-width="0.5" stroke-dasharray="4 6"/>
+        <line x1="400" y1="0" x2="400" y2="400" stroke="white" stroke-width="0.5" stroke-dasharray="4 6"/>
+      </svg>
+      <div class="cta-inner">
+        <div class="eyebrow" style="justify-content: center; margin-bottom: 24px;">
+          <span class="eyebrow-dot"></span>
+          Bereit loszulegen?
+        </div>
+        <h2>Wir freuen uns auf den gemeinsamen Start</h2>
+        <p class="cta-subline">Nimm das Angebot an oder buch dir direkt einen Termin – dann können wir den Kick-off Call zeitnah einplanen und loslegen.</p>
+        <div class="cta-buttons">
+          <a href="https://angebot.sales-culture.de/Salesresearch" class="btn-primary">Angebot annehmen ↗</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin buchen →</a>
+        </div>
+        <div class="cta-contact-options">
+          <a href="mailto:david@sales-culture.de" class="cta-contact-option">
+            <span class="cta-contact-option-icon">✉</span>
+            david@sales-culture.de
+          </a>
+          <a href="tel:+4917969966883" class="cta-contact-option">
+            <span class="cta-contact-option-icon">📞</span>
+            +49 179 699 66 83
+          </a>
+          <a href="https://sales-culture.de/david" class="cta-contact-option">
+            <span class="cta-contact-option-icon">📅</span>
+            Direkt Termin buchen
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture">
+        </div>
+        <div class="footer-meta">
+          Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050
+        </div>
+      </div>
+      <div class="footer-disclaimer">
+        Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
