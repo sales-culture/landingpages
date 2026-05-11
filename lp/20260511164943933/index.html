@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angebot für Flow Swiss AG – Sales Culture</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245, 245, 247, 0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77, 142, 255, 0.12);
+  --primary-border: rgba(77, 142, 255, 0.25);
+  --accent: #4d8eff;
+  --border: rgba(245, 245, 247, 0.08);
+  --border-strong: rgba(245, 245, 247, 0.16);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes drawLine {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes slowFloat {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(30px, -20px); }
+  66% { transform: translate(-20px, 20px); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+  50% { box-shadow: 0 0 40px rgba(77, 142, 255, 0.3); }
+}
+@keyframes rotateBackground {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+/* HEADER */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-email {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.25s;
+}
+.header-email:hover {
+  color: var(--text-secondary);
+}
+
+/* HERO */
+.hero {
+  padding: 96px 0 128px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -200px;
+  right: -100px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse, rgba(77, 142, 255, 0.18) 0%, transparent 65%);
+  animation: slowFloat 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hero-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease-out 0.05s both;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  animation: fadeInUp 0.8s ease-out both;
+  margin-bottom: 24px;
+}
+
+.hero h1 span {
+  color: var(--primary);
+}
+
+.hero-subline {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  animation: fadeInUp 0.8s ease-out 0.15s both;
+  margin-bottom: 40px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, filter 0.25s;
+  box-shadow: 0 0 24px rgba(77, 142, 255, 0.35);
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+.btn-primary:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  transition: transform 0.25s, border-color 0.25s, filter 0.25s;
+}
+.btn-secondary:hover {
+  transform: scale(1.02);
+  border-color: var(--primary-border);
+  filter: brightness(1.1);
+}
+
+/* HERO HIGHLIGHT CARD */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  animation: fadeInUp 0.8s ease-out 0.4s both, float 6s ease-in-out 1.2s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(77,142,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-card-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.hero-card-price {
+  font-size: clamp(56px, 5vw, 72px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.hero-card-price-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.hero-card-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-card-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.hero-card-bullets li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* PERSONAL SECTION */
+.section-personal {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.personal-inner {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.personal-accent {
+  width: 3px;
+  min-height: 120px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+
+.personal-text {
+  max-width: 65ch;
+}
+
+.personal-text .eyebrow {
+  margin-bottom: 16px;
+}
+
+.personal-text p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* SECTION WRAPPER */
+.section {
+  padding: 128px 0;
+  border-top: 1px solid var(--border);
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+}
+
+/* SECTION NUMBERS */
+.section-number {
+  font-size: clamp(88px, 10vw, 112px);
+  font-weight: 200;
+  color: var(--primary);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  opacity: 0.5;
+  animation: fadeInUp 0.6s ease-out both;
+  user-select: none;
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 48px;
+  align-items: start;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-header h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.section-body-text {
+  color: var(--text-secondary);
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 55ch;
+}
+
+/* TAG CLOUD */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.tag {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+/* STAT CARDS */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+
+@media (max-width: 768px) {
+  .stat-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  transition: border-color 0.3s, transform 0.3s;
+  animation: fadeInUp 0.6s ease-out both;
+}
+.stat-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+.stat-number {
+  font-size: clamp(56px, 6vw, 80px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.stat-caption {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* LEISTUNGS CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 64px;
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leistung-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: fadeInUp 0.6s ease-out both;
+  position: relative;
+  overflow: hidden;
+}
+.leistung-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(77, 142, 255, 0.15);
+}
+.leistung-card:nth-child(1) { animation-delay: 0.1s; }
+.leistung-card:nth-child(2) { animation-delay: 0.2s; }
+.leistung-card:nth-child(3) { animation-delay: 0.3s; }
+.leistung-card:nth-child(4) { animation-delay: 0.4s; }
+.leistung-card:nth-child(5) { animation-delay: 0.5s; }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.card-arrow {
+  font-size: 20px;
+  color: var(--text-muted);
+  transition: transform 0.25s;
+  display: inline-block;
+}
+.leistung-card:hover .card-arrow {
+  transform: translateX(4px) translateY(-4px);
+}
+
+.leistung-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.leistung-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.leistung-card ul {
+  margin-top: 12px;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leistung-card ul li {
+  font-size: 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.leistung-card ul li::before {
+  content: '→';
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* ZEITSTRAHL */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .timeline {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 560px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.timeline-connector {
+  position: absolute;
+  top: 28px;
+  left: calc(12.5% + 20px);
+  right: calc(12.5% + 20px);
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--border-strong) 0, var(--border-strong) 8px, transparent 8px, transparent 16px);
+  animation: fadeInUp 0.8s 0.5s both;
+}
+
+@media (max-width: 900px) {
+  .timeline-connector {
+    display: none;
+  }
+}
+
+.timeline-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 20px;
+  animation: fadeInUp 0.6s ease-out both;
+}
+.timeline-phase:nth-child(2) { animation-delay: 0.15s; }
+.timeline-phase:nth-child(3) { animation-delay: 0.3s; }
+.timeline-phase:nth-child(4) { animation-delay: 0.45s; }
+
+.phase-icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.phase-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.timeline-phase h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.timeline-phase p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* PRICING */
+.pricing-wrap {
+  max-width: 720px;
+  margin: 64px auto 0;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+  animation: glow 4s ease-in-out infinite;
+}
+
+.pricing-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.pricing-ref {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.pricing-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+
+.pricing-line:first-of-type {
+  border-top: none;
+}
+
+.pricing-line-info h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.pricing-line-info p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.pricing-line-price {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pricing-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--border-strong);
+  margin-top: 8px;
+}
+
+.pricing-total-label {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.pricing-total-price {
+  font-size: clamp(36px, 4vw, 48px);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.03em;
+}
+
+.pricing-bullets {
+  list-style: none;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pricing-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pricing-bullets li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pricing-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 15px;
+  margin-top: 28px;
+  transition: gap 0.25s;
+}
+.pricing-link:hover {
+  gap: 8px;
+}
+
+.pricing-validity {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* CTA SECTION */
+.cta-section {
+  padding: 128px 0;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.cta-number {
+  font-size: clamp(88px, 12vw, 140px);
+  font-weight: 200;
+  color: var(--primary);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  opacity: 0.12;
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.cta-card {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  pointer-events: none;
+  animation: rotateBackground 60s linear infinite;
+}
+
+.cta-card .eyebrow {
+  justify-content: center;
+}
+
+.cta-card h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin: 16px 0;
+  line-height: 1.1;
+}
+
+.cta-card .subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  margin: 0 auto 40px;
+}
+
+.cta-btn-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.contact-row {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.contact-item:hover {
+  color: var(--text-secondary);
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 0;
+}
+
+.footer-inner {
+  text-align: center;
+}
+
+.footer-address {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.6;
+  max-width: 65ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* SVG DECORATORS */
+.svg-decorator {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.06;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height: 48px; width: auto;">
+      <a href="mailto:david@sales-culture.de" class="header-email">david@sales-culture.de</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <svg class="svg-decorator" style="top: 60px; left: -60px; width: 400px; height: 400px;" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="180" stroke="#4d8eff" stroke-width="1" stroke-dasharray="12 8"/>
+    <circle cx="200" cy="200" r="120" stroke="#4d8eff" stroke-width="0.5" stroke-dasharray="6 12"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-inner">
+
+      <div class="hero-left">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          FÜR FLOW SWISS AG
+        </div>
+        <p class="hero-meta">Ref: 20260504-170504720 &nbsp;·&nbsp; Erstellt am 4. Mai 2026</p>
+        <h1>International verkaufen,<br><span>ohne eigenes Team.</span></h1>
+        <p class="hero-subline">Dein dedizierter Sales Consultant übernimmt Recherche, Cold Calls und Follow-ups — in DE, AT, Skandinavien und Amerika — vollständig in deinem Namen.</p>
+        <div class="btn-row">
+          <a href="https://angebot.sales-culture.de/flowswiss" class="btn-primary">Angebot annehmen →</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">📅 Termin vereinbaren</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="hero-card">
+          <p class="hero-card-eyebrow">Was du bekommst</p>
+          <div class="hero-card-price">5.700 €</div>
+          <p class="hero-card-price-sub">Pro Monat · 4 Monate Laufzeit</p>
+          <ul class="hero-card-bullets">
+            <li>6 Consultant-Tage pro Monat</li>
+            <li>Cold Calls + E-Mail in deinem Namen</li>
+            <li>Internationale Kampagnen (US, Skandinavien, DACH)</li>
+            <li>CRM-Dokumentation aller Aktivitäten</li>
+            <li>Sales-Tools inklusive (LinkedIn Sales Nav, Clay u.a.)</li>
+            <li>1 Bonus-Tag aus dem Vorauftrag kostenlos</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PERSÖNLICHE ANSPRACHE -->
+<section class="section-personal">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent"></div>
+      <div class="personal-text">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Hi Alex
+        </div>
+        <p>Danke, dass du weitermachst — das freut uns wirklich. Das nächste Kapitel dreht sich um das Thema, das wir beide noch intensivieren wollen: <strong style="color: var(--text);">internationaler Vertrieb</strong>. Raus aus dem DACH-Komfort, rein in neue Märkte — Amerika, Skandinavien, wo die Opportunität ist. Dafür habe ich dir einen konkreten Vorschlag zusammengestellt, der genau dort ansetzt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 WAS WIR VERSTANDEN HABEN -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">01</div>
+    <div class="section-header">
+      <div>
+        <h2>Der nächste Schritt ist international.</h2>
+      </div>
+      <div>
+        <p class="section-body-text">Flow Swiss hat in DACH Fahrt aufgenommen — jetzt geht es darum, dieselbe Energie in neue Märkte zu bringen. Amerika und Skandinavien bieten reales Potenzial für eure Positionierung. Wir bauen die Kampagnen von Grund auf und kümmern uns um Recherche, Ansprache und Nachfassen.</p>
+      </div>
+    </div>
+    <div class="tag-cloud">
+      <span class="tag">Internationaler Vertrieb</span>
+      <span class="tag">Amerika</span>
+      <span class="tag">Skandinavien</span>
+      <span class="tag">Deutschland &amp; Österreich</span>
+      <span class="tag">Cold Outreach</span>
+      <span class="tag">LinkedIn</span>
+      <span class="tag">Follow-up-Calls</span>
+      <span class="tag">CRM-Tracking</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 UNSER VORSCHLAG -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">02</div>
+    <div class="section-header">
+      <div>
+        <h2>6 Tage im Monat, vier Monate lang.</h2>
+      </div>
+      <div>
+        <p class="section-body-text">Kein Hiring, keine Einarbeitung, kein Vendor-Wirrwarr. Dein Consultant startet direkt — mit deiner E-Mail-Adresse, deiner Signatur, in deinem Namen. Alle Aktivitäten landen sauber im CRM.</p>
+      </div>
+    </div>
+
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-number">6</div>
+        <div class="stat-caption">Consultant-Tage pro Monat — Recherche, Calls, Follow-ups, CRM</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4</div>
+        <div class="stat-caption">Monate Laufzeit — genug Zeit um internationale Pipeline aufzubauen</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-caption">Märkte im Fokus: DACH, Amerika, Skandinavien und weitere</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 WAS DU BEKOMMST -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">03</div>
+    <div class="section-header">
+      <div>
+        <h2>Alles drin, was du brauchst.</h2>
+      </div>
+      <div>
+        <p class="section-body-text">Kein Stückwerk. Dein Consultant übernimmt den kompletten Outreach-Prozess — von der ersten Recherche bis zum qualifizierten Termin in deinem Kalender.</p>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="leistung-card">
+        <div class="card-top">
+          <span class="card-icon">🔍</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Zielkunden-Recherche &amp; Qualifizierung</h3>
+        <p>Dein Consultant identifiziert passende Unternehmen international und prüft, ob sie wirklich in dein Zielbild passen — bevor der erste Kontakt aufgenommen wird.</p>
+      </div>
+
+      <div class="leistung-card">
+        <div class="card-top">
+          <span class="card-icon">📞</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Cold Calls in deinem Namen</h3>
+        <p>Anrufe laufen über eine eigene Nummer mit EU-Flatrate — und werden unter deinem Namen und mit deiner Signatur geführt. Für den Kunden bist du derjenige, der sich meldet.</p>
+      </div>
+
+      <div class="leistung-card">
+        <div class="card-top">
+          <span class="card-icon">✉️</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>E-Mail-Outreach mit deiner Signatur</h3>
+        <p>Mehrstufige E-Mail-Sequenzen laufen vollständig in deinem Namen — eigene E-Mail-Adresse und Signatur inklusive. Niemand merkt, dass du ausgelagert hast.</p>
+      </div>
+
+      <div class="leistung-card">
+        <div class="card-top">
+          <span class="card-icon">🔄</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Follow-up-Calls &amp; Nachfassen</h3>
+        <p>Wer nicht beim ersten Kontakt antwortet, bekommt strukturiert nachgefasst — soweit sinnvoll. Kein Lead geht verloren, weil jemand vergessen hat, nochmal anzurufen.</p>
+      </div>
+
+      <div class="leistung-card">
+        <div class="card-top">
+          <span class="card-icon">🗂️</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>CRM-Dokumentation &amp; Sales-Tools</h3>
+        <p>Alle Aktivitäten, Kontaktdaten und Fortschritte werden sauber im CRM dokumentiert. Dazu kommen Tools wie LinkedIn Sales Navigator, Lusha, lemlist, Clay und weitere — je nach Kampagne.</p>
+        <ul>
+          <li>LinkedIn Sales Navigator</li>
+          <li>Lusha, lemlist, Clay</li>
+          <li>North Data, Theirstack</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 04 WIE WIR STARTEN -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">04</div>
+    <div class="section-header" style="margin-bottom: 0;">
+      <div>
+        <h2>Vom Angebot zum ersten Call.</h2>
+      </div>
+      <div>
+        <p class="section-body-text">Kein langer Onboarding-Marathon. Wir holen uns, was wir brauchen, und legen los.</p>
+      </div>
+    </div>
+
+    <div style="position: relative; margin-top: 64px;">
+      <div class="timeline-connector"></div>
+      <div class="timeline">
+
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">🤝</div>
+          <p class="phase-eyebrow">Phase 01</p>
+          <h3>Kick-off &amp; Briefing</h3>
+          <p>Wir gehen gemeinsam durch deine Zielgruppen, Märkte und Messaging — damit der Consultant von Anfang an in deinem Sinne spricht.</p>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">🗺️</div>
+          <p class="phase-eyebrow">Phase 02</p>
+          <h3>Kampagnen-Setup</h3>
+          <p>Recherche-Listen werden aufgebaut, Tools eingerichtet, Sequenzen geschrieben. International von Anfang an mitgedacht.</p>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">🚀</div>
+          <p class="phase-eyebrow">Phase 03</p>
+          <h3>Outreach startet</h3>
+          <p>Cold Calls, E-Mails und LinkedIn-Kontakte laufen an. Alles wird im CRM dokumentiert, du siehst in Echtzeit was passiert.</p>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">📈</div>
+          <p class="phase-eyebrow">Phase 04</p>
+          <h3>Reporting &amp; Iteration</h3>
+          <p>Was funktioniert, wird skaliert. Was nicht, wird angepasst. Monatlich Recap — und weiter geht's.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 INVESTMENT -->
+<section class="section">
+  <div class="container">
+    <div class="section-number" style="text-align: center;">05</div>
+    <div style="text-align: center; margin-bottom: 0; margin-top: 16px;">
+      <h2 style="font-size: clamp(32px, 4vw, 52px); font-weight: 600; letter-spacing: -0.025em;">Was es kostet.</h2>
+    </div>
+
+    <div class="pricing-wrap">
+      <div class="pricing-card">
+        <p class="pricing-eyebrow">Dein Angebot</p>
+        <p class="pricing-ref">Referenz: 20260504-170504720 &nbsp;·&nbsp; Erstellt: 4. Mai 2026</p>
+
+        <div class="pricing-line">
+          <div class="pricing-line-info">
+            <h3>Sales-Done-4-You – Tagessatz</h3>
+            <p>Sales-Outsourcing · 6 Tage/Monat · 4 Monate · inkl. Bonus-Tag aus Vorauftrag</p>
+          </div>
+          <div class="pricing-line-price">5.700 €<span style="font-size: 14px; color: var(--text-muted); font-weight: 400;">/Monat</span></div>
+        </div>
+
+        <div class="pricing-total">
+          <span class="pricing-total-label">Gesamt (4 Monate)</span>
+          <span class="pricing-total-price">22.800 €</span>
+        </div>
+
+        <ul class="pricing-bullets">
+          <li>Abrechnung jeweils zum Monatsende auf Basis des Leistungsnachweises</li>
+          <li>Sales-Tools (LinkedIn Sales Nav, Lusha, lemlist, Clay u.a.) inklusive</li>
+          <li>Eigene Telefonnummer mit EU-Flatrate inklusive — keine Zusatzkosten</li>
+          <li>Ein zusätzlicher Tag aus dem vorangegangenen Auftrag kostenlos enthalten</li>
+        </ul>
+
+        <a href="https://angebot.sales-culture.de/flowswiss" class="pricing-link">Die vollständigen Konditionen findest du im Angebot →</a>
+
+        <p class="pricing-validity">⏳ Angebot gültig bis: 3. Juni 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ABSCHLUSS CTA -->
+<section class="cta-section">
+  <div class="container" style="position: relative;">
+
+    <div class="cta-number">06</div>
+
+    <div class="cta-card">
+      <svg class="cta-svg" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="400" cy="200" r="300" stroke="#4d8eff" stroke-width="1" stroke-dasharray="20 15"/>
+        <circle cx="400" cy="200" r="200" stroke="#4d8eff" stroke-width="0.8" stroke-dasharray="10 20"/>
+        <circle cx="400" cy="200" r="100" stroke="#4d8eff" stroke-width="0.5" stroke-dasharray="5 25"/>
+        <line x1="0" y1="200" x2="800" y2="200" stroke="#4d8eff" stroke-width="0.5" stroke-dasharray="8 12"/>
+        <line x1="400" y1="0" x2="400" y2="400" stroke="#4d8eff" stroke-width="0.5" stroke-dasharray="8 12"/>
+      </svg>
+
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Bereit loszulegen?
+      </div>
+
+      <h2>Wir freuen uns auf den gemeinsamen Start.</h2>
+      <p class="subline">Schnapp dir das Angebot oder buch dir kurz einen Slot — ich bin für dich da, Alex.</p>
+
+      <div class="cta-btn-row">
+        <a href="https://angebot.sales-culture.de/flowswiss" class="btn-primary">Angebot annehmen →</a>
+        <a href="https://sales-culture.de/david" class="btn-secondary">📅 Termin buchen</a>
+      </div>
+
+      <div class="contact-row">
+        <a href="mailto:david@sales-culture.de" class="contact-item">✉️ david@sales-culture.de</a>
+        <a href="tel:+4917969966683" class="contact-item">📞 +49 179 699 66 83</a>
+        <a href="https://sales-culture.de/david" class="contact-item">📅 Kalender öffnen</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-address">
+        Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg<br>
+        Geschäftsführer: Marcel Theunissen · HRB 42050
+      </p>
+      <p class="footer-disclaimer">
+        Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
