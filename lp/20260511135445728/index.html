@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Research für SSD Consulting – Sales Culture</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245, 245, 247, 0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77, 142, 255, 0.12);
+  --primary-border: rgba(77, 142, 255, 0.25);
+  --accent: #4d8eff;
+  --border: rgba(245, 245, 247, 0.08);
+  --border-strong: rgba(245, 245, 247, 0.16);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes drawLine {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes slowFloat {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(30px, -20px); }
+  66% { transform: translate(-20px, 20px); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+  50% { box-shadow: 0 0 40px rgba(77, 142, 255, 0.3); }
+}
+@keyframes rotateBackground {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+/* HEADER */
+header {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-email {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.25s;
+}
+
+.header-email:hover {
+  color: var(--primary);
+}
+
+/* HERO */
+.hero {
+  padding: 96px 0 128px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 142, 255, 0.18) 0%, rgba(77, 142, 255, 0.04) 50%, transparent 70%);
+  animation: slowFloat 20s infinite;
+  pointer-events: none;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 64px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+.hero-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 28px;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.hero-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 52ch;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  animation: fadeInUp 0.8s ease-out 0.15s both;
+}
+
+.btn-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, filter 0.25s;
+  box-shadow: 0 0 24px rgba(77, 142, 255, 0.3);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s, filter 0.25s;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(77,142,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite 1.5s;
+}
+
+.btn-secondary:hover {
+  transform: scale(1.02);
+  border-color: var(--primary);
+}
+
+/* HERO CARD */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  animation: fadeInUp 0.8s ease-out 0.4s both, float 6s ease-in-out 1.2s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 142, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-card-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.hero-price {
+  font-size: clamp(52px, 5vw, 68px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.hero-price-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.hero-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.hero-bullets li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* PERSOENLICHE ANSPRACHE */
+.personal-section {
+  padding: 80px 0;
+  animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+.personal-inner {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 760px;
+}
+
+.personal-accent {
+  width: 3px;
+  min-height: 120px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+
+.personal-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.personal-text {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* SECTION GENERIC */
+.section {
+  padding: 128px 0;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+  .hero {
+    padding: 64px 0 80px;
+  }
+}
+
+.section-number {
+  font-size: clamp(88px, 10vw, 112px);
+  font-weight: 200;
+  color: var(--primary);
+  line-height: 1;
+  opacity: 0.3;
+  margin-bottom: -16px;
+  animation: fadeInUp 0.6s both;
+}
+
+.section-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+/* WAS WIR VERSTANDEN HABEN */
+.understood-grid {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 64px;
+  align-items: start;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .understood-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.understood-grid h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.understood-text {
+  color: var(--text-secondary);
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.tag {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* STAT CARDS */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .stat-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: left;
+  transition: border-color 0.3s, transform 0.3s;
+  animation: fadeInUp 0.6s both;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+.stat-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  font-size: clamp(52px, 5vw, 72px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.stat-caption {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.proposal-intro {
+  max-width: 65ch;
+  color: var(--text-secondary);
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+/* CARDS GRID */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: fadeInUp 0.6s both;
+  position: relative;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+.feature-card:nth-child(5) { animation-delay: 0.5s; }
+
+.feature-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(77, 142, 255, 0.12);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.card-arrow {
+  font-size: 20px;
+  color: var(--text-muted);
+  transition: transform 0.25s, color 0.25s;
+  display: inline-block;
+}
+
+.feature-card:hover .card-arrow {
+  transform: rotate(45deg);
+  color: var(--primary);
+}
+
+.feature-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.feature-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.feature-list li {
+  font-size: 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.feature-list li::before {
+  content: '·';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ZEITSTRAHL */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 56px;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .timeline-connector {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+.timeline-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 24px 0 0;
+  position: relative;
+  animation: fadeInUp 0.6s both;
+}
+
+.timeline-phase:nth-child(1) { animation-delay: 0.1s; }
+.timeline-phase:nth-child(2) { animation-delay: 0.2s; }
+.timeline-phase:nth-child(3) { animation-delay: 0.3s; }
+.timeline-phase:nth-child(4) { animation-delay: 0.4s; }
+
+.phase-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 27px;
+  left: 56px;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--border-strong) 0, var(--border-strong) 6px, transparent 6px, transparent 14px);
+}
+
+.timeline-phase:last-child .timeline-line {
+  display: none;
+}
+
+.phase-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.timeline-phase h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.timeline-phase p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* PRICING */
+.pricing-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  animation: fadeInUp 0.8s both 0.1s;
+}
+
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+  margin-top: 32px;
+}
+
+.pricing-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.pricing-ref {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.pricing-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-line:first-of-type {
+  padding-top: 0;
+}
+
+.pricing-line-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.pricing-line-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.pricing-line-price {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pricing-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+}
+
+.pricing-total-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.pricing-total-price {
+  font-size: clamp(36px, 4vw, 48px);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.pricing-bullets {
+  list-style: none;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pricing-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pricing-bullets li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.konditionen-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 15px;
+  margin-top: 24px;
+  transition: gap 0.25s;
+}
+
+.konditionen-link:hover {
+  gap: 10px;
+}
+
+.konditionen-link span {
+  display: inline-block;
+  transition: transform 0.25s;
+}
+
+.konditionen-link:hover span {
+  transform: translateX(4px);
+}
+
+.validity-hint {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ABSCHLUSS CTA */
+.cta-section {
+  padding: 128px 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 80px 0;
+  }
+}
+
+.cta-number {
+  font-size: clamp(88px, 10vw, 112px);
+  font-weight: 200;
+  color: var(--primary);
+  line-height: 1;
+  opacity: 0.3;
+  margin-bottom: -16px;
+  animation: fadeInUp 0.6s both;
+}
+
+.cta-card {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s both 0.1s;
+}
+
+@media (max-width: 768px) {
+  .cta-card {
+    padding: 48px 24px;
+  }
+}
+
+.cta-svg-decor {
+  position: absolute;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.cta-svg-decor-1 {
+  top: -60px;
+  left: -60px;
+  animation: rotateBackground 60s linear infinite;
+}
+
+.cta-svg-decor-2 {
+  bottom: -40px;
+  right: -40px;
+  animation: rotateBackground 60s linear infinite reverse;
+}
+
+.cta-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.cta-card h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.cta-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  margin: 0 auto 40px;
+}
+
+.cta-btn-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.contact-options {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.25s;
+  padding: 10px 0;
+}
+
+.contact-option:hover {
+  color: var(--primary);
+}
+
+/* FOOTER */
+footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  opacity: 0.7;
+}
+
+/* Section H2 */
+.section h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height: 48px; width: auto;">
+      <a href="mailto:david@sales-culture.de" class="header-email">david@sales-culture.de</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <!-- SVG Decorators -->
+  <svg style="position:absolute;top:120px;left:0;opacity:0.04;pointer-events:none;" width="320" height="320" viewBox="0 0 320 320" fill="none">
+    <circle cx="160" cy="160" r="120" stroke="#4d8eff" stroke-width="1" stroke-dasharray="8 8"/>
+    <circle cx="160" cy="160" r="80" stroke="#4d8eff" stroke-width="1" stroke-dasharray="4 12"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-inner">
+      <!-- LEFT 60% -->
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-dot"></span>
+          FÜR SSD CONSULTING
+        </div>
+        <div class="hero-meta">Ref: 20260428-102355414 · Erstellt am 28. April 2026</div>
+        <h1>Listen, die dein SDR sofort bearbeiten kann.</h1>
+        <p class="hero-subline">Wir recherchieren vollständige Kontaktlisten nach deinem ICP – inklusive verifizierter E-Mails, LinkedIn-Profilen und einem KI-gestützten Web-Research-Agent für deine HR-Kampagnen.</p>
+        <div class="btn-row">
+          <a href="https://angebot.sales-culture.de/Salesresearch" class="btn-primary">Angebot annehmen →</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin vereinbaren</a>
+        </div>
+      </div>
+
+      <!-- RIGHT 40% – HIGHLIGHT CARD -->
+      <div>
+        <div class="hero-card">
+          <div class="hero-card-eyebrow">Was du bekommst</div>
+          <div class="hero-price">5.300 €</div>
+          <div class="hero-price-sub">Einmalig · Sales Research + Sparring</div>
+          <ul class="hero-bullets">
+            <li>40–75 Tibco-Firmen mit je 2–4 Kontakten</li>
+            <li>500–1.000 Firmen für 3 HR-Kampagnen</li>
+            <li>E-Mail, LinkedIn-URL & Telefon pro Person</li>
+            <li>KI-Web-Agent für HR-Tool-Recherche</li>
+            <li>10h Sparring über 3 Monate flexibel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSOENLICHE ANSPRACHE -->
+<section class="personal-section">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent"></div>
+      <div>
+        <div class="personal-eyebrow">Hi Sarah</div>
+        <p class="personal-text">
+          Danke für dein Interesse – ich freue mich, dass wir über dieses Projekt sprechen konnten. Du brauchst zuverlässige Listen mit echten Ansprechpartnern, die sofort outreach-fähig sind – keine halbgaren Exporte, die dein Team erst stundenlang aufbereiten muss. Genau das liefern wir dir: fertig recherchiert, verifiziert und direkt nutzbar.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 WAS WIR VERSTANDEN HABEN -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">01</div>
+    <div class="understood-grid">
+      <div>
+        <div class="section-eyebrow">Was wir verstanden haben</div>
+        <h2>Du brauchst zwei saubere Listen – und zwar gestern.</h2>
+      </div>
+      <div>
+        <p class="understood-text">
+          Du willst erstens eine gezielte Tibco-Liste mit qualifizierten Ansprechpartnern – und zweitens eine größere Outreach-Basis für drei Industrie-Kampagnen rund um HR-Entscheider auf Director-Ebene. Beide Listen sollen direkt outreach-fähig sein, inklusive Kontaktdaten und Background-Infos zum eingesetzten HR-Tool.
+        </p>
+        <div class="tag-cloud">
+          <span class="tag">Tibco</span>
+          <span class="tag">HR Director</span>
+          <span class="tag">200–500 MA</span>
+          <span class="tag">Standort DE</span>
+          <span class="tag">Industrie</span>
+          <span class="tag">Bauwirtschaft</span>
+          <span class="tag">Logistik</span>
+          <span class="tag">HR-Tool Recherche</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 UNSER VORSCHLAG -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">02</div>
+    <div class="section-eyebrow">Unser Vorschlag</div>
+    <h2>4 Tage Recherche. Fertige Listen. Sofort nutzbar.</h2>
+    <p class="proposal-intro">Wir übernehmen die komplette Recherche nach deinem ICP – von der Tibco-Nische bis zu den großen HR-Kampagnen. Hier die konkreten Zahlen dahinter.</p>
+
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-number">75+</div>
+        <div class="stat-caption">Tibco-Firmen mit je 2–4 geeigneten Ansprechpartnern recherchiert</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1.000</div>
+        <div class="stat-caption">Firmen über 3 HR-Kampagnen hinweg (Industrie, Bau, Logistik)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">10h</div>
+        <div class="stat-caption">Sparring-Stunden für dein Team – flexibel über 3 Monate abrufbar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 WAS DU BEKOMMST -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">03</div>
+    <div class="section-eyebrow">Was du bekommst</div>
+    <h2>Alle Leistungen auf einen Blick.</h2>
+
+    <div class="cards-grid">
+
+      <div class="feature-card">
+        <div class="card-top">
+          <span class="card-icon">🏢</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Tibco-Firmenliste</h3>
+        <p>40–75 Tibco-Firmen recherchiert mit je 2–4 geeigneten Ansprechpartnern. Inkl. Firmenname, LinkedIn-URL der Person, E-Mail-Adresse und Telefonnummer – soweit verfügbar.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="card-top">
+          <span class="card-icon">👥</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>HR-Kampagnen-Listen</h3>
+        <p>500–1.000 Firmen mit 1–2 Kontakten auf Director-Ebene im Personalwesen. Aufgeteilt auf drei Kampagnen:</p>
+        <ul class="feature-list">
+          <li>Industrie / Produzierendes Gewerbe</li>
+          <li>Bauwirtschaft / Bauzulieferer / SHK-Großhandel</li>
+          <li>Logistik / Transport / Kontraktlogistik</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="card-top">
+          <span class="card-icon">🤖</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>KI-gestützter Web-Research-Agent</h3>
+        <p>Die HR-Kampagnen-Liste wird zusätzlich mit einem Web-Research-Agent angereichert. Er liefert dir Infos zum Ist-Stand der HR-Abteilung und Hinweise darauf, welches HR-Tool im Einsatz ist – soweit erkennbar oder bestätigbar.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="card-top">
+          <span class="card-icon">⚡</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Premium Sales-Tools inklusive</h3>
+        <p>Du zahlst keine Lizenzkosten extra. Wir arbeiten mit den richtigen Tools für deine Kampagne:</p>
+        <ul class="feature-list">
+          <li>LinkedIn Sales Navigator</li>
+          <li>Lusha, lemlist, Clay, Theirstack</li>
+          <li>northdata, Claude Cowork</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="card-top">
+          <span class="card-icon">🎯</span>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Sparring-Partner Enablement</h3>
+        <p>10 Stunden Sparring für dein Team – flexibel über 3 Monate abrufbar. Das kann Telefonleitfäden, E-Mail-Vorlagen, CRM-Empfehlungen, Tooleinarbeitung oder Multi-Channel-Kampagnen-Setup beinhalten.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 04 WIE WIR STARTEN -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">04</div>
+    <div class="section-eyebrow">Wie wir starten</div>
+    <h2>Kein langer Vorlauf. Direkt rein.</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-phase">
+        <div class="phase-icon-wrap">🤝</div>
+        <div class="timeline-line"></div>
+        <div class="phase-eyebrow">Phase 01</div>
+        <h3>Kick-off Call</h3>
+        <p>Bis zu 1 Stunde, um den richtigen Outline sicherzustellen – bevor wir auch nur eine Firma recherchieren.</p>
+      </div>
+
+      <div class="timeline-phase">
+        <div class="phase-icon-wrap">🔍</div>
+        <div class="timeline-line"></div>
+        <div class="phase-eyebrow">Phase 02</div>
+        <h3>Recherche</h3>
+        <p>Wir recherchieren beide Listen mit unseren Tools. Kein Raten, kein Massenexport – ICP-konform und verifiziert.</p>
+      </div>
+
+      <div class="timeline-phase">
+        <div class="phase-icon-wrap">✅</div>
+        <div class="timeline-line"></div>
+        <div class="phase-eyebrow">Phase 03</div>
+        <h3>Testdatensatz</h3>
+        <p>Bevor die Recherche abgeschlossen wird, bekommst du einen Testdatensatz zur Überprüfung – damit alles passt.</p>
+      </div>
+
+      <div class="timeline-phase">
+        <div class="phase-icon-wrap">🚀</div>
+        <div class="phase-eyebrow">Phase 04</div>
+        <h3>Übergabe & Sparring</h3>
+        <p>Bis zu 1-stündiger Übergabe-Call für eine saubere Übergabe – und dann starten deine 10 Sparring-Stunden.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 05 INVESTMENT & KONDITIONEN -->
+<section class="section">
+  <div class="container">
+    <div class="section-number">05</div>
+    <div class="pricing-wrap">
+      <div class="section-eyebrow" style="text-align:center;">Investment & Konditionen</div>
+
+      <div class="pricing-card">
+        <div class="pricing-eyebrow">Dein Angebot</div>
+        <div class="pricing-ref">Referenz: 20260428-102355414 · SSD Consulting & Services Germany</div>
+
+        <div class="pricing-line">
+          <div>
+            <div class="pricing-line-title">Sales-Research-Done-4-You – Tagessatz</div>
+            <div class="pricing-line-desc">4 Tage Sales Research · Listenerstellung nach ICP</div>
+          </div>
+          <div class="pricing-line-price">3.800 €</div>
+        </div>
+
+        <div class="pricing-line">
+          <div>
+            <div class="pricing-line-title">Sparring-Partner Enablement – Stundenweise</div>
+            <div class="pricing-line-desc">10 Stunden · flexibel abrufbar über 3 Monate</div>
+          </div>
+          <div class="pricing-line-price">1.500 €</div>
+        </div>
+
+        <div class="pricing-total-row">
+          <div class="pricing-total-label">Gesamt (einmalig)</div>
+          <div class="pricing-total-price">5.300 €</div>
+        </div>
+      </div>
+
+      <ul class="pricing-bullets">
+        <li>Fällig sofort ab Bestelldatum ohne Abzug</li>
+        <li>Keine versteckten Lizenzkosten für Sales-Tools</li>
+        <li>Sparring-Stunden 3 Monate flexibel abrufbar</li>
+      </ul>
+
+      <a href="https://angebot.sales-culture.de/Salesresearch" class="konditionen-link">
+        Die vollständigen Konditionen findest du im Angebot <span>→</span>
+      </a>
+
+      <div class="validity-hint">⏳ Angebot gültig bis: 28. Mai 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ABSCHLUSS CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-number">06</div>
+
+    <div class="cta-card">
+      <!-- Decorative SVGs -->
+      <svg class="cta-svg-decor cta-svg-decor-1" width="300" height="300" viewBox="0 0 300 300" fill="none">
+        <circle cx="150" cy="150" r="120" stroke="#4d8eff" stroke-width="1.5" stroke-dasharray="10 10"/>
+        <circle cx="150" cy="150" r="80" stroke="#4d8eff" stroke-width="1" stroke-dasharray="5 15"/>
+        <circle cx="150" cy="150" r="40" stroke="#4d8eff" stroke-width="0.5"/>
+      </svg>
+      <svg class="cta-svg-decor cta-svg-decor-2" width="240" height="240" viewBox="0 0 240 240" fill="none">
+        <rect x="20" y="20" width="200" height="200" rx="40" stroke="#4d8eff" stroke-width="1" stroke-dasharray="8 8"/>
+        <rect x="60" y="60" width="120" height="120" rx="24" stroke="#4d8eff" stroke-width="1" stroke-dasharray="4 12"/>
+      </svg>
+
+      <div class="cta-eyebrow">Bereit loszulegen?</div>
+      <h2>Wir freuen uns auf den gemeinsamen Start.</h2>
+      <p class="cta-subline">Nimm das Angebot direkt an oder buch dir einen kurzen Call – dann starten wir mit dem Kick-off.</p>
+
+      <div class="cta-btn-row">
+        <a href="https://angebot.sales-culture.de/Salesresearch" class="btn-primary">Angebot annehmen →</a>
+        <a href="https://sales-culture.de/david" class="btn-secondary">Termin buchen</a>
+      </div>
+
+      <div class="contact-options">
+        <a href="mailto:david@sales-culture.de" class="contact-option">
+          ✉️ david@sales-culture.de
+        </a>
+        <a href="tel:+491796996683" class="contact-option">
+          📞 +49 179 699 66 83
+        </a>
+        <a href="https://sales-culture.de/david" class="contact-option">
+          📅 Termin buchen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p class="footer-text">Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050</p>
+    <p class="footer-disclaimer">Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.</p>
+  </div>
+</footer>
+
+</body>
+</html>
