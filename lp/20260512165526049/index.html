@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Outsourcing · Kopexa GmbH</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245, 245, 247, 0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77, 142, 255, 0.12);
+  --primary-border: rgba(77, 142, 255, 0.25);
+  --accent: #4d8eff;
+  --border: rgba(245, 245, 247, 0.08);
+  --border-strong: rgba(245, 245, 247, 0.16);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes drawLine {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes slowFloat {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(30px, -20px); }
+  66% { transform: translate(-20px, 20px); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+  50% { box-shadow: 0 0 40px rgba(77, 142, 255, 0.3); }
+}
+@keyframes rotateBackground {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+}
+
+/* HEADER */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header a.header-mail {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  transition: color 0.25s;
+}
+header a.header-mail:hover { color: var(--text-secondary); }
+
+/* HERO */
+.hero {
+  padding: 96px 0 128px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(77, 142, 255, 0.15) 0%, transparent 70%);
+  animation: slowFloat 20s infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+.hero-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.hero-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 55ch;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease-out 0.15s both;
+}
+
+.btn-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, filter 0.25s;
+  box-shadow: 0 0 24px var(--primary-dim), 0 4px 16px rgba(77,142,255,0.2);
+  animation: glow 3s ease-in-out infinite;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+.btn-primary:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s, filter 0.25s;
+}
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite 1.5s;
+}
+.btn-secondary:hover { transform: scale(1.02); border-color: var(--primary); }
+
+/* HERO HIGHLIGHT CARD */
+.hero-highlight-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  animation: fadeInUp 0.8s ease-out 0.4s both, float 6s ease-in-out infinite 1.5s;
+  position: relative;
+  overflow: hidden;
+}
+.hero-highlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(ellipse at top right, rgba(77,142,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.hero-price {
+  font-size: clamp(56px, 6vw, 68px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.hero-price-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+
+.hero-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.hero-bullets li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* SECTIONS COMMON */
+section {
+  padding: 128px 0;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  section { padding: 80px 0; }
+}
+
+.section-number {
+  font-size: clamp(88px, 10vw, 112px);
+  font-weight: 200;
+  color: var(--primary);
+  line-height: 1;
+  opacity: 0.35;
+  letter-spacing: -0.04em;
+  animation: fadeInUp 0.6s ease-out both;
+  user-select: none;
+}
+
+/* PERSONAL ADDRESS */
+.personal-address {
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.personal-address-inner {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 700px;
+}
+
+.accent-line {
+  width: 3px;
+  min-height: 100px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+
+.personal-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.personal-text {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* SECTION 2-COL LAYOUT */
+.two-col-40-60 {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .two-col-40-60 { grid-template-columns: 1fr; gap: 32px; }
+}
+
+h2 {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.section-detail-text {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 55ch;
+}
+
+/* TAG CLOUD */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+.tag {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+/* STAT CARDS */
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 768px) {
+  .stat-cards-grid { grid-template-columns: 1fr; }
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: left;
+  transition: border-color 0.3s, transform 0.3s;
+  animation: fadeInUp 0.6s ease-out both;
+}
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+
+.stat-number {
+  font-size: clamp(56px, 6vw, 72px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.stat-caption {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* FEATURE CARDS GRID */
+.feature-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 768px) {
+  .feature-cards-grid { grid-template-columns: 1fr; }
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: fadeInUp 0.6s ease-out both;
+  position: relative;
+}
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+.feature-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(77, 142, 255, 0.12);
+}
+
+.feature-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.feature-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+.feature-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: transform 0.25s;
+  cursor: default;
+}
+.feature-card:hover .feature-arrow { transform: rotate(45deg); }
+
+.feature-card-body {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.feature-card-body ul {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.feature-card-body ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.feature-card-body ul li::before {
+  content: '→';
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* TIMELINE */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  position: relative;
+}
+@media (max-width: 900px) {
+  .timeline { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+}
+@media (max-width: 540px) {
+  .timeline { grid-template-columns: 1fr; }
+}
+
+.timeline-connector {
+  position: absolute;
+  top: 44px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: none;
+  border-top: 2px dashed var(--border-strong);
+  z-index: 0;
+}
+@media (max-width: 900px) { .timeline-connector { display: none; } }
+
+.timeline-phase {
+  position: relative;
+  z-index: 1;
+  padding: 0 16px;
+  animation: fadeInUp 0.6s ease-out both;
+}
+.timeline-phase:nth-child(2) { animation-delay: 0.1s; }
+.timeline-phase:nth-child(3) { animation-delay: 0.2s; }
+.timeline-phase:nth-child(4) { animation-delay: 0.3s; }
+
+.phase-icon-circle {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.phase-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.phase-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.phase-body {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* PRICING */
+.pricing-card {
+  max-width: 720px;
+  margin: 48px auto 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.pricing-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.pricing-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 24px;
+}
+.pricing-line:first-of-type { padding-top: 0; }
+
+.pricing-line-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.pricing-line-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.pricing-line-price {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pricing-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  margin-top: 8px;
+}
+.pricing-total-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.pricing-total-price {
+  font-size: clamp(36px, 4vw, 44px);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.pricing-bullets {
+  list-style: none;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pricing-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.pricing-bullets li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.pricing-link-wrap {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.pricing-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.25s;
+}
+.pricing-link:hover { gap: 12px; }
+
+.pricing-validity {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* CLOSING CTA */
+.closing-cta-section {
+  padding: 128px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+
+.closing-number {
+  font-size: clamp(88px, 12vw, 140px);
+  font-weight: 200;
+  color: var(--primary);
+  opacity: 0.12;
+  position: absolute;
+  top: 40px;
+  right: 48px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  pointer-events: none;
+  animation: fadeInUp 0.6s both;
+  user-select: none;
+}
+
+.closing-inner {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.closing-svg-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+}
+
+.closing-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.closing-h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.closing-sub {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.contact-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.contact-item:hover { color: var(--primary); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 0;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-address {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.7;
+  max-width: 70ch;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+/* SVG DECORATOR */
+.svg-decorator {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.06;
+}
+
+/* Section header layout */
+.section-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.section-accent-line {
+  width: 3px;
+  height: 80px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 12px;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+.section-title-block {
+  flex: 1;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height: 48px; width: auto;">
+      <a href="mailto:david@sales-culture.de" class="header-mail">david@sales-culture.de</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="border-top: none; padding: 96px 0 128px;">
+  <div class="hero-glow"></div>
+
+  <!-- SVG Decorator 1 -->
+  <svg class="svg-decorator" style="top: 10%; left: 5%; width: 300px; height: 300px;" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="150" cy="150" r="120" stroke="#4d8eff" stroke-width="1" stroke-dasharray="8 12"/>
+    <circle cx="150" cy="150" r="80" stroke="#4d8eff" stroke-width="0.5" stroke-dasharray="4 8"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-inner">
+      <!-- LEFT 60% -->
+      <div>
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          FÜR KOPEXA GMBH
+        </div>
+        <div class="hero-meta">Erstellt für Benjamin, Julian &amp; Nikolai · Sales Culture GmbH</div>
+        <h1>Euer Vertrieb.<br>Wir machen den Job.</h1>
+        <p class="hero-subline">
+          Wir übernehmen den kompletten Sales-Prozess für Kopexa — von der Strategie bis zum gebuchten Termin. Kein Aufbau-Stress, kein langer Hiring-Prozess. Ihr konzentriert euch aufs Produkt.
+        </p>
+        <div class="btn-row">
+          <a href="https://angebot.sales-culture.de/salesoutsourcing" class="btn-primary">Angebot ansehen →</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin vereinbaren</a>
+        </div>
+      </div>
+
+      <!-- RIGHT 40% — HIGHLIGHT CARD -->
+      <div class="hero-highlight-card">
+        <div class="card-eyebrow">Was du bekommst</div>
+        <div class="hero-price">Auf Anfrage</div>
+        <div class="hero-price-sub">Sales Outsourcing · Komplett-Paket</div>
+        <ul class="hero-bullets">
+          <li>Dedizierter Sales-Rep für Kopexa</li>
+          <li>Outbound-Strategie &amp; Playbook</li>
+          <li>Lead-Generierung &amp; Qualifizierung</li>
+          <li>Gebuchte Discovery Calls</li>
+          <li>Laufendes Reporting &amp; Sparring</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL ADDRESS -->
+<section style="border-top: 1px solid var(--border); padding: 96px 0;">
+  <div class="container">
+    <div class="personal-address">
+      <div class="personal-address-inner">
+        <div class="accent-line"></div>
+        <div>
+          <div class="personal-eyebrow">Hi Benjamin, Julian &amp; Nikolai</div>
+          <p class="personal-text">
+            Ihr baut gerade Kopexa auf — und Vertrieb kostet enorm viel Zeit und Energie, die ihr eigentlich fürs Produkt braucht. Genau das ist der Punkt, wo wir reinkommen. Wir bringen strukturierten, verlässlichen Outbound-Sales für euch auf die Straße — ohne dass ihr euch selbst darum kümmern müsst. Das Angebot hier zeigt euch, wie das konkret aussieht.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 01: WAS WIR VERSTANDEN HABEN -->
+<section>
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-number">01</div>
+      <div class="section-accent-line"></div>
+      <div class="section-title-block">
+        <div class="eyebrow" style="margin-bottom: 12px;">
+          <span class="eyebrow-dot"></span>
+          Was wir verstanden haben
+        </div>
+        <div class="two-col-40-60" style="margin-top: 0;">
+          <div>
+            <h2>Ihr wollt verkaufen — habt aber keine Zeit fürs Verkaufen.</h2>
+          </div>
+          <div>
+            <p class="section-detail-text">
+              Als früh­phasiges Team steckt ihr eure Energie in Produkt, Tech und Kunden­erfolg. Strukturierter Outbound-Vertrieb bleibt dabei auf der Strecke — nicht weil er unwichtig wäre, sondern weil der Aufbau zu viel Kapazität frisst. Ihr braucht jemanden, der einfach loslegt.
+            </p>
+            <div class="tag-cloud">
+              <span class="tag">Kopexa GmbH</span>
+              <span class="tag">Benjamin Schatter</span>
+              <span class="tag">Julian Köhn</span>
+              <span class="tag">Nikolai Shulgin</span>
+              <span class="tag">Sales Outsourcing</span>
+              <span class="tag">B2B Outbound</span>
+              <span class="tag">Early Stage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02: UNSER VORSCHLAG -->
+<section>
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-number">02</div>
+      <div class="section-accent-line"></div>
+      <div class="section-title-block">
+        <div class="eyebrow" style="margin-bottom: 12px;">
+          <span class="eyebrow-dot"></span>
+          Unser Vorschlag
+        </div>
+        <h2>Vollständiges Sales Outsourcing — wir übernehmen den Lead.</h2>
+        <p class="section-detail-text" style="margin-top: 20px;">
+          Kein halber Ansatz. Wir bauen euren kompletten Outbound-Vertrieb auf — Strategie, Execution, Reporting. Ihr bekommt gebuchte Termine, wir bringen die Struktur.
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-cards-grid">
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-caption">Outbound-Vertrieb komplett übernommen — ihr müsst nicht selbst prospekten</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">30</div>
+        <div class="stat-caption">Tage bis zum ersten gebuchten Discovery Call nach Kick-off</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1</div>
+        <div class="stat-caption">Dedizierter Sales Rep, der Kopexa nach außen wie euer eigenes Team repräsentiert</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03: WAS DU BEKOMMST -->
+<section>
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-number">03</div>
+      <div class="section-accent-line"></div>
+      <div class="section-title-block">
+        <div class="eyebrow" style="margin-bottom: 12px;">
+          <span class="eyebrow-dot"></span>
+          Was ihr bekommt
+        </div>
+        <h2>Alles, was Outbound braucht — geliefert.</h2>
+      </div>
+    </div>
+
+    <div class="feature-cards-grid">
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <span class="feature-icon">🎯</span>
+          <span class="feature-arrow">↗</span>
+        </div>
+        <h3>Sales-Strategie &amp; Playbook</h3>
+        <div class="feature-card-body">
+          Wir entwickeln mit euch eine klare Outbound-Strategie — Zielgruppe, Messaging, Sequenzen. Alles dokumentiert, damit ihr jederzeit den Überblick habt.
+          <ul>
+            <li>ICP-Definition &amp; Priorisierung</li>
+            <li>Messaging-Framework</li>
+            <li>Cold Email- &amp; LinkedIn-Sequenzen</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <span class="feature-icon">🔍</span>
+          <span class="feature-arrow">↗</span>
+        </div>
+        <h3>Lead-Generierung &amp; Recherche</h3>
+        <div class="feature-card-body">
+          Wir identifizieren und qualifizieren eure Zielkunden — mit validierten Kontaktdaten, die direkt bearbeitet werden können. Kein Raten, kein Rauschen.
+          <ul>
+            <li>Zielgruppen-Recherche &amp; Listen-Aufbau</li>
+            <li>Datenvalidierung &amp; Anreicherung</li>
+            <li>CRM-ready Kontakte</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <span class="feature-icon">📞</span>
+          <span class="feature-arrow">↗</span>
+        </div>
+        <h3>Outreach &amp; Discovery Calls</h3>
+        <div class="feature-card-body">
+          Euer dedizierter Sales Rep führt den kompletten Outreach durch — von der ersten Kontaktaufnahme bis zum gebuchten Termin. Ihr steigt erst beim qualifizierten Call ein.
+          <ul>
+            <li>Multi-Channel-Outreach (E-Mail + LinkedIn)</li>
+            <li>Qualifizierung nach euren Kriterien</li>
+            <li>Übergabe mit vollständigem Kontext</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <span class="feature-icon">📊</span>
+          <span class="feature-arrow">↗</span>
+        </div>
+        <h3>Reporting &amp; Sparring</h3>
+        <div class="feature-card-body">
+          Ihr bekommt regelmäßige Updates zu Aktivitäten, Pipeline und was gerade funktioniert. Kein Blindflug — klare Zahlen und ehrliches Feedback.
+          <ul>
+            <li>Wöchentliche Status-Updates</li>
+            <li>Pipeline-Reporting im CRM</li>
+            <li>Strategisches Sparring bei Bedarf</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04: WIE WIR STARTEN -->
+<section>
+  <div class="container">
+    <div class="section-header-row">
+      <div class="section-number">04</div>
+      <div class="section-accent-line"></div>
+      <div class="section-title-block">
+        <div class="eyebrow" style="margin-bottom: 12px;">
+          <span class="eyebrow-dot"></span>
+          Wie wir starten
+        </div>
+        <h2>Von Angebot bis erstem Deal — in vier Schritten.</h2>
+        <p class="section-detail-text" style="margin-top: 16px;">Keine langen Onboarding-Phasen. Wir kommen schnell in die Umsetzung.</p>
+      </div>
+    </div>
+
+    <div style="position: relative; margin-top: 24px;">
+      <div class="timeline-connector"></div>
+      <div class="timeline">
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">🤝</div>
+          <div class="phase-eyebrow">Phase 01</div>
+          <div class="phase-title">Kick-off &amp; Onboarding</div>
+          <p class="phase-body">Wir lernen euer Produkt, eure Zielkunden und eure Erwartungen kennen. Alles was wir brauchen, um sofort loszulegen.</p>
+        </div>
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">🗺️</div>
+          <div class="phase-eyebrow">Phase 02</div>
+          <div class="phase-title">Strategie &amp; Playbook</div>
+          <p class="phase-body">ICP, Messaging und Sequenzen werden entwickelt und abgestimmt. Ihr reviewed, wir finalisieren.</p>
+        </div>
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">🚀</div>
+          <div class="phase-eyebrow">Phase 03</div>
+          <div class="phase-title">Outreach startet</div>
+          <p class="phase-body">Die Kampagnen gehen live. Leads werden kontaktiert, qualifiziert und Termine gebucht. Ihr bekommt tägliche Updates.</p>
+        </div>
+        <div class="timeline-phase">
+          <div class="phase-icon-circle">📈</div>
+          <div class="phase-eyebrow">Phase 04</div>
+          <div class="phase-title">Optimieren &amp; Skalieren</div>
+          <p class="phase-body">Wir analysieren was funktioniert und drehen an den richtigen Schrauben — kontinuierlich, nicht einmalig.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05: INVESTMENT & KONDITIONEN -->
+<section>
+  <div class="container" style="text-align: center;">
+    <div class="section-header-row" style="justify-content: center;">
+      <div class="section-number">05</div>
+      <div class="section-accent-line"></div>
+      <div class="section-title-block">
+        <div class="eyebrow" style="margin-bottom: 12px;">
+          <span class="eyebrow-dot"></span>
+          Investment &amp; Konditionen
+        </div>
+        <h2>Euer Angebot von Sales Culture.</h2>
+      </div>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-eyebrow">Dein Angebot · Sales Outsourcing für Kopexa GmbH</div>
+
+      <div class="pricing-line">
+        <div>
+          <div class="pricing-line-title">Sales Outsourcing Komplett-Paket</div>
+          <div class="pricing-line-desc">Dedizierter Sales Rep · Outbound-Strategie · Lead-Gen · Outreach · Reporting</div>
+        </div>
+        <div class="pricing-line-price">Auf Anfrage</div>
+      </div>
+
+      <div class="pricing-line">
+        <div>
+          <div class="pricing-line-title">Setup &amp; Onboarding</div>
+          <div class="pricing-line-desc">Kick-off, Playbook-Entwicklung, Tool-Setup, ICP-Definition</div>
+        </div>
+        <div class="pricing-line-price">Inklusive</div>
+      </div>
+
+      <div class="pricing-line">
+        <div>
+          <div class="pricing-line-title">Strategisches Sparring</div>
+          <div class="pricing-line-desc">Laufende Beratung und Abstimmung mit eurem Team</div>
+        </div>
+        <div class="pricing-line-price">Inklusive</div>
+      </div>
+
+      <div class="pricing-total">
+        <div class="pricing-total-label">Details im Angebot</div>
+        <div class="pricing-total-price">→</div>
+      </div>
+
+      <ul class="pricing-bullets">
+        <li>Keine versteckten Tool- oder Lizenzkosten</li>
+        <li>Transparentes monatliches Reporting — ihr seht immer, was läuft</li>
+        <li>Flexibles Sparring über die gesamte Laufzeit abrufbar</li>
+      </ul>
+
+      <div class="pricing-link-wrap">
+        <a href="https://angebot.sales-culture.de/salesoutsourcing" class="pricing-link">
+          Die vollständigen Konditionen findest du im Angebot →
+        </a>
+      </div>
+
+      <div class="pricing-validity">
+        <span>⏳</span>
+        <span>Angebot gültig: Bitte das Angebot für das genaue Ablaufdatum prüfen.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 06: ABSCHLUSS CTA -->
+<div class="closing-cta-section">
+  <!-- Big decorative number -->
+  <div class="closing-number" aria-hidden="true">06</div>
+
+  <div class="container">
+    <div class="closing-inner">
+      <!-- SVG decorative strokes -->
+      <svg class="closing-svg-bg" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="700" cy="50" r="200" stroke="#4d8eff" stroke-width="1" stroke-dasharray="6 10"/>
+        <circle cx="100" cy="350" r="150" stroke="#4d8eff" stroke-width="0.5" stroke-dasharray="4 8"/>
+        <line x1="0" y1="200" x2="800" y2="200" stroke="#4d8eff" stroke-width="0.5" stroke-dasharray="2 6"/>
+      </svg>
+
+      <div class="closing-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Bereit loszulegen?
+      </div>
+      <div class="closing-h2">Wir freuen uns auf den gemeinsamen Start.</div>
+      <p class="closing-sub">
+        Nehmt das Angebot an oder bucht direkt einen Termin — wir besprechen alles Weitere persönlich.
+      </p>
+
+      <div class="btn-row" style="justify-content: center;">
+        <a href="https://angebot.sales-culture.de/salesoutsourcing" class="btn-primary">Angebot annehmen →</a>
+        <a href="https://sales-culture.de/david" class="btn-secondary">Termin buchen</a>
+      </div>
+
+      <div class="contact-row">
+        <a href="mailto:david@sales-culture.de" class="contact-item">
+          <span>✉️</span>
+          <span>david@sales-culture.de</span>
+        </a>
+        <a href="tel:+4917969966883" class="contact-item">
+          <span>📞</span>
+          <span>+49 179 699 66 83</span>
+        </a>
+        <a href="https://sales-culture.de/david" class="contact-item">
+          <span>📅</span>
+          <span>Termin vereinbaren</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-address">
+        Sales Culture GmbH · Theodorstrasse 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050
+      </div>
+      <div class="footer-disclaimer">
+        Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
