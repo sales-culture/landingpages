@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Outsourcing für Network People AG</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245,245,247,0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77,142,255,0.12);
+  --primary-border: rgba(77,142,255,0.25);
+  --accent: #4d8eff;
+  --border: rgba(245,245,247,0.08);
+  --border-strong: rgba(245,245,247,0.16);
+  --glow-line: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Grid Background */
+body {
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Grid Node Pulse */
+body::before {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 67% 32%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 28% 71%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 89% 84%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 45% 50%, var(--primary-dim) 0, transparent 2px);
+  animation: gridNodes 8s ease-in-out infinite;
+}
+
+@keyframes gridNodes {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.85; }
+}
+
+/* Scroll Progress Bar */
+.js-scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center; transform: scaleX(0);
+  z-index: 999; pointer-events: none;
+}
+
+@supports (animation-timeline: view()) {
+  body::before {
+    /* already used for grid nodes — scroll indicator done via JS for non-conflict */
+  }
+}
+
+/* Container */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+@keyframes drawLine {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes slowFloat {
+  0%, 100% { transform: translate(0,0); }
+  33%       { transform: translate(30px,-20px); }
+  66%       { transform: translate(-20px,20px); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.6; }
+}
+@keyframes wordReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glowTrace {
+  0%   { background-position: -100% 0; opacity: 0.3; }
+  50%  { background-position: 100% 0;  opacity: 0.9; }
+  100% { background-position: 200% 0;  opacity: 0.3; }
+}
+@keyframes numberPulse {
+  0%   { transform: scale(0.85) rotate(-2deg); opacity: 0.4; }
+  40%  { transform: scale(1) rotate(0deg);    opacity: 1; }
+  100% { transform: scale(1.05) rotate(0deg); opacity: 1; }
+}
+@keyframes drawConnector {
+  to { stroke-dasharray: 100 0; }
+}
+
+/* Scroll Driven Animations */
+.reveal-on-scroll, .reveal-on-scroll-strong { opacity: 1; transform: none; }
+
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation: revealOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .reveal-on-scroll-strong {
+    animation: revealOnScrollStrong linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+  .section-number {
+    animation: numberPulse linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 80%;
+  }
+  .connector-line {
+    animation: drawConnector linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+}
+
+@keyframes revealOnScroll {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealOnScrollStrong {
+  from { opacity: 0; transform: translateY(80px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* JS Fallback */
+.js-scroll-fallback .reveal-on-scroll {
+  opacity: 0; transform: translateY(60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+.js-scroll-fallback .reveal-on-scroll-strong {
+  opacity: 0; transform: translateY(80px) scale(0.96);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll-strong.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+/* Glow Card */
+.glow-card { position: relative; }
+.glow-card::before {
+  content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+  background: var(--glow-line); opacity: 0.7; pointer-events: none;
+}
+.glow-card::after {
+  content: ""; position: absolute; top: -40px; left: 30%; right: 30%; height: 80px;
+  background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+  opacity: 0.5; pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  position: relative;
+  z-index: 10;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-header a.contact-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.25s;
+}
+.site-header a.contact-link:hover { color: var(--text); }
+
+/* ===== STICKY CTA ===== */
+.sticky-cta {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  z-index: 90;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+.sticky-cta-inner {
+  max-width: 1080px; margin: 0 auto; padding: 14px 48px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.sticky-cta-label { font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em; }
+.sticky-cta-buttons { display: flex; gap: 12px; }
+.sticky-cta-primary {
+  background: var(--primary); color: #fff;
+  padding: 10px 20px; border-radius: 8px;
+  text-decoration: none; font-size: 13px; font-weight: 600;
+  transition: filter 0.25s, transform 0.25s;
+}
+.sticky-cta-primary:hover { filter: brightness(1.1); transform: scale(1.02); }
+.sticky-cta-secondary {
+  color: var(--text-secondary);
+  padding: 10px 18px; border-radius: 8px;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+  border: 1px solid var(--border-strong);
+  transition: border-color 0.25s, color 0.25s;
+}
+.sticky-cta-secondary:hover { border-color: var(--primary); color: var(--text); }
+@media (max-width: 640px) { .sticky-cta-label { display: none; } }
+
+/* ===== HERO ===== */
+.hero {
+  padding: 96px 0 128px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(77,142,255,0.15) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: slowFloat 20s ease-in-out infinite;
+  z-index: 0;
+}
+.hero-spotlight {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%),
+    rgba(77,142,255,0.10) 0%, transparent 50%);
+  transition: background 0.15s ease-out;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 60fr 40fr;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* Hero Left */
+.hero-left {}
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.eyebrow-text {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.hero-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+  color: var(--text);
+}
+.hero h1 .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: wordReveal 0.7s cubic-bezier(0.2,0.8,0.2,1) both;
+}
+.hero h1 .word:nth-child(1) { animation-delay: 0.10s; }
+.hero h1 .word:nth-child(2) { animation-delay: 0.18s; }
+.hero h1 .word:nth-child(3) { animation-delay: 0.26s; }
+.hero h1 .word:nth-child(4) { animation-delay: 0.34s; }
+.hero h1 .word:nth-child(5) { animation-delay: 0.42s; }
+.hero-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 52ch;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease-out 0.15s both;
+}
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: filter 0.25s, transform 0.25s;
+  box-shadow: 0 0 20px var(--primary-dim);
+  animation: glow 3s ease-in-out infinite;
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+  50%       { box-shadow: 0 0 40px rgba(77,142,255,0.3); }
+}
+.btn-primary::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+.btn-primary:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--border-strong);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, color 0.25s, transform 0.25s;
+}
+.btn-secondary::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(77,142,255,0.06), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite 0.5s;
+}
+.btn-secondary:hover { border-color: var(--primary); color: var(--text); transform: scale(1.02); }
+
+/* Hero Right — Highlight Card */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  animation: fadeInUp 0.8s 0.4s both, float 6s 1.2s ease-in-out infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.hero-card-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.hero-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+.hero-card-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.hero-card-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.hero-card-bullets li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.hero-card-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ===== SECTION COMMONS ===== */
+section {
+  padding: 128px 0;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) {
+  section { padding: 80px 0; }
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 48px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .section-header { grid-template-columns: 1fr; gap: 0; }
+}
+
+.section-number-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.section-number {
+  font-size: clamp(72px, 9vw, 104px);
+  font-weight: 200;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  padding-top: 0;
+  display: inline-block;
+  transform-origin: left center;
+}
+.section-accent-line {
+  width: 3px;
+  height: 60px;
+  background: var(--primary);
+  border-radius: 2px;
+  margin-top: 12px;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+@media (max-width: 768px) {
+  .section-number { font-size: 64px; }
+  .section-accent-line { height: 32px; margin-bottom: 24px; }
+}
+
+.section-content-col {}
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.section-h2 {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+  margin-top: 12px;
+}
+
+/* ===== SECTION 3 — PERSONAL ===== */
+.section-personal {
+  padding: 96px 0;
+}
+.personal-inner {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+.personal-accent {
+  width: 3px;
+  min-height: 120px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.personal-content {}
+.personal-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.personal-content p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 62ch;
+}
+.personal-content p + p { margin-top: 16px; }
+
+/* ===== SECTION 4 — UNDERSTOOD ===== */
+.section-04-prose {
+  margin-top: 32px;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 60ch;
+}
+.section-04-prose p + p { margin-top: 16px; }
+
+/* ===== SECTION 5 — STATS ===== */
+.stats-intro {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 56ch;
+  margin-top: 32px;
+  line-height: 1.6;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: left;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.stat-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 24px;
+  width: 30%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 1px;
+}
+.stat-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: clamp(48px, 5.5vw, 72px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.stat-value { font-size: 1em; }
+.stat-unit { font-size: 0.45em; font-weight: 500; color: var(--text-secondary); letter-spacing: 0; }
+.stat-caption {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ===== SECTION 6 — DELIVERABLES ===== */
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+@media (max-width: 768px) {
+  .deliverables-grid { grid-template-columns: 1fr; }
+}
+.deliverable-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  padding: 36px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+  transform-style: preserve-3d;
+}
+.deliverable-card:nth-child(even) {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
+}
+.deliverable-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+.deliverable-card.optional-card {
+  border: 1px solid var(--border);
+  opacity: 0.9;
+}
+.deliverable-card.optional-card:hover {
+  border-color: var(--border-strong);
+  transform: none;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.card-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.card-icon svg { width: 24px; height: 24px; }
+.card-arrow {
+  color: var(--text-muted);
+  font-size: 18px;
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+.deliverable-card:hover .card-arrow { transform: rotate(45deg); }
+.optional-badge {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  padding: 2px 10px;
+}
+.deliverable-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.deliverable-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.deliverable-card ul {
+  list-style: none;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.deliverable-card ul li {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.deliverable-card ul li::before {
+  content: "";
+  position: absolute; left: 0; top: 8px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--primary-border);
+}
+
+/* ===== SECTION 7 — TIMELINE ===== */
+.timeline-section {}
+.timeline-outer {
+  margin-top: 64px;
+  position: relative;
+}
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 768px) {
+  .timeline { grid-template-columns: 1fr; }
+}
+.timeline-connector-wrap {
+  position: absolute;
+  top: 28px;
+  left: 10%;
+  right: 10%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+.timeline-connector-wrap svg {
+  width: 100%; height: 60px;
+}
+.connector-line {
+  stroke-dashoffset: 100;
+  stroke-dasharray: 0 100;
+}
+.phase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+.phase-icon-circle {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.phase-icon-circle svg { width: 24px; height: 24px; }
+.phase:nth-child(2) .phase-icon-circle { opacity: 0.75; }
+.phase:nth-child(3) .phase-icon-circle { opacity: 0.55; }
+.phase-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.phase h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.phase p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== SECTION 8 — PRICING ===== */
+.pricing-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 56px;
+}
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 56px 48px;
+  width: 100%;
+  max-width: 720px;
+}
+.pricing-card.glow-card::before {
+  background: linear-gradient(90deg,
+    transparent 0%, transparent 30%,
+    var(--primary) 50%, transparent 70%, transparent 100%);
+  background-size: 200% 100%;
+  animation: glowTrace 6s ease-in-out infinite;
+}
+@media (max-width: 768px) {
+  .pricing-card { padding: 36px 24px; }
+}
+.pricing-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 32px;
+}
+.pricing-positions {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.pricing-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+}
+.pricing-row:first-child { border-top: none; }
+.pricing-row-left {}
+.pricing-row-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.pricing-row-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 42ch;
+}
+.pricing-row-price {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-align: right;
+}
+.pricing-row-price small {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.pricing-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+.pricing-total-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--border-strong);
+  margin-top: 8px;
+}
+.pricing-total-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.pricing-total-amount {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.pricing-total-amount small {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.pricing-setup-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 16px 0 24px;
+}
+.pricing-setup-label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.pricing-setup-amount {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Optional block */
+.pricing-optional-divider {
+  margin: 32px 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.pricing-optional-divider::before, .pricing-optional-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.pricing-optional-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.pricing-optional-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 16px;
+  font-style: italic;
+}
+
+/* Benefits / Contract */
+.pricing-benefits {
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.benefits-header {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.benefits-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.benefits-list li::before {
+  content: "";
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.contract-block {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.contract-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.contract-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.contract-list li::before {
+  content: "–";
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.pricing-cta-link {
+  display: block;
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.25s;
+}
+.pricing-cta-link:hover { opacity: 0.8; }
+.pricing-cta-link .link-arrow {
+  display: inline-block;
+  transition: transform 0.25s;
+}
+.pricing-cta-link:hover .link-arrow { transform: translateX(4px); }
+.pricing-validity {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.sonderkondition-note {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--primary);
+  padding: 10px 16px;
+  background: var(--primary-dim);
+  border-radius: 8px;
+  border-left: 2px solid var(--primary);
+}
+
+/* ===== SECTION 9 — CTA ===== */
+.cta-section-inner {
+  position: relative;
+  overflow: hidden;
+}
+.cta-bg-strokes {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.08;
+}
+.cta-content {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 80px 48px;
+}
+@media (max-width: 768px) {
+  .cta-content { padding: 56px 24px; }
+}
+.cta-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+.cta-section-inner .section-number-cta {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  font-size: 88px;
+  font-weight: 200;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  opacity: 0.15;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.cta-content h2 {
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.cta-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 50ch;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.contact-options {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.contact-option:hover { color: var(--text); }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  text-align: center;
+}
+.footer-address {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  opacity: 0.7;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== READING INDICATOR ===== */
+.reading-indicator {
+  position: fixed; right: 32px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 12px; z-index: 50;
+}
+.reading-indicator a {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border-strong);
+  transition: background 0.3s, transform 0.3s;
+  position: relative;
+  display: block;
+  text-decoration: none;
+}
+.reading-indicator a:hover { transform: scale(1.4); }
+.reading-indicator a.is-active {
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--primary-dim);
+}
+.reading-indicator a:hover::before {
+  content: attr(data-label);
+  position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+  font-size: 11px; color: var(--text-secondary);
+  white-space: nowrap; padding: 4px 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px;
+}
+@media (max-width: 1100px) { .reading-indicator { display: none; } }
+
+/* Cursor Aura */
+.cursor-aura {
+  position: fixed; top: 0; left: 0;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77,142,255,0.10) 0%, transparent 60%);
+  pointer-events: none; z-index: 2;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .cursor-aura { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-aura" aria-hidden="true"></div>
+
+<!-- Sticky CTA -->
+<div class="sticky-cta" aria-hidden="true">
+  <div class="sticky-cta-inner">
+    <span class="sticky-cta-label">Sales Outsourcing · Network People AG</span>
+    <div class="sticky-cta-buttons">
+      <a href="https://sales-culture.de/david" class="sticky-cta-secondary">Termin</a>
+      <a href="https://angebot.sales-culture.de/network-people-ag" class="sticky-cta-primary">Angebot annehmen</a>
+    </div>
+  </div>
+</div>
+
+<!-- Reading Indicator -->
+<nav class="reading-indicator" aria-hidden="true">
+  <a href="#section-01" data-label="Was wir verstanden haben"></a>
+  <a href="#section-02" data-label="Unser Vorschlag"></a>
+  <a href="#section-03" data-label="Was ihr bekommt"></a>
+  <a href="#section-04" data-label="Wie wir starten"></a>
+  <a href="#section-05" data-label="Investment"></a>
+  <a href="#section-06" data-label="Loslegen"></a>
+</nav>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container">
+    <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height: 48px; width: auto;">
+    <a href="mailto:david@sales-culture.de" class="contact-link">david@sales-culture.de</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-glow hero-glow-el"></div>
+  <div class="hero-spotlight"></div>
+  <div class="container">
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Für Network People AG</span>
+      </div>
+      <p class="hero-meta">Erstellt am 9. Juni 2026 · Gültig bis 9. Juli 2026</p>
+      <h1>
+        <span class="word">Sales</span> <span class="word">Outsourcing</span> <span class="word">für</span> <span class="word">Network</span> <span class="word">People</span> <span class="word">AG</span>
+      </h1>
+      <p class="hero-subline">Recherche, Cold Calls und Follow-ups im Namen von Network People AG, mit 4 Sales-Tagen pro Monat und monatlicher Kündbarkeit.</p>
+      <div class="hero-buttons">
+        <a href="https://angebot.sales-culture.de/network-people-ag" class="btn-primary magnetic">Angebot annehmen</a>
+        <a href="https://sales-culture.de/david" class="btn-secondary">Termin vereinbaren</a>
+      </div>
+    </div>
+    <!-- Right Card -->
+    <div class="hero-card glow-card">
+      <div class="hero-card-eyebrow">Was ihr bekommt</div>
+      <h3>Setup, dann 4 Sales-Tage monatlich im Namen von Network People AG</h3>
+      <ul class="hero-card-bullets">
+        <li>Kick-off-Workshop: Zielkundenprofil, Prozesse, Kanalstrategie</li>
+        <li>Recherche von 500 Kontakten als Start für 1–2 Kampagnen</li>
+        <li>Cold Calls, E-Mail-Outreach und Follow-ups durch festen Sales Consultant</li>
+        <li>Dokumentation aller Aktivitäten im CRM</li>
+        <li>Sales-Tools inklusive: LinkedIn Sales Nav, Lusha, lemlist u. a.</li>
+      </ul>
+      <div class="hero-card-footer">
+        Einmalig Setup · dann monatlich · Konditionen unten
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Persönliche Ansprache -->
+<section class="section-personal reveal-on-scroll">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent"></div>
+      <div class="personal-content">
+        <div class="personal-eyebrow">Hi Torsten &amp; Siamak</div>
+        <p>Ihr wollt Vertrieb aufbauen, ohne sofort eine eigene Sales-Stelle zu schaffen. Genau dafür ist dieses Angebot gemacht: ein fester Sales Consultant, der im Namen von Network People AG recherchiert, anruft und nachfasst.</p>
+        <p>Wie besprochen starten wir mit einem kompakten 2-Stunden-Kick-off statt eines langen Workshop-Formats, damit der Start innerhalb von zwei Wochen möglich ist.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 01 — Was wir verstanden haben -->
+<section id="section-01" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">01</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Ausgangslage</div>
+        <h2 class="section-h2">Was wir verstanden haben</h2>
+        <div class="section-04-prose">
+          <p>Network People AG braucht strukturierten Outbound-Vertrieb: qualifizierte Zielkunden, direkter Erstkontakt per Telefon und E-Mail, lückenlose Dokumentation. Das alles ohne die Overhead-Kosten einer eigenen Stelle.</p>
+          <p>Der Fokus liegt zu Beginn auf den Sales-Prozessen. Deshalb ersetzen wir den vollen Workshop durch einen 2-Stunden-Kick-off mit unmittelbarer Vorbereitung, damit ihr nach zwei Wochen live seid. Ideal Customer Profile, erste 500 Kontakte und die Go-to-Market-Logik für einzelne Dienstleistungen werden gemeinsam definiert.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 02 — Unser Vorschlag / Stats -->
+<section id="section-02" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">02</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Umfang</div>
+        <h2 class="section-h2">Was auf dem Tisch liegt</h2>
+        <p class="stats-intro">Setup einmal, dann vier Sales-Tage pro Monat aktive Akquise. Monatlich kündbar, alle Aktivitäten im CRM nachvollziehbar.</p>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="4">0</span>
+          <span class="stat-unit">Sales-Tage / Mo.</span>
+        </div>
+        <div class="stat-caption">Fester Sales Consultant im Einsatz für Network People AG</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="500">0</span>
+          <span class="stat-unit">Kontakte</span>
+        </div>
+        <div class="stat-caption">Recherchiert als Startbasis für 1–2 Kampagnen</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="4">0</span>
+          <span class="stat-unit">Monate</span>
+        </div>
+        <div class="stat-caption">Laufzeit mit monatlicher Kündigungsoption (30 Tage Frist)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 03 — Was ihr bekommt -->
+<section id="section-03" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">03</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Leistungsübersicht</div>
+        <h2 class="section-h2">Was ihr bekommt</h2>
+      </div>
+    </div>
+
+    <div class="deliverables-grid" style="margin-top: 56px;">
+
+      <!-- Card 1: Setup -->
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Setup &amp; Initialisierung</h3>
+        <p>2-Stunden-Kick-off (digital oder vor Ort): Zielkundenprofil, Sales-Prozesse, Kanalstrategie und Go-to-Market-Logik werden gemeinsam definiert und im Miro-Board festgehalten.</p>
+        <ul>
+          <li>Analyse Angebot, Kundenbasis und Prozesse</li>
+          <li>Ideal Customer Profile + Recherche von 500 Kontakten</li>
+          <li>AI-Anreicherung und CRM-Implementierung, wenn möglich</li>
+          <li>Kanalbestimmung: LinkedIn, automatisierte Vernetzungen, Teamstermine</li>
+          <li>Ergebnissicherung im Miro-Board</li>
+        </ul>
+      </div>
+
+      <!-- Card 2: Sales Outsourcing -->
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Outbound-Akquise</h3>
+        <p>Der Sales Consultant übernimmt 4 Tage pro Monat die direkte Ansprache der definierten Zielkunden per Telefon und E-Mail, mit eigener E-Mail-Adresse und Signatur im Namen von Network People AG.</p>
+        <ul>
+          <li>Recherche und Qualifizierung der Zielkunden</li>
+          <li>Cold Calls im Namen von Network People AG</li>
+          <li>E-Mail-Outreach und strukturierte Follow-up-Calls</li>
+          <li>Vollständige Dokumentation im CRM</li>
+          <li>Sales-Tools inklusive: LinkedIn Sales Navigator, Lusha, lemlist, northdata, clay, Theirstack, Claude Max</li>
+          <li>EU-Telefonflatrate inklusive</li>
+        </ul>
+      </div>
+
+      <!-- Card 3 Optional: TERMINator -->
+      <div class="deliverable-card optional-card reveal-on-scroll" style="grid-column: 1 / -1;">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <span class="optional-badge">Optional</span>
+        </div>
+        <h3>TERMINator Starter Lizenz</h3>
+        <p>350 Termineinladungen pro Monat, inkl. individueller Textvorlagen, Zu-/Absage-Tracking und E-Mail Support. Je weitere 100 Termineinladungen/Monat: 97 €.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 04 — Wie wir starten -->
+<section id="section-04" class="timeline-section reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">04</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Ablauf</div>
+        <h2 class="section-h2">Wie wir starten</h2>
+      </div>
+    </div>
+
+    <div class="timeline-outer" style="margin-top: 64px;">
+      <div class="timeline-connector-wrap" aria-hidden="true">
+        <svg viewBox="0 0 1000 60" preserveAspectRatio="none">
+          <line x1="80" y1="28" x2="920" y2="28"
+                stroke="rgba(77,142,255,0.25)" stroke-width="1" stroke-dasharray="6 8"
+                pathLength="100" class="connector-line"/>
+        </svg>
+      </div>
+      <div class="timeline">
+        <div class="phase reveal-on-scroll">
+          <div class="phase-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <div class="phase-eyebrow">Phase I</div>
+          <h3>Auftragseingang</h3>
+          <p>Ihr gebt die Freigabe, wir koordinieren Kick-off-Termin und stellen die nötige Vertriebsinfrastruktur bereit (E-Mail-Adresse, CRM-Zugang, Materialien).</p>
+        </div>
+        <div class="phase reveal-on-scroll">
+          <div class="phase-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+          </div>
+          <div class="phase-eyebrow">Phase II</div>
+          <h3>2-Stunden-Kick-off</h3>
+          <p>Gemeinsamer Kick-off (digital oder vor Ort): Zielkundenprofil, Kanalwahl, erste Kampagnen-Logik. Start des Aufbaus möglich innerhalb von zwei Wochen nach Auftragseingang.</p>
+        </div>
+        <div class="phase reveal-on-scroll">
+          <div class="phase-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13"/>
+              <path d="M22 2L15 22 11 13 2 9l20-7z"/>
+            </svg>
+          </div>
+          <div class="phase-eyebrow">Phase III</div>
+          <h3>Aktive Akquise ab 24. Juni</h3>
+          <p>Der Sales Consultant startet mit Recherche, Cold Calls und E-Mail-Outreach. Alle Aktivitäten laufen transparent im CRM, monatlicher Leistungsnachweis zur Abrechnung.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 05 — Investment -->
+<section id="section-05" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">05</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Euer Angebot</div>
+        <h2 class="section-h2">Investment</h2>
+      </div>
+    </div>
+
+    <div class="pricing-wrap">
+      <div class="pricing-card glow-card reveal-on-scroll-strong">
+        <div class="pricing-eyebrow">Euer Angebot · Network People AG</div>
+
+        <!-- Einmalig -->
+        <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Einmalig</div>
+        <div class="pricing-positions">
+          <div class="pricing-row">
+            <div class="pricing-row-left">
+              <div class="pricing-row-title">Setup &amp; Initialisierung</div>
+              <div class="pricing-row-desc">2-Stunden-Kick-off, Zielkunden-Definition, 500 Kontakte recherchiert, CRM-Implementierung, Miro-Dokumentation</div>
+            </div>
+            <div class="pricing-row-price">2.000 €<br><small style="font-size: 12px; color: var(--primary);">inkl. 50 % Projektstart-Rabatt</small></div>
+          </div>
+        </div>
+        <div class="pricing-setup-row">
+          <span class="pricing-setup-label">Jetzt fällig (bei Auftragseingang)</span>
+          <span class="pricing-setup-amount">2.000 €</span>
+        </div>
+
+        <div class="pricing-divider" style="margin: 4px 0 16px;"></div>
+
+        <!-- Monatlich -->
+        <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Monatlich ab 24. Juni 2026</div>
+        <div class="pricing-positions">
+          <div class="pricing-row" style="border-top: none;">
+            <div class="pricing-row-left">
+              <div class="pricing-row-title">Sales-Outsourcing</div>
+              <div class="pricing-row-desc">4 Sales-Tage / Monat, fester Consultant, inkl. Sales-Tools und EU-Telefonflatrate, zzgl. 10 % Umsatzbeteiligung auf vermittelte Deals</div>
+            </div>
+            <div class="pricing-row-price">3.000 €<small> / Mo.</small><br><small style="font-size: 12px; color: var(--primary);">inkl. 800 € Rabatt für 4 Monate</small></div>
+          </div>
+        </div>
+        <div class="pricing-total-row">
+          <span class="pricing-total-label">Monatliches Investment</span>
+          <div>
+            <div class="pricing-total-amount">3.000 €<small> / Mo.</small></div>
+            <div style="font-size: 12px; color: var(--text-muted); text-align: right; margin-top: 4px;">für 4 Monate · monatlich kündbar</div>
+          </div>
+        </div>
+
+        <div class="sonderkondition-note">
+          Sonderkondition: Monatliche Konditionen werden mit dem Jahresrabatt gewährt.
+        </div>
+
+        <!-- Optional -->
+        <div class="pricing-optional-divider">
+          <div class="pricing-optional-label">Optional buchbar</div>
+        </div>
+        <div class="pricing-positions">
+          <div class="pricing-row" style="border-top: none;">
+            <div class="pricing-row-left">
+              <div class="pricing-row-title">TERMINator Starter Lizenz</div>
+              <div class="pricing-row-desc">350 Termineinladungen / Mo., Textvorlagen, Zu-/Absage-Tracking, E-Mail Support. Je weitere 100 Einladungen: 97 €/Mo.</div>
+            </div>
+            <div class="pricing-row-price">199 €<small> / Mo.</small><br><small style="font-size: 12px; color: var(--text-muted);">inkl. 100 € Rabatt für 4 Monate</small></div>
+          </div>
+        </div>
+        <div class="pricing-optional-note">Nicht im monatlichen Investment enthalten.</div>
+
+        <!-- Benefits -->
+        <div class="pricing-benefits">
+          <div class="benefits-header">Was ihr davon habt</div>
+          <ul class="benefits-list">
+            <li>Monatlich kündbar mit 30 Tagen Frist</li>
+            <li>Alle Sales-Tools und EU-Telefonflatrate ohne Aufpreis inklusive</li>
+            <li>Start innerhalb von zwei Wochen nach Auftragseingang</li>
+          </ul>
+        </div>
+
+        <!-- Contract -->
+        <div class="contract-block">
+          <ul class="contract-list">
+            <li>Setup sofort bei Auftragseingang fällig, ohne Abzug</li>
+            <li>Monatliche Abrechnung auf Basis eines Leistungsnachweises ab 24. Juni 2026</li>
+            <li>Laufzeit 4 Monate, monatliche Kündigung mit 30 Tagen Frist möglich</li>
+            <li>10 % Umsatzbeteiligung auf vermittelte Deals, gültig 24 Monate ab Erstkontakt</li>
+            <li>Provision fällig mit Zahlungseingang beim Auftraggeber, spätestens 30 Tage nach Rechnungsstellung an den Endkunden</li>
+          </ul>
+        </div>
+
+        <a href="https://angebot.sales-culture.de/network-people-ag" class="pricing-cta-link">
+          Die vollständigen Konditionen findet ihr im Angebot <span class="link-arrow">→</span>
+        </a>
+
+        <div class="pricing-validity">Angebot gültig bis: 9. Juli 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 06 — CTA -->
+<section id="section-06">
+  <div class="container">
+    <div class="cta-section-inner glow-card reveal-on-scroll-strong" style="background: var(--surface); border: 1px solid var(--border-strong); border-radius: 24px;">
+      <span class="section-number-cta" aria-hidden="true">06</span>
+      <svg class="cta-bg-strokes" viewBox="0 0 800 400" fill="none" aria-hidden="true">
+        <circle cx="650" cy="80" r="200" stroke="currentColor" stroke-width="1" stroke-dasharray="8 12"/>
+        <circle cx="150" cy="320" r="140" stroke="currentColor" stroke-width="1" stroke-dasharray="4 8"/>
+        <line x1="0" y1="200" x2="800" y2="200" stroke="currentColor" stroke-width="0.5" stroke-dasharray="6 10"/>
+      </svg>
+      <div class="cta-content">
+        <div class="cta-eyebrow">Bereit loszulegen?</div>
+        <h2>Wir legen los, sobald ihr grünes Licht gebt</h2>
+        <p class="cta-subline">Klickt auf "Angebot annehmen" und wir koordinieren den Rest.</p>
+        <div class="cta-buttons">
+          <a href="https://angebot.sales-culture.de/network-people-ag" class="btn-primary magnetic">Angebot annehmen</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin buchen</a>
+        </div>
+        <div class="contact-options">
+          <a href="mailto:david@sales-culture.de" class="contact-option">✉️ david@sales-culture.de</a>
+          <a href="tel:+4991147780103" class="contact-option">📞 +49 911 477 80 103</a>
+          <a href="https://sales-culture.de/david" class="contact-option">📅 Kalender buchen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-address">
+      Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050
+    </div>
+    <p class="footer-disclaimer">Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.</p>
+  </div>
+</footer>
+
+<script>
+// ── Scroll-Progress Bar ──────────────────────────────────────────────
+const scrollBar = document.createElement('div');
+scrollBar.className = 'js-scroll-progress';
+document.body.appendChild(scrollBar);
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+  scrollBar.style.transform = 'scaleX(' + pct + ')';
+}, { passive: true });
+
+// ── IntersectionObserver Fallback ────────────────────────────────────
+if (!CSS.supports('animation-timeline', 'view()')) {
+  document.documentElement.classList.add('js-scroll-fallback');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        // Draw connector if present
+        const line = e.target.querySelector('.connector-line');
+        if (line) line.classList.add('is-drawn');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+  document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-strong')
+    .forEach((el) => io.observe(el));
+}
+
+// JS fallback for connector-line
+if (!CSS.supports('animation-timeline', 'view()')) {
+  const connectorIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const line = document.querySelector('.connector-line');
+        if (line) {
+          line.style.animation = 'drawConnector 1.2s ease-out both';
+        }
+        connectorIO.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  const timelineEl = document.querySelector('.timeline-outer');
+  if (timelineEl) connectorIO.observe(timelineEl);
+}
+
+// ── Mouse Spotlight in Hero ──────────────────────────────────────────
+const heroEl = document.querySelector('.hero');
+const spotEl = document.querySelector('.hero-spotlight');
+if (heroEl && spotEl) {
+  heroEl.addEventListener('pointermove', (e) => {
+    const rect = heroEl.getBoundingClientRect();
+    spotEl.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+    spotEl.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+  });
+}
+
+// ── Count-Up for Stat Cards ──────────────────────────────────────────
+const counters = document.querySelectorAll('[data-count-to]');
+const counterIO = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseFloat(el.dataset.countTo);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    const animate = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const value = target % 1 === 0
+        ? Math.round(target * eased)
+        : (target * eased).toFixed(1);
+      el.textContent = value + suffix;
+      if (p < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+    counterIO.unobserve(el);
+  });
+}, { threshold: 0.4 });
+counters.forEach((c) => counterIO.observe(c));
+
+// ── 3D Card Tilt ─────────────────────────────────────────────────────
+document.querySelectorAll('.deliverable-card').forEach((card) => {
+  card.addEventListener('pointermove', (e) => {
+    if (window.matchMedia('(hover: none)').matches) return;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = 'perspective(900px) rotateX(' + (y * -4) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+  });
+  card.addEventListener('pointerleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ── Magnetic Buttons ─────────────────────────────────────────────────
+document.querySelectorAll('.magnetic').forEach((btn) => {
+  btn.addEventListener('pointermove', (e) => {
+    if (window.matchMedia('(hover: none)').matches) return;
+    const rect = btn.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+    const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+    btn.style.transform = 'translate(' + (x * 8) + 'px, ' + (y * 6) + 'px) scale(1.02)';
+  });
+  btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+});
+
+// ── Sticky CTA Bar ───────────────────────────────────────────────────
+const stickyCta = document.querySelector('.sticky-cta');
+const heroDomEl = document.querySelector('.hero');
+const pricingDomEl = document.querySelector('#section-05');
+if (stickyCta && heroDomEl) {
+  const onScroll = () => {
+    const showFromY = heroDomEl.offsetTop + heroDomEl.offsetHeight - 80;
+    const hideAfterY = pricingDomEl ? (pricingDomEl.offsetTop + pricingDomEl.offsetHeight) : Infinity;
+    const y = window.scrollY;
+    stickyCta.classList.toggle('is-visible', y > showFromY && y < hideAfterY);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+// ── Reading Indicator ────────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id^="section-"]');
+const navLinks = document.querySelectorAll('.reading-indicator a');
+const sectionIO = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach((l) => {
+        l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach((s) => sectionIO.observe(s));
+
+// ── Cursor Aura ───────────────────────────────────────────────────────
+const aura = document.querySelector('.cursor-aura');
+if (aura && window.matchMedia('(hover: hover)').matches) {
+  let tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+  let cx = tx, cy = ty;
+  window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
+  const loop = () => {
+    cx += (tx - cx) * 0.18;
+    cy += (ty - cy) * 0.18;
+    aura.style.transform = 'translate(' + cx + 'px, ' + cy + 'px) translate(-50%, -50%)';
+    requestAnimationFrame(loop);
+  };
+  loop();
+}
+</script>
+</body>
+</html>
