@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Outsourcing für Network People AG</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245,245,247,0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77,142,255,0.12);
+  --primary-border: rgba(77,142,255,0.25);
+  --accent: #4d8eff;
+  --border: rgba(245,245,247,0.08);
+  --border-strong: rgba(245,245,247,0.16);
+  --glow-line: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 67% 32%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 28% 71%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 89% 84%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 45% 50%, var(--primary-dim) 0, transparent 2px);
+  animation: gridNodes 8s ease-in-out infinite;
+}
+
+@keyframes gridNodes {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+
+body::before {
+  content: "";
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center; transform: scaleX(0);
+  z-index: 999; pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  body::before {
+    animation: scrollProgress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes scrollProgress { to { transform: scaleX(1); } }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+}
+
+/* Background grid */
+.bg-grid {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes drawLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes slowFloat {
+  0%, 100% { transform: translate(0,0); }
+  33% { transform: translate(30px,-20px); }
+  66% { transform: translate(-20px,20px); }
+}
+@keyframes glowPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+@keyframes glowTrace {
+  0% { background-position: -100% 0; opacity: 0.3; }
+  50% { background-position: 100% 0; opacity: 0.9; }
+  100% { background-position: 200% 0; opacity: 0.3; }
+}
+@keyframes wordReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes numberPulse {
+  0% { transform: scale(0.85) rotate(-2deg); opacity: 0.4; }
+  40% { transform: scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1.05) rotate(0deg); opacity: 1; }
+}
+
+/* Scroll-driven animations */
+.reveal-on-scroll, .reveal-on-scroll-strong { opacity: 1; transform: none; }
+
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation: revealOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .reveal-on-scroll-strong {
+    animation: revealOnScrollStrong linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+  .hero-glow {
+    animation: heroGlowParallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+  .section-number {
+    animation: numberPulse linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 80%;
+  }
+}
+
+@keyframes revealOnScroll {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealOnScrollStrong {
+  from { opacity: 0; transform: translateY(80px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes heroGlowParallax {
+  to { transform: translateY(40vh) scale(1.4); opacity: 0; }
+}
+
+/* JS fallback */
+.js-scroll-fallback .reveal-on-scroll {
+  opacity: 0; transform: translateY(60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+.js-scroll-fallback .reveal-on-scroll-strong {
+  opacity: 0; transform: translateY(80px) scale(0.96);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll-strong.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+.js-scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center; transform: scaleX(0);
+  z-index: 999; pointer-events: none;
+}
+
+/* HEADER */
+.site-header {
+  position: relative; z-index: 10;
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+}
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-contact {
+  font-size: 13px; color: var(--text-muted); text-decoration: none;
+  transition: color 0.25s;
+}
+.header-contact:hover { color: var(--text-secondary); }
+
+/* STICKY CTA */
+.sticky-cta {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  z-index: 90;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+.sticky-cta-inner {
+  max-width: 1080px; margin: 0 auto; padding: 14px 48px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.sticky-cta-label { font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em; }
+.sticky-cta-buttons { display: flex; gap: 12px; }
+.sticky-cta-primary {
+  background: var(--primary); color: #fff;
+  padding: 10px 20px; border-radius: 8px;
+  text-decoration: none; font-size: 13px; font-weight: 600;
+  transition: filter 0.25s;
+}
+.sticky-cta-primary:hover { filter: brightness(1.1); }
+.sticky-cta-secondary {
+  color: var(--text-secondary);
+  padding: 10px 18px; border-radius: 8px;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+  border: 1px solid var(--border-strong);
+  transition: border-color 0.25s, color 0.25s;
+}
+.sticky-cta-secondary:hover { border-color: var(--primary); color: var(--text); }
+@media (max-width: 640px) { .sticky-cta-label { display: none; } }
+
+/* HERO */
+.hero {
+  position: relative;
+  padding: 96px 0 128px;
+  overflow: hidden;
+}
+.hero-spotlight {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(600px circle at var(--mx,50%) var(--my,30%), rgba(77,142,255,0.10) 0%, transparent 50%);
+  transition: background 0.15s ease-out;
+}
+.hero-glow {
+  position: absolute; top: -20%; right: -10%;
+  width: 60vw; height: 60vw; max-width: 700px; max-height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77,142,255,0.18) 0%, rgba(77,142,255,0.06) 40%, transparent 70%);
+  pointer-events: none; z-index: 0;
+  animation: slowFloat 20s ease-in-out infinite;
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 60fr 40fr; gap: 64px; align-items: center;
+}
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--primary); text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease-out both;
+}
+.eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+.hero-meta {
+  font-size: 13px; color: var(--text-muted);
+  margin-bottom: 8px;
+  animation: fadeInUp 0.8s ease-out 0.05s both;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+}
+.hero h1 .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: wordReveal 0.7s cubic-bezier(0.2,0.8,0.2,1) both;
+}
+.hero h1 .word:nth-child(1) { animation-delay: 0.10s; }
+.hero h1 .word:nth-child(2) { animation-delay: 0.18s; }
+.hero h1 .word:nth-child(3) { animation-delay: 0.26s; }
+.hero h1 .word:nth-child(4) { animation-delay: 0.34s; }
+.hero h1 .word:nth-child(5) { animation-delay: 0.42s; }
+.hero h1 .word:nth-child(6) { animation-delay: 0.50s; }
+
+.hero-subline {
+  font-size: 18px; color: var(--text-secondary); line-height: 1.6;
+  max-width: 52ch;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease-out 0.15s both;
+}
+.hero-ctas {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--primary); color: #fff;
+  padding: 16px 32px; border-radius: 10px;
+  text-decoration: none; font-size: 15px; font-weight: 600;
+  position: relative; overflow: hidden;
+  transition: transform 0.25s, filter 0.25s, box-shadow 0.25s;
+  box-shadow: 0 0 20px var(--primary-dim);
+  animation: glow 3s ease-in-out infinite;
+}
+.btn-primary::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+.btn-primary:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+.btn-secondary {
+  display: inline-block;
+  color: var(--text-secondary);
+  padding: 16px 28px; border-radius: 10px;
+  text-decoration: none; font-size: 15px; font-weight: 500;
+  border: 1px solid var(--border-strong);
+  transition: border-color 0.25s, color 0.25s, transform 0.25s;
+  position: relative; overflow: hidden;
+}
+.btn-secondary::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(77,142,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 4s infinite 1s;
+}
+.btn-secondary:hover { border-color: var(--primary); color: var(--text); transform: scale(1.02); }
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+  50% { box-shadow: 0 0 40px rgba(77,142,255,0.3); }
+}
+
+/* HERO CARD */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  animation: fadeInUp 0.8s 0.4s both, float 6s 1.2s ease-in-out infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.glow-card { position: relative; }
+.glow-card::before {
+  content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+  background: var(--glow-line); opacity: 0.7; pointer-events: none;
+  border-radius: 1px;
+}
+.glow-card::after {
+  content: ""; position: absolute; top: -40px; left: 30%; right: 30%; height: 80px;
+  background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+  opacity: 0.5; pointer-events: none; animation: glowPulse 4s ease-in-out infinite;
+}
+.hero-card-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--primary); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero-card h3 {
+  font-size: 22px; font-weight: 600; line-height: 1.3;
+  margin-bottom: 24px; color: var(--text);
+}
+.hero-card-bullets {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 28px;
+}
+.hero-card-bullets li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 15px; color: var(--text-secondary); line-height: 1.5;
+}
+.hero-card-bullets li::before {
+  content: "";
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--primary); flex-shrink: 0; margin-top: 8px;
+}
+.hero-card-footer {
+  font-size: 12px; color: var(--text-muted);
+  border-top: 1px solid var(--border); padding-top: 16px;
+  letter-spacing: 0.04em;
+}
+
+/* SECTION COMMON */
+section {
+  position: relative; z-index: 2;
+  padding: 128px 0;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) { section { padding: 80px 0; } }
+
+.section-header {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .section-header { grid-template-columns: 1fr; gap: 24px; }
+}
+
+.section-number-col {
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.section-number {
+  font-size: clamp(72px, 9vw, 112px);
+  font-weight: 200;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  display: inline-block;
+  transform-origin: left center;
+  animation: fadeInUp 0.6s both;
+}
+.section-accent-line {
+  width: 3px;
+  height: 60px;
+  background: var(--primary);
+  border-radius: 2px;
+  margin-top: 12px;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+
+.section-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--primary); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-h2 {
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-top: 12px;
+  color: var(--text);
+}
+
+/* SECTION 3 — PERSONAL */
+.personal-section {
+  border-top: 1px solid var(--border);
+  padding: 96px 0;
+}
+.personal-inner {
+  display: flex; gap: 48px; align-items: flex-start;
+}
+.personal-accent {
+  width: 3px; min-height: 100px;
+  background: var(--primary); border-radius: 2px; flex-shrink: 0;
+}
+.personal-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--primary); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.personal-body {
+  font-size: 19px; color: var(--text-secondary);
+  line-height: 1.7; max-width: 65ch;
+}
+.personal-body p + p { margin-top: 16px; }
+
+/* SECTION 4 */
+.section-04-prose {
+  margin-top: 32px;
+  font-size: 18px; color: var(--text-secondary);
+  line-height: 1.7; max-width: 60ch;
+}
+.section-04-prose p + p { margin-top: 16px; }
+
+/* SECTION 5 — STATS */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 64px;
+}
+@media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } }
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: left;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.stat-card::after {
+  content: "";
+  position: absolute; bottom: 0; left: 24px;
+  width: 30%; height: 2px;
+  background: var(--primary); border-radius: 1px;
+}
+.stat-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+
+.stat-number {
+  display: flex; align-items: baseline; gap: 8px;
+  white-space: nowrap;
+  font-size: clamp(48px, 5.5vw, 72px);
+  font-weight: 600; color: var(--primary);
+  line-height: 1; letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.stat-value { font-size: 1em; }
+.stat-unit { font-size: 0.45em; font-weight: 500; color: var(--text-secondary); letter-spacing: 0; }
+.stat-caption { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+/* SECTION 6 — DELIVERABLES */
+.deliverables-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  margin-top: 64px;
+}
+@media (max-width: 768px) { .deliverables-grid { grid-template-columns: 1fr; } }
+
+.deliverable-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  padding: 36px 32px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.deliverable-card:nth-child(even) {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
+}
+.deliverable-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+.deliverable-card.optional {
+  border: 1px solid var(--border);
+  opacity: 0.9;
+}
+.deliverable-card.optional:hover { border-color: var(--primary-border); transform: none; }
+
+.card-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 20px;
+}
+.card-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--primary-dim); border-radius: 10px;
+  color: var(--primary); flex-shrink: 0;
+}
+.card-arrow {
+  color: var(--text-muted);
+  font-size: 18px; line-height: 1;
+  transition: transform 0.25s, color 0.25s;
+}
+.deliverable-card:hover .card-arrow { transform: rotate(45deg); color: var(--primary); }
+
+.optional-badge {
+  font-size: 11px; letter-spacing: 0.08em;
+  color: var(--text-muted); text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px; padding: 2px 10px;
+}
+.deliverable-card h3 {
+  font-size: 18px; font-weight: 600; margin-bottom: 12px;
+  color: var(--text);
+}
+.deliverable-card p {
+  font-size: 15px; color: var(--text-secondary); line-height: 1.6;
+}
+.deliverable-card ul {
+  list-style: none; margin-top: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.deliverable-card ul li {
+  font-size: 14px; color: var(--text-muted);
+  padding-left: 16px; position: relative; line-height: 1.5;
+}
+.deliverable-card ul li::before {
+  content: "";
+  position: absolute; left: 0; top: 7px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--primary);
+}
+
+/* SECTION 7 — TIMELINE */
+.timeline-section { position: relative; }
+.timeline-wrapper {
+  position: relative; margin-top: 64px;
+  overflow: hidden;
+}
+.timeline-svg-wrap {
+  position: absolute; top: 40px; left: 0; right: 0;
+  height: 60px; pointer-events: none; z-index: 0;
+}
+.timeline-connector {
+  width: 100%; height: 60px;
+}
+.connector-line {
+  stroke-dashoffset: 100;
+  stroke-dasharray: 0 100;
+}
+@supports (animation-timeline: view()) {
+  .connector-line {
+    animation: drawConnector linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+}
+@keyframes drawConnector { to { stroke-dasharray: 100 0; } }
+
+.timeline-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  position: relative; z-index: 1;
+}
+@media (max-width: 768px) { .timeline-grid { grid-template-columns: 1fr; } }
+
+.timeline-phase {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 20px;
+}
+.phase-icon-wrap {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary); flex-shrink: 0;
+  position: relative; z-index: 2;
+  transition: border-color 0.3s;
+}
+.phase-icon-wrap.phase-active { border-color: var(--primary); }
+.phase-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--primary); text-transform: uppercase;
+}
+.phase-title {
+  font-size: 17px; font-weight: 600; color: var(--text);
+  margin-bottom: 8px;
+}
+.phase-body { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* SECTION 8 — PRICING */
+.pricing-wrap {
+  max-width: 720px; margin: 64px auto 0;
+}
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px; padding: 56px 48px;
+  position: relative;
+}
+.pricing-card.glow-card::before {
+  background: linear-gradient(90deg, transparent 0%, transparent 30%, var(--primary) 50%, transparent 70%, transparent 100%);
+  background-size: 200% 100%;
+  animation: glowTrace 6s ease-in-out infinite;
+  opacity: 0.7;
+}
+.pricing-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--primary); text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.pricing-group-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  color: var(--text-muted); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.pricing-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 24px;
+}
+.pricing-row:last-of-type { border-bottom: none; }
+.pricing-row-info h3 {
+  font-size: 17px; font-weight: 600; color: var(--text);
+  margin-bottom: 4px;
+}
+.pricing-row-info p {
+  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+}
+.pricing-row-price {
+  font-size: 22px; font-weight: 600; color: var(--text);
+  white-space: nowrap; flex-shrink: 0;
+}
+.pricing-subtotal {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0 0;
+  margin-top: 4px;
+}
+.pricing-subtotal-label {
+  font-size: 14px; color: var(--text-muted);
+}
+.pricing-subtotal-value {
+  font-size: 26px; font-weight: 600; color: var(--primary);
+}
+
+.pricing-divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+.pricing-benefits {
+  margin-top: 32px;
+}
+.benefits-header {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+  color: var(--text-secondary); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.benefits-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 24px;
+}
+.benefits-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.5;
+}
+.benefits-list li::before {
+  content: "";
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--primary); flex-shrink: 0; margin-top: 7px;
+}
+.contract-details {
+  border-top: 1px solid var(--border); padding-top: 16px;
+  margin-top: 8px;
+}
+.contract-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.contract-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 12px; color: var(--text-muted); line-height: 1.5;
+}
+.contract-list li::before {
+  content: "";
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--text-muted); flex-shrink: 0; margin-top: 6px;
+}
+
+.pricing-link-row {
+  margin-top: 32px;
+  font-size: 14px; color: var(--text-muted);
+}
+.pricing-link {
+  color: var(--primary); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: gap 0.25s;
+}
+.pricing-link:hover { gap: 10px; }
+.pricing-validity {
+  margin-top: 24px; font-size: 12px; color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* SECTION 9 — CTA */
+.cta-section-wrap {
+  padding: 128px 0;
+  position: relative; z-index: 2;
+}
+.cta-card {
+  background: var(--surface);
+  border-radius: 24px; padding: 80px 48px;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.cta-decorative {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.cta-deco-svg {
+  position: absolute; width: 600px; height: 600px;
+  top: -200px; right: -200px; opacity: 0.06;
+  animation: rotateBackground 60s linear infinite;
+}
+@keyframes rotateBackground { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.cta-deco-svg-2 {
+  position: absolute; width: 400px; height: 400px;
+  bottom: -150px; left: -100px; opacity: 0.04;
+  animation: rotateBackground 80s linear infinite reverse;
+}
+.cta-inner { position: relative; z-index: 1; }
+.cta-section-num {
+  font-size: 88px; font-weight: 200; color: var(--primary);
+  letter-spacing: -0.04em; line-height: 1;
+  opacity: 0.15; position: absolute; top: -20px; left: 48px;
+}
+.cta-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.16em;
+  color: var(--primary); text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.cta-h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600; letter-spacing: -0.025em;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.cta-subline {
+  font-size: 17px; color: var(--text-secondary);
+  max-width: 50ch; margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.cta-buttons {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.contact-row {
+  display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+}
+.contact-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--text-muted); text-decoration: none;
+  transition: color 0.25s;
+}
+.contact-item:hover { color: var(--text-secondary); }
+
+/* READING INDICATOR */
+.reading-indicator {
+  position: fixed; right: 32px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 12px; z-index: 50;
+}
+.reading-indicator a {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border-strong);
+  transition: background 0.3s, transform 0.3s;
+  position: relative; text-decoration: none;
+}
+.reading-indicator a:hover { transform: scale(1.4); }
+.reading-indicator a.is-active {
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--primary-dim);
+}
+.reading-indicator a:hover::before {
+  content: attr(data-label);
+  position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+  font-size: 11px; color: var(--text-secondary);
+  white-space: nowrap; padding: 4px 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px;
+}
+@media (max-width: 1100px) { .reading-indicator { display: none; } }
+
+/* CURSOR AURA */
+.cursor-aura {
+  position: fixed; top: 0; left: 0;
+  width: 360px; height: 360px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(77,142,255,0.10) 0%, transparent 60%);
+  pointer-events: none; z-index: 2;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) { .cursor-aura { opacity: 1; } }
+
+/* FOOTER */
+.site-footer {
+  position: relative; z-index: 2;
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+}
+.footer-inner {
+  display: flex; flex-direction: column; gap: 12px; align-items: center;
+  text-align: center;
+}
+.footer-legal {
+  font-size: 13px; color: var(--text-muted);
+}
+.footer-disclaimer {
+  font-size: 12px; color: var(--text-muted); opacity: 0.7;
+  max-width: 65ch; text-align: center;
+}
+
+/* SECTION-SPECIFIC STAGGER */
+.stat-card:nth-child(1) { animation-delay: 0.05s; }
+.stat-card:nth-child(2) { animation-delay: 0.12s; }
+.stat-card:nth-child(3) { animation-delay: 0.19s; }
+.deliverable-card:nth-child(1) { animation-delay: 0.05s; }
+.deliverable-card:nth-child(2) { animation-delay: 0.12s; }
+.deliverable-card:nth-child(3) { animation-delay: 0.19s; }
+.deliverable-card:nth-child(4) { animation-delay: 0.26s; }
+.timeline-phase:nth-child(1) { animation-delay: 0.05s; }
+.timeline-phase:nth-child(2) { animation-delay: 0.14s; }
+.timeline-phase:nth-child(3) { animation-delay: 0.23s; }
+</style>
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="cursor-aura" aria-hidden="true"></div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" aria-hidden="true">
+  <div class="sticky-cta-inner">
+    <span class="sticky-cta-label">Sales Outsourcing · Network People AG</span>
+    <div class="sticky-cta-buttons">
+      <a href="https://sales-culture.de/david" class="sticky-cta-secondary">Termin</a>
+      <a href="https://angebot.sales-culture.de/network-people-ag" class="sticky-cta-primary">Angebot annehmen</a>
+    </div>
+  </div>
+</div>
+
+<!-- READING INDICATOR -->
+<nav class="reading-indicator" aria-hidden="true">
+  <a href="#section-01" data-label="Was wir verstanden haben"></a>
+  <a href="#section-02" data-label="Unser Vorschlag"></a>
+  <a href="#section-03" data-label="Was ihr bekommt"></a>
+  <a href="#section-04" data-label="Wie wir starten"></a>
+  <a href="#section-05" data-label="Investment"></a>
+  <a href="#section-06" data-label="Loslegen"></a>
+</nav>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height:48px;width:auto;">
+    <a href="mailto:david@sales-culture.de" class="header-contact">david@sales-culture.de</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-spotlight"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left 60% -->
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-dot"></span>
+          Für Network People AG
+        </div>
+        <p class="hero-meta">Erstellt am 9. Juni 2026</p>
+        <h1>
+          <span class="word">Sales</span> <span class="word">Outsourcing</span> <span class="word">für</span> <span class="word">Network</span> <span class="word">People</span> <span class="word">AG</span>
+        </h1>
+        <p class="hero-subline">Ein fester Sales Consultant übernimmt Recherche, Cold Calls und Follow-ups in eurem Namen, monatlich kündbar ab dem ersten Monat.</p>
+        <div class="hero-ctas">
+          <a href="https://angebot.sales-culture.de/network-people-ag" class="btn-primary magnetic">Angebot annehmen</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin vereinbaren</a>
+        </div>
+      </div>
+
+      <!-- Right 40% — HIGHLIGHT CARD -->
+      <div class="hero-card glow-card">
+        <div class="hero-card-eyebrow">Was ihr bekommt</div>
+        <h3>Setup + 4 Monate aktive Outbound-Akquise</h3>
+        <ul class="hero-card-bullets">
+          <li>Analyse, Kick-Off-Workshop und ICP-Durchsprache</li>
+          <li>Recherche von 500 Kontakten / Firmen als Kampagnen-Start</li>
+          <li>Cold Calls und E-Mail-Outreach im Namen von Network People AG</li>
+          <li>Follow-up-Calls und vollständige CRM-Dokumentation</li>
+          <li>Sales-Tools inklusive (LinkedIn Sales Navigator, Lusha, lemlist u. a.)</li>
+        </ul>
+        <div class="hero-card-footer">Einmalig Setup &nbsp;·&nbsp; 3.000 € / Monat über 4 Monate &nbsp;·&nbsp; Konditionen unten</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — PERSÖNLICHE ANSPRACHE -->
+<section class="personal-section reveal-on-scroll">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent"></div>
+      <div>
+        <div class="personal-eyebrow">Hi Torsten &amp; Siamak</div>
+        <div class="personal-body">
+          <p>Ihr wollt euren Vertrieb aufbauen, ohne direkt eigene Stellen zu schaffen. Genau dafür ist Sales Outsourcing gemacht: ein Consultant, der nach einer kurzen Anlaufphase direkt im Markt für euch aktiv ist.</p>
+          <p>Wir haben im gemeinsamen Gespräch die Schwerpunkte besprochen und das Angebot entsprechend aufgesetzt, mit einem verkürzten Kick-Off-Format, damit ihr schnell starten könnt, und monatlicher Kündbarkeit, damit ihr flexibel bleibt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 01 — WAS WIR VERSTANDEN HABEN -->
+<section id="section-01" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">01</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Ausgangslage</div>
+        <h2 class="section-h2">Was wir verstanden haben</h2>
+        <div class="section-04-prose">
+          <p>Network People AG braucht Outbound-Aktivität und einen strukturierten Sales-Prozess, ohne diesen zunächst intern aufzubauen. Ihr wollt wissen, wie ein Consultant konkret vorgeht, wer angesprochen wird und wie der Fortschritt nachverfolgt werden kann.</p>
+          <p>Das Angebot setzt an zwei Stellen an: Erst legen wir gemeinsam die Grundlagen, Zielkunden, Kanäle und Prozesse. Dann übernimmt der Consultant die Akquise direkt, dokumentiert alles im CRM und ihr habt vollen Überblick.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 — UNSER VORSCHLAG -->
+<section id="section-02" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">02</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Unser Vorschlag</div>
+        <h2 class="section-h2">Zwei Phasen, ein Consultant</h2>
+      </div>
+    </div>
+
+    <div class="stats-grid" style="margin-top:64px;">
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="500">0</span>
+          <span class="stat-unit">Kontakte</span>
+        </div>
+        <div class="stat-caption">Recherche als Kampagnen-Start inkl. ICP-Durchsprache und CRM-Import</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="4">0</span>
+          <span class="stat-unit">Sales-Tage/Mo.</span>
+        </div>
+        <div class="stat-caption">Fester Consultant, 4 Tage im Monat aktiv für Network People AG</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="4">0</span>
+          <span class="stat-unit">Monate</span>
+        </div>
+        <div class="stat-caption">Laufzeit der Outbound-Phase, monatlich kündbar mit 30 Tagen Frist</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — WAS IHR BEKOMMT -->
+<section id="section-03" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">03</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Leistungsumfang</div>
+        <h2 class="section-h2">Was ihr bekommt</h2>
+      </div>
+    </div>
+
+    <div class="deliverables-grid">
+
+      <!-- Card 1 -->
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Setup &amp; Kick-Off</h3>
+        <p>Analyse des Angebots, der Kundenbasis und Prozesse. Im gemeinsamen 2h-Kick-Off werden Sales-Aufgaben, Rollen und Zielkunden definiert. Ergebnisse landen im Miro-Board.</p>
+        <ul>
+          <li>ICP-Durchsprache und erste Kampagnen-Definition</li>
+          <li>Recherche von 500 Kontakten als Kampagnen-Start</li>
+          <li>KI-gestützte Anreicherung und CRM-Import, wenn möglich</li>
+          <li>Sales-Prozessdurchsprache und Kanalbestimmung</li>
+        </ul>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 14a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Outbound-Akquise im Namen von Network People AG</h3>
+        <p>Der Consultant führt Cold Calls und E-Mail-Outreach mit eigener E-Mail-Adresse und Signatur durch. Alle Aktivitäten werden im CRM dokumentiert.</p>
+        <ul>
+          <li>Cold Calls nach Zielkunden-Briefing</li>
+          <li>E-Mail-Outreach und Sequenzen</li>
+          <li>Follow-up-Calls und Kontaktpflege</li>
+          <li>Vollständige Dokumentation im CRM</li>
+        </ul>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Sales-Tools-Stack inklusive</h3>
+        <p>Der Consultant bringt den kompletten Tool-Stack mit, keine zusätzlichen Lizenzkosten für euch.</p>
+        <ul>
+          <li>LinkedIn Sales Navigator</li>
+          <li>Lusha, lemlist, northdata</li>
+          <li>clay, Theirstack, Claude Max</li>
+          <li>EU-Flatrate-Telefonnummer</li>
+        </ul>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <h3>Go-to-Market-Ansätze</h3>
+        <p>Im Kick-Off werden konkrete Strategien für einzelne Dienstleistungen entwickelt, darunter automatisierte LinkedIn-Vernetzung, Anschreiben und automatisierte Terminvereinbarungen.</p>
+        <ul>
+          <li>Automatisierte LinkedIn-Kampagnen</li>
+          <li>Automatisierte Team-Terminbuchungen</li>
+          <li>Kanalbestimmung pro Dienstleistungs-Segment</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 — WIE WIR STARTEN -->
+<section id="section-04" class="timeline-section reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">04</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Ablauf</div>
+        <h2 class="section-h2">Wie wir starten</h2>
+      </div>
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-svg-wrap" aria-hidden="true">
+        <svg class="timeline-connector" viewBox="0 0 1000 60" preserveAspectRatio="none">
+          <line x1="80" y1="28" x2="920" y2="28"
+                stroke="var(--primary-border)" stroke-width="1" stroke-dasharray="6 8"
+                pathLength="100" class="connector-line"/>
+        </svg>
+      </div>
+
+      <div class="timeline-grid">
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-wrap phase-active">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>
+          </div>
+          <div>
+            <div class="phase-eyebrow">Phase I</div>
+            <div class="phase-title">Auftragseingang &amp; Vorbereitung</div>
+            <div class="phase-body">Nach eurer Freigabe startet die Vorbereitung. Setup-Zahlung fällig ab Bestelldatum. Ziel: Start innerhalb von 2 Wochen.</div>
+          </div>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div>
+            <div class="phase-eyebrow">Phase II</div>
+            <div class="phase-title">2h Kick-Off &amp; ICP-Workshop</div>
+            <div class="phase-body">Gemeinsamer digitaler oder vor-Ort-Workshop. ICP-Durchsprache, Kanalbestimmung, Sales-Prozess. Ergebnisse im Miro-Board. Kundenseitig: CRM, E-Mail, Materialien einrichten.</div>
+          </div>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div>
+            <div class="phase-eyebrow">Phase III · ab 24. Juni 2026</div>
+            <div class="phase-title">Aktive Akquise, 4 Monate</div>
+            <div class="phase-body">Der Consultant startet mit Recherche, Cold Calls und E-Mail-Outreach. Monatliche Abrechnung auf Basis des Leistungsnachweises, erstmals ab 24. Juni 2026.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 — INVESTMENT -->
+<section id="section-05" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <div class="section-number">05</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div class="section-content-col">
+        <div class="section-eyebrow">Investment</div>
+        <h2 class="section-h2">Was es kostet</h2>
+      </div>
+    </div>
+
+    <div class="pricing-wrap">
+      <div class="pricing-card glow-card reveal-on-scroll-strong">
+        <div class="pricing-eyebrow">Euer Angebot · Network People AG</div>
+
+        <!-- Einmalig -->
+        <div class="pricing-group-label">Einmalig fällig</div>
+        <div class="pricing-row">
+          <div class="pricing-row-info">
+            <h3>Setup &amp; Initialisierung</h3>
+            <p>2h Kick-Off, ICP-Durchsprache, 500 Kontakt-Recherche, CRM-Setup. Inkl. 50&nbsp;% Rabatt zum Projektstart.</p>
+          </div>
+          <div class="pricing-row-price">2.000 €</div>
+        </div>
+        <div class="pricing-subtotal">
+          <span class="pricing-subtotal-label">Einmalig gesamt</span>
+          <span class="pricing-subtotal-value">2.000 €</span>
+        </div>
+
+        <hr class="pricing-divider">
+
+        <!-- Monatlich -->
+        <div class="pricing-group-label">Monatlich ab 24. Juni 2026</div>
+        <div class="pricing-row">
+          <div class="pricing-row-info">
+            <h3>Sales-Done-4-You · 4 Tage / Monat</h3>
+            <p>Outbound-Akquise, Cold Calls, Follow-ups, CRM-Dokumentation, vollständiger Tool-Stack inklusive. Inkl. 800&nbsp;€ Rabatt pro Monat für 4 Monate.</p>
+          </div>
+          <div class="pricing-row-price">3.000 € <span style="font-size:14px;color:var(--text-muted);font-weight:400;">/ Mo.</span></div>
+        </div>
+        <div class="pricing-subtotal">
+          <span class="pricing-subtotal-label">Monatlich gesamt</span>
+          <span class="pricing-subtotal-value">3.000 € / Mo.</span>
+        </div>
+
+        <hr class="pricing-divider">
+
+        <!-- Benefits -->
+        <div class="pricing-benefits">
+          <div class="benefits-header">Was ihr davon habt</div>
+          <ul class="benefits-list">
+            <li>Kein eigenes Tool-Budget: LinkedIn Sales Navigator, Lusha, lemlist, northdata, clay, Theirstack und Claude Max sind inklusive</li>
+            <li>Monatlich kündbar mit 30 Tagen Frist, keine Mindestbindung über die 4 Monate hinaus</li>
+            <li>Transparente Nachverfolgung aller Aktivitäten und Kontakte im CRM</li>
+          </ul>
+
+          <div class="contract-details">
+            <ul class="contract-list">
+              <li>Setup fällig mit Auftragseingang, sofort ohne Abzug</li>
+              <li>Monatliche Abrechnung auf Basis des Leistungsnachweises, Zahlung beginnt 24. Juni 2026</li>
+              <li>Laufzeit 4 Monate, danach monatlich kündbar mit 30 Tagen Frist</li>
+              <li>Umsatzbeteiligung 10 % auf Nettoumsätze aus durch Sales Culture vermittelten Deals, gültig für 24 Monate ab Erstkontakt</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-link-row">
+          <a href="https://angebot.sales-culture.de/network-people-ag" class="pricing-link">
+            Die vollständigen Konditionen findet ihr im Angebot
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="pricing-validity">Angebot gültig bis: 9. Juli 2026</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 06 — CTA -->
+<section id="section-06" class="cta-section-wrap reveal-on-scroll-strong" style="border-top:1px solid var(--border);padding:128px 0;">
+  <div class="container">
+    <div class="cta-card glow-card">
+      <div class="cta-decorative" aria-hidden="true">
+        <svg class="cta-deco-svg" viewBox="0 0 400 400" fill="none" stroke="rgba(77,142,255,1)">
+          <circle cx="200" cy="200" r="180" stroke-width="0.5"/>
+          <circle cx="200" cy="200" r="140" stroke-width="0.5"/>
+          <circle cx="200" cy="200" r="100" stroke-width="0.5"/>
+          <line x1="20" y1="200" x2="380" y2="200" stroke-width="0.5"/>
+          <line x1="200" y1="20" x2="200" y2="380" stroke-width="0.5"/>
+        </svg>
+        <svg class="cta-deco-svg-2" viewBox="0 0 300 300" fill="none" stroke="rgba(77,142,255,1)">
+          <rect x="20" y="20" width="260" height="260" rx="40" stroke-width="0.5"/>
+          <rect x="60" y="60" width="180" height="180" rx="20" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="cta-inner">
+        <div class="cta-eyebrow">Bereit loszulegen?</div>
+        <h2 class="cta-h2">Wir legen los, sobald ihr grünes Licht gebt</h2>
+        <p class="cta-subline">Klickt auf "Angebot annehmen" und wir koordinieren den Rest. Oder bucht direkt einen Termin, wenn ihr noch Fragen habt.</p>
+        <div class="cta-buttons">
+          <a href="https://angebot.sales-culture.de/network-people-ag" class="btn-primary magnetic">Angebot annehmen</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin buchen</a>
+        </div>
+        <div class="contact-row">
+          <a href="mailto:david@sales-culture.de" class="contact-item">✉️ david@sales-culture.de</a>
+          <a href="tel:+4991147780103" class="contact-item">📞 +49 911 477 80 103</a>
+          <a href="https://sales-culture.de/david" class="contact-item">📅 Kalender</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-legal">Sales Culture GmbH &nbsp;·&nbsp; Theodorstraße 3 &nbsp;·&nbsp; 90489 Nürnberg &nbsp;·&nbsp; Geschäftsführer Marcel Theunissen &nbsp;·&nbsp; HRB 42050</p>
+      <p class="footer-disclaimer">Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+
+  // ── Scroll-Fallback für Safari/Firefox ──────────────────────────────────
+  if (!CSS.supports('animation-timeline', 'view()')) {
+    document.documentElement.classList.add('js-scroll-fallback');
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-strong')
+      .forEach((el) => io.observe(el));
+
+    // Timeline connector fallback
+    const connectorLine = document.querySelector('.connector-line');
+    if (connectorLine) {
+      const timelineIO = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-drawn');
+            timelineIO.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      timelineIO.observe(connectorLine);
+    }
+
+    const bar = document.createElement('div');
+    bar.className = 'js-scroll-progress';
+    document.body.appendChild(bar);
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      bar.style.transform = 'scaleX(' + pct + ')';
+    }, { passive: true });
+  }
+
+  // ── Mouse Spotlight im Hero ──────────────────────────────────────────────
+  const hero = document.querySelector('.hero');
+  const spot = document.querySelector('.hero-spotlight');
+  if (hero && spot) {
+    hero.addEventListener('pointermove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      spot.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+      spot.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+    });
+  }
+
+  // ── Number Count-Up ──────────────────────────────────────────────────────
+  const counters = document.querySelectorAll('[data-count-to]');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseFloat(el.dataset.countTo);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1200;
+      const start = performance.now();
+      const animate = (now) => {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const value = target % 1 === 0
+          ? Math.round(target * eased)
+          : (target * eased).toFixed(1);
+        el.textContent = value + suffix;
+        if (p < 1) requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  counters.forEach((c) => counterIO.observe(c));
+
+  // ── 3D Card Tilt ─────────────────────────────────────────────────────────
+  const tiltCards = document.querySelectorAll('.deliverable-card');
+  tiltCards.forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      if (window.matchMedia('(hover: none)').matches) return;
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(900px) rotateX(' + (y * -4) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ── Magnetic Buttons ─────────────────────────────────────────────────────
+  document.querySelectorAll('.magnetic').forEach((btn) => {
+    btn.addEventListener('pointermove', (e) => {
+      if (window.matchMedia('(hover: none)').matches) return;
+      const rect = btn.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+      const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+      btn.style.transform = 'translate(' + (x * 8) + 'px, ' + (y * 6) + 'px) scale(1.02)';
+    });
+    btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+  });
+
+  // ── Sticky CTA Bar ───────────────────────────────────────────────────────
+  const stickyCta = document.querySelector('.sticky-cta');
+  const heroEl = document.querySelector('.hero');
+  const pricingEl = document.querySelector('#section-05');
+  if (stickyCta && heroEl) {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const showFromY = heroEl.offsetTop + heroEl.offsetHeight - 80;
+      const hideAfterY = pricingEl ? (pricingEl.offsetTop + pricingEl.offsetHeight) : Infinity;
+      stickyCta.classList.toggle('is-visible', y > showFromY && y < hideAfterY);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // ── Reading Position Indicator ───────────────────────────────────────────
+  const sections = document.querySelectorAll('section[id^="section-"]');
+  const links = document.querySelectorAll('.reading-indicator a');
+  if (sections.length && links.length) {
+    const sectionIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          links.forEach((l) => {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach((s) => sectionIO.observe(s));
+  }
+
+  // ── Cursor Aura ──────────────────────────────────────────────────────────
+  const aura = document.querySelector('.cursor-aura');
+  if (aura && window.matchMedia('(hover: hover)').matches) {
+    let tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+    let cx = tx, cy = ty;
+    window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
+    const loop = () => {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      aura.style.transform = 'translate(' + cx + 'px, ' + cy + 'px) translate(-50%, -50%)';
+      requestAnimationFrame(loop);
+    };
+    loop();
+  }
+
+  // ── JS-Fallback connector-line draw ─────────────────────────────────────
+  if (document.documentElement.classList.contains('js-scroll-fallback')) {
+    const style = document.createElement('style');
+    style.textContent = '.js-scroll-fallback .connector-line.is-drawn { animation: drawConnector 1.2s ease-out both; }';
+    document.head.appendChild(style);
+  }
+
+})();
+</script>
+</body>
+</html>
