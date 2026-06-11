@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Outsourcing & LinkedIn Enablement für ceterion AG</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245,245,247,0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77,142,255,0.12);
+  --primary-border: rgba(77,142,255,0.25);
+  --accent: #4d8eff;
+  --border: rgba(245,245,247,0.08);
+  --border-strong: rgba(245,245,247,0.16);
+  --glow-line: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 67% 32%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 28% 71%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 89% 84%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 45% 50%, var(--primary-dim) 0, transparent 2px);
+  animation: gridNodes 8s ease-in-out infinite;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 999;
+}
+
+@supports (animation-timeline: view()) {
+  body::before {
+    animation: scrollProgress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes scrollProgress { to { transform: scaleX(1); } }
+@keyframes gridNodes { 0%,100% { opacity: 0.35; } 50% { opacity: 0.85; } }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+}
+
+/* ===================== HEADER ===================== */
+.site-header {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header a.header-email {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+.site-header a.header-email:hover { color: var(--text-secondary); }
+
+/* ===================== STICKY CTA ===================== */
+.sticky-cta {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  z-index: 90;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+}
+
+.sticky-cta.is-visible { transform: translateY(0); }
+
+.sticky-cta-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sticky-cta-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.sticky-cta-buttons { display: flex; gap: 12px; }
+
+.sticky-cta-primary {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.sticky-cta-primary:hover { opacity: 0.88; }
+
+.sticky-cta-secondary {
+  color: var(--text-secondary);
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-strong);
+  transition: border-color 0.2s;
+}
+
+.sticky-cta-secondary:hover { border-color: var(--primary); }
+
+@media (max-width: 640px) { .sticky-cta-label { display: none; } }
+
+/* ===================== READING INDICATOR ===================== */
+.reading-indicator {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 50;
+}
+
+.reading-indicator a {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transition: background 0.3s, transform 0.3s;
+  position: relative;
+  display: block;
+}
+
+.reading-indicator a:hover { transform: scale(1.4); }
+
+.reading-indicator a.is-active {
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--primary-dim);
+}
+
+.reading-indicator a:hover::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding: 4px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+@media (max-width: 1100px) { .reading-indicator { display: none; } }
+
+/* ===================== CURSOR AURA ===================== */
+.cursor-aura {
+  position: fixed;
+  top: 0; left: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77,142,255,0.10) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 2;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) { .cursor-aura { opacity: 1; } }
+
+/* ===================== HERO ===================== */
+.hero {
+  padding: 96px 0 128px;
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(to bottom, transparent 60%, var(--bg) 100%),
+    radial-gradient(ellipse 80% 60% at 80% 20%, rgba(77,142,255,0.08) 0%, transparent 60%);
+}
+
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(77,142,255,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: slowFloat 20s ease-in-out infinite;
+}
+
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%), rgba(77,142,255,0.10) 0%, transparent 50%);
+  transition: background 0.15s ease-out;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 64px;
+  align-items: center;
+}
+
+.hero-left {}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.eyebrow-text {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.hero-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+  animation: fadeInUp 0.8s both;
+}
+
+.hero h1 .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: wordReveal 0.7s cubic-bezier(0.2,0.8,0.2,1) both;
+}
+
+.hero h1 .word:nth-child(1) { animation-delay: 0.10s; }
+.hero h1 .word:nth-child(2) { animation-delay: 0.18s; }
+.hero h1 .word:nth-child(3) { animation-delay: 0.26s; }
+.hero h1 .word:nth-child(4) { animation-delay: 0.34s; }
+.hero h1 .word:nth-child(5) { animation-delay: 0.42s; }
+.hero h1 .word:nth-child(6) { animation-delay: 0.50s; }
+.hero h1 .word:nth-child(7) { animation-delay: 0.58s; }
+.hero h1 .word:nth-child(8) { animation-delay: 0.66s; }
+
+.hero-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 52ch;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s 0.15s both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  padding: 16px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  box-shadow: 0 0 20px var(--primary-dim);
+  position: relative;
+  overflow: hidden;
+  animation: glow 3s ease-in-out infinite;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 16px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--border-strong);
+  transition: border-color 0.2s, color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(77,142,255,0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+/* ===================== HERO CARD ===================== */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  animation: fadeInUp 0.8s 0.4s both, float 6s 1.2s ease-in-out infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.glow-card { position: relative; }
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1px;
+  background: var(--glow-line);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.glow-card::after {
+  content: "";
+  position: absolute;
+  top: -40px; left: 30%; right: 30%;
+  height: 80px;
+  background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.hero-card-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.hero-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+.hero-card-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-card-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.hero-card-bullets li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.hero-card-footer {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 900px) {
+  .hero .container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .hero-card { animation: fadeInUp 0.8s 0.4s both; }
+}
+
+/* ===================== SECTIONS GENERAL ===================== */
+section {
+  padding: 128px 0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) { section { padding: 80px 0; } }
+
+.section-header {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0;
+  align-items: start;
+  margin-bottom: 72px;
+}
+
+.section-number-col {
+  padding-top: 0;
+}
+
+.section-number {
+  display: inline-block;
+  font-size: clamp(88px, 10vw, 112px);
+  font-weight: 200;
+  line-height: 1;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  margin: 0;
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  .section-number {
+    animation: numberPulse linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 80%;
+  }
+}
+
+.section-number-line {
+  display: block;
+  width: 3px;
+  height: 48px;
+  background: var(--primary);
+  margin-top: 8px;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+
+.section-header-content {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.section-header-content h2 {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-top: 12px;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .section-number { font-size: clamp(64px, 14vw, 72px); }
+}
+
+/* ===================== PERSONAL SECTION ===================== */
+.section-personal {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+
+.personal-inner {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  max-width: 680px;
+}
+
+.personal-accent {
+  width: 3px;
+  min-height: 100px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.personal-content {}
+
+.personal-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.personal-content p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.personal-content p + p { margin-top: 16px; }
+
+/* ===================== SECTION 01 — WAS WIR VERSTANDEN HABEN ===================== */
+#section-01 { border-top: 1px solid var(--border); }
+
+.section-04-prose {
+  margin-top: 32px;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 60ch;
+}
+
+.section-04-prose p + p { margin-top: 16px; }
+
+/* ===================== SECTION 02 — UNSER VORSCHLAG ===================== */
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: left;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 30%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 0 2px 0 0;
+}
+
+.stat-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: clamp(48px, 5.5vw, 72px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.stat-value { font-size: 1em; }
+
+.stat-unit {
+  font-size: 0.45em;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.stat-caption {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 24ch;
+}
+
+.proposal-intro {
+  max-width: 65ch;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .stat-cards-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ===================== SECTION 03 — WAS IHR BEKOMMT ===================== */
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.deliverable-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 32px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+
+.deliverable-card:nth-child(even) {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
+}
+
+.deliverable-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+.deliverable-card-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.deliverable-card-arrow {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: transform 0.3s, color 0.3s;
+  display: inline-block;
+}
+
+.deliverable-card:hover .deliverable-card-arrow {
+  transform: rotate(45deg);
+  color: var(--primary);
+}
+
+.deliverable-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.deliverable-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.deliverable-card ul {
+  list-style: none;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.deliverable-card ul li {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.deliverable-card ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.6;
+}
+
+/* Optional card */
+.deliverable-card.optional-card {
+  border: 1px solid var(--border);
+  opacity: 0.85;
+}
+
+.optional-badge {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .deliverables-grid { grid-template-columns: 1fr; }
+}
+
+/* ===================== SECTION 04 — WIE WIR STARTEN ===================== */
+.timeline-wrapper {
+  position: relative;
+  margin-top: 56px;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  padding-top: 70px;
+}
+
+.timeline-connector {
+  position: absolute;
+  top: 24px;
+  left: 0; right: 0;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.connector-line {
+  stroke-dashoffset: 100;
+  stroke-dasharray: 0 100;
+}
+
+@supports (animation-timeline: view()) {
+  .connector-line {
+    animation: drawConnector linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+}
+
+@keyframes drawConnector { to { stroke-dasharray: 100 0; } }
+
+.timeline-phase {
+  position: relative;
+  z-index: 1;
+}
+
+.phase-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--primary);
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.phase-icon-circle svg {
+  width: 22px;
+  height: 22px;
+}
+
+.timeline-phase:hover .phase-icon-circle {
+  border-color: var(--primary);
+  background: var(--primary-dim);
+}
+
+.phase-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.timeline-phase h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.timeline-phase p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .timeline { grid-template-columns: 1fr; padding-top: 0; }
+  .timeline-connector { display: none; }
+}
+
+/* ===================== SECTION 05 — INVESTMENT ===================== */
+.pricing-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 56px 48px;
+}
+
+.pricing-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 32px;
+}
+
+.pricing-position {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px 24px;
+  align-items: start;
+}
+
+.pricing-position-info {}
+
+.pricing-position-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.pricing-position-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.pricing-position-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.pricing-position-price {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.pricing-position-price small {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  display: block;
+}
+
+.pricing-total-row {
+  padding: 32px 0 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-total-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.pricing-total-amount {
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pricing-total-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-align: right;
+}
+
+.pricing-monthly-row {
+  padding: 20px 0 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+
+.pricing-monthly-label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.pricing-monthly-amount {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.pricing-monthly-amount small {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+
+/* Optional block */
+.pricing-optional-header {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pricing-optional-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 16px;
+  font-style: italic;
+}
+
+/* Benefits */
+.pricing-benefits {
+  margin-top: 32px;
+  padding-top: 0;
+}
+
+.pricing-benefits-header {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.pricing-benefits-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pricing-benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pricing-benefits-list li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+.pricing-contract {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.pricing-contract-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pricing-contract-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.pricing-contract-list li::before {
+  content: "–";
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.pricing-conditions-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 20px;
+  transition: gap 0.2s;
+}
+
+.pricing-conditions-link:hover { gap: 10px; }
+
+.pricing-validity {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.netto-hint {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .pricing-card { padding: 36px 24px; }
+  .pricing-total-amount { font-size: 36px; }
+}
+
+/* ===================== SECTION 06 — CTA ===================== */
+.cta-card {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-decorative {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.08;
+}
+
+.cta-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.cta-card h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.cta-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 52ch;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.cta-contacts {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.cta-contact-link:hover { color: var(--text-secondary); }
+
+.section-06-label {
+  position: absolute;
+  bottom: 32px;
+  right: 40px;
+  font-size: clamp(88px, 10vw, 112px);
+  font-weight: 200;
+  color: var(--primary);
+  opacity: 0.08;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  .cta-card { padding: 56px 24px; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+}
+
+/* ===================== FOOTER ===================== */
+.site-footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-company {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.7;
+  max-width: 70ch;
+  line-height: 1.6;
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wordReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes drawLine {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes slowFloat {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(30px, -20px); }
+  66% { transform: translate(-20px, 20px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+  50% { box-shadow: 0 0 40px rgba(77,142,255,0.3); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes numberPulse {
+  0% { transform: scale(0.85) rotate(-2deg); opacity: 0.4; }
+  40% { transform: scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1.05) rotate(0deg); opacity: 1; }
+}
+
+@keyframes glowTrace {
+  0% { background-position: -100% 0; opacity: 0.3; }
+  50% { background-position: 100% 0; opacity: 0.9; }
+  100% { background-position: 200% 0; opacity: 0.3; }
+}
+
+/* Pricing card glow trace override */
+.pricing-card.glow-card::before {
+  background: linear-gradient(90deg, transparent 0%, transparent 30%, var(--primary) 50%, transparent 70%, transparent 100%);
+  background-size: 200% 100%;
+  animation: glowTrace 6s ease-in-out infinite;
+}
+
+/* ===================== SCROLL REVEALS ===================== */
+.reveal-on-scroll, .reveal-on-scroll-strong { opacity: 1; transform: none; }
+
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation: revealOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .reveal-on-scroll-strong {
+    animation: revealOnScrollStrong linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+  .hero-glow {
+    animation: heroGlowParallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+}
+
+@keyframes revealOnScroll {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealOnScrollStrong {
+  from { opacity: 0; transform: translateY(80px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heroGlowParallax {
+  to { transform: translateY(40vh) scale(1.4); opacity: 0; }
+}
+
+/* JS fallback */
+.js-scroll-fallback .reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.js-scroll-fallback .reveal-on-scroll-strong {
+  opacity: 0;
+  transform: translateY(80px) scale(0.96);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll-strong.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.js-scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.js-scroll-fallback .connector-line.is-drawn {
+  animation: drawConnector 1.2s ease-out both;
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR AURA -->
+<div class="cursor-aura" aria-hidden="true"></div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" aria-hidden="true">
+  <div class="sticky-cta-inner">
+    <span class="sticky-cta-label">Sales Outsourcing & LinkedIn Enablement · 6 Monate</span>
+    <div class="sticky-cta-buttons">
+      <a href="https://sales-culture.de/david" class="sticky-cta-secondary">Termin</a>
+      <a href="https://sales-culture.de/david" class="sticky-cta-primary">Angebot annehmen</a>
+    </div>
+  </div>
+</div>
+
+<!-- READING INDICATOR -->
+<nav class="reading-indicator" aria-hidden="true">
+  <a href="#section-01" data-label="Was wir verstanden haben"></a>
+  <a href="#section-02" data-label="Unser Vorschlag"></a>
+  <a href="#section-03" data-label="Was ihr bekommt"></a>
+  <a href="#section-04" data-label="Wie wir starten"></a>
+  <a href="#section-05" data-label="Investment"></a>
+  <a href="#section-06" data-label="Loslegen"></a>
+</nav>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height:48px;width:auto;">
+    <a href="mailto:david@sales-culture.de" class="header-email">david@sales-culture.de</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-spotlight"></div>
+
+  <div class="container">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-dot"></div>
+        <span class="eyebrow-text">Für ceterion AG</span>
+      </div>
+      <p class="hero-meta">Angebot erstellt: 11. Juni 2026</p>
+      <h1>
+        <span class="word">Sales</span> <span class="word">Outsourcing</span> <span class="word">für</span> <span class="word">ceterion</span> <span class="word">AG</span>
+      </h1>
+      <p class="hero-subline">Externe Vertriebspower kombiniert mit LinkedIn-Kompetenz im Team: Neukunden-Akquise übernehmen wir, eure Mitarbeitenden werden befähigt.</p>
+      <div class="hero-ctas">
+        <a href="https://sales-culture.de/david" class="btn-primary magnetic">Angebot annehmen</a>
+        <a href="https://sales-culture.de/david" class="btn-secondary">Termin vereinbaren</a>
+      </div>
+    </div>
+
+    <!-- RIGHT — HERO CARD -->
+    <div class="hero-card glow-card">
+      <p class="hero-card-eyebrow">Was ihr bekommt</p>
+      <h3>Setup, Outbound-Akquise & LinkedIn Enablement</h3>
+      <ul class="hero-card-bullets">
+        <li>Workshop zur Zieldefinition, ICP-Recherche & Vertriebsinfrastruktur</li>
+        <li>Dedizierter Sales Consultant für Cold Calls & E-Mail-Outreach</li>
+        <li>10 LinkedIn Enablement Sessions für 5–20 Teilnehmende</li>
+        <li>6-Monats-Redaktionsplan, Templates & Corporate-Design-Banner</li>
+        <li>Vollständige CRM-Dokumentation aller Aktivitäten</li>
+      </ul>
+      <div class="hero-card-footer">Einmalig + monatlich · Konditionen unten</div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL ANSPRACHE -->
+<div class="section-personal reveal-on-scroll">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent"></div>
+      <div class="personal-content">
+        <p class="personal-eyebrow">Hi Jens</p>
+        <p>Wie besprochen hier das Angebot in der Übersicht. Ihr wollt strukturiert neue Kunden ansprechen und gleichzeitig das Team bei LinkedIn fit machen.</p>
+        <p>Beides läuft parallel: Wir übernehmen die Akquise, ihr baut intern Kompetenz auf. Das Angebot gilt bis zum 11. Juli 2026.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 01 — WAS WIR VERSTANDEN HABEN -->
+<section id="section-01" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <span class="section-number">01</span>
+        <span class="section-number-line"></span>
+      </div>
+      <div class="section-header-content">
+        <p class="section-eyebrow">Was wir verstanden haben</p>
+        <h2>Der Ausgangspunkt</h2>
+        <div class="section-04-prose">
+          <p>Ihr braucht einen klaren, skalierbaren Weg zur Neukundengewinnung: strukturierte Zielkundenansprache per Telefon und E-Mail, ohne interne Ressourcen dafür aufzubauen.</p>
+          <p>Parallel sollen eure Mitarbeitenden LinkedIn eigenständig und souverän nutzen, von der Profiloptimierung bis zum kontinuierlichen Content und Social Selling.</p>
+          <p>Das Ergebnis des Workshops bildet die Grundlage für beides: definierte Zielkunden, klare Prozesse und eine Vertriebsinfrastruktur, die direkt einsatzbereit ist.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 — UNSER VORSCHLAG -->
+<section id="section-02" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <span class="section-number">02</span>
+        <span class="section-number-line"></span>
+      </div>
+      <div class="section-header-content">
+        <p class="section-eyebrow">Unser Vorschlag</p>
+        <h2>Drei Bausteine, ein Ziel</h2>
+      </div>
+    </div>
+    <p class="proposal-intro">Das Angebot besteht aus einem Setup-Workshop, sechs Monaten aktiver Outbound-Akquise durch einen festen Sales Consultant und einem vollständigen LinkedIn Enablement Programm für euer Team.</p>
+    <div class="stat-cards-grid">
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="10">10</span>
+          <span class="stat-unit">Sessions</span>
+        </div>
+        <p class="stat-caption">LinkedIn Enablement Sessions à 1 Stunde</p>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="6">6</span>
+          <span class="stat-unit">Monate</span>
+        </div>
+        <p class="stat-caption">Laufzeit des Sales-Outsourcings ab 1. Juli 2026</p>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="500">500</span>
+          <span class="stat-unit">Kontakte</span>
+        </div>
+        <p class="stat-caption">ICP-Recherche für 1–2 Kampagnen im Setup enthalten</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — WAS IHR BEKOMMT -->
+<section id="section-03" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <span class="section-number">03</span>
+        <span class="section-number-line"></span>
+      </div>
+      <div class="section-header-content">
+        <p class="section-eyebrow">Was ihr bekommt</p>
+        <h2>Leistungen im Detail</h2>
+      </div>
+    </div>
+
+    <div class="deliverables-grid">
+
+      <!-- PFLICHT 1: Setup -->
+      <div class="deliverable-card reveal-on-scroll">
+        <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+          <path d="M9 12h6M9 16h4"/>
+        </svg>
+        <span class="deliverable-card-arrow">↗</span>
+        <h3>Setup & Initialisierung</h3>
+        <p>Analyse eures Angebots, der Kundenbasis und Prozesse. Im gemeinsamen Workshop werden Zielkunden, Rollen und Sales-Prozesse festgelegt und im Miro-Board dokumentiert.</p>
+        <ul>
+          <li>Basis-Setup CRM: Kontakte, Unternehmen, Deals, Pipeline</li>
+          <li>ICP-Durchsprache & Recherche von 500 Kontakten für 1–2 Kampagnen</li>
+          <li>Komplette Produkt- und Angebotsdurchsprache inkl. Unterlagen</li>
+          <li>Best Practices für Telefonleitfaden, Teams-Einladungen, LinkedIn & Mailings</li>
+        </ul>
+      </div>
+
+      <!-- PFLICHT 2: Sales Outsourcing -->
+      <div class="deliverable-card reveal-on-scroll">
+        <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 7.29 7.29l1.66-1.84a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span class="deliverable-card-arrow">↗</span>
+        <h3>Sales Outsourcing — 6 Monate</h3>
+        <p>Ein fester Sales Consultant übernimmt Recherche, Qualifizierung und Direktansprache der Zielkunden per Cold Call und E-Mail im Namen von ceterion AG.</p>
+        <ul>
+          <li>Cold Calls & E-Mail-Outreach mit eigener E-Mail-Adresse und Signatur</li>
+          <li>Follow-up-Calls und vollständige CRM-Dokumentation</li>
+          <li>Sales-Tools inklusive: LinkedIn Sales Navigator, Lusha, lemlist u. a.</li>
+          <li>Eigene Telefonnummer mit EU-Flatrate</li>
+        </ul>
+      </div>
+
+      <!-- PFLICHT 3: LinkedIn Enablement -->
+      <div class="deliverable-card reveal-on-scroll">
+        <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span class="deliverable-card-arrow">↗</span>
+        <h3>Corporate Influencer Programm</h3>
+        <p>10 LinkedIn Enablement Sessions à 1 Stunde für 5–20 Teilnehmende: von Profil-Optimierung über gezielte Vernetzung bis zur eigenständigen Content-Erstellung.</p>
+        <ul>
+          <li>15 Min. Lerninput, 30 Min. Übungen, 15 Min. Q&A pro Session</li>
+          <li>Konkrete Profil-Empfehlungen mit nächsten Schritten</li>
+          <li>Personal-Branding-Bausteine: Bio, Wording, Themen</li>
+          <li>Leitfaden-Deck mit Best Practices für Reichweite und Präsenz</li>
+        </ul>
+      </div>
+
+      <!-- PFLICHT 4: Templates & Redaktionsplan -->
+      <div class="deliverable-card reveal-on-scroll">
+        <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <line x1="10" y1="9" x2="8" y2="9"/>
+        </svg>
+        <span class="deliverable-card-arrow">↗</span>
+        <h3>Templates & Redaktionsplan</h3>
+        <p>Übergabe von Best-Practices-Posts mit Adaptionsdurchsprache sowie ein ausgearbeiteter 6-Monats-Redaktionsplan für ein Profil.</p>
+        <ul>
+          <li>Hook-Konzepte, Beispielbilder und Content-Formate im Plan</li>
+          <li>Einheitlicher LinkedIn-Banner mit Corporate-Design-Vorlage</li>
+          <li>Social Selling Strategien für warme Lead-Generierung</li>
+        </ul>
+      </div>
+
+      <!-- OPTIONAL: Posts -->
+      <div class="deliverable-card optional-card reveal-on-scroll">
+        <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <span class="optional-badge">Optional</span>
+        <h3>Fertig erstellte LinkedIn Posts</h3>
+        <p>Auf Wunsch erstellen wir fertige Posts für LinkedIn. Mindestabnahmemenge 12 Stück. Preis auf Anfrage.</p>
+      </div>
+
+      <!-- OPTIONAL: Designtool / KI-Tools -->
+      <div class="deliverable-card optional-card reveal-on-scroll">
+        <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.07 4.93A10 10 0 0 0 4.93 19.07M19.07 4.93l-2.12 2.12M6.34 17.66l-1.41 1.41"/>
+          <path d="M2 12h2M20 12h2M12 2v2M12 20v2"/>
+        </svg>
+        <span class="optional-badge">Optional</span>
+        <h3>Designtool & KI-Tools Durchsprache</h3>
+        <p>Einführung in ein Designtool wie Canva oder Figma sowie sinnvoller Einsatz von KI-Tools für die Content-Erstellung im LinkedIn-Kontext.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 — WIE WIR STARTEN -->
+<section id="section-04" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <span class="section-number">04</span>
+        <span class="section-number-line"></span>
+      </div>
+      <div class="section-header-content">
+        <p class="section-eyebrow">Wie wir starten</p>
+        <h2>Von der Freigabe bis zum ersten Kontakt</h2>
+      </div>
+    </div>
+
+    <div class="timeline-wrapper">
+      <div class="timeline">
+        <svg class="timeline-connector" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="80" y1="28" x2="920" y2="28" stroke="var(--primary-border)" stroke-width="1" stroke-dasharray="6 8" pathLength="100" class="connector-line"/>
+        </svg>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <p class="phase-eyebrow">Phase I</p>
+          <h3>Auftragseingang & Setup</h3>
+          <p>Nach eurer Freigabe werden Workshop-Termin und Kick-off koordiniert. Setup-Zahlung fällig bei Auftragseingang.</p>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <p class="phase-eyebrow">Phase II</p>
+          <h3>Workshop & Enablement</h3>
+          <p>Workshop zur Zieldefinition, ICP-Recherche und Aufbau der Vertriebsinfrastruktur. Parallel starten die LinkedIn Sessions.</p>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 7.29 7.29l1.66-1.84a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <p class="phase-eyebrow">Phase III</p>
+          <h3>Aktive Akquise — ab 1. Juli 2026</h3>
+          <p>Der Sales Consultant startet mit Cold Calls und E-Mail-Outreach. Monatliche Abrechnung auf Basis des Leistungsnachweises für 6 Monate.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 — INVESTMENT -->
+<section id="section-05" class="reveal-on-scroll">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number-col">
+        <span class="section-number">05</span>
+        <span class="section-number-line"></span>
+      </div>
+      <div class="section-header-content">
+        <p class="section-eyebrow">Investment</p>
+        <h2>Konditionen im Überblick</h2>
+      </div>
+    </div>
+
+    <div class="pricing-card glow-card reveal-on-scroll-strong">
+      <p class="pricing-eyebrow">Euer Angebot · ceterion AG</p>
+
+      <!-- PFLICHT POSITIONEN EINMALIG -->
+      <div class="pricing-position">
+        <div class="pricing-position-info">
+          <p class="pricing-position-title">Setup & Initialisierung</p>
+          <p class="pricing-position-desc">Workshop, ICP-Recherche, CRM-Basis, Best Practices — jetzt fällig bei Auftragseingang</p>
+        </div>
+        <div class="pricing-position-price">4.000 €</div>
+      </div>
+
+      <div class="pricing-position">
+        <div class="pricing-position-info">
+          <p class="pricing-position-title">Corporate Influencer Programm</p>
+          <p class="pricing-position-desc">10 LinkedIn Enablement Sessions, Redaktionsplan, Templates & Banner — fällig bei Auftragseingang</p>
+        </div>
+        <div class="pricing-position-price">6.250 €</div>
+      </div>
+
+      <!-- EINMALIGER GESAMTPREIS -->
+      <div class="pricing-total-row">
+        <p class="pricing-total-label">Sofort fällig (einmalig)</p>
+        <div>
+          <div class="pricing-total-amount">10.250 €</div>
+          <p class="pricing-total-sub">Setup + LinkedIn Enablement</p>
+        </div>
+      </div>
+
+      <!-- MONATLICHE POSITION -->
+      <div class="pricing-position" style="border-bottom:none;padding-bottom:0;">
+        <div class="pricing-position-info">
+          <p class="pricing-position-title">Sales Outsourcing — Tagessatz</p>
+          <p class="pricing-position-desc">4 Tage/Monat à 950 € · 6 Monate · Zahlung ab 1. Juli 2026 auf Basis Leistungsnachweis</p>
+          <p class="pricing-position-note">Laufzeit 6 Monate zu je 3.800 € (entspricht einem Tagessatz von 950 € für acht Stunden Arbeitszeit). Monatliche Kündigung mit 30 Tagen Frist möglich.</p>
+        </div>
+        <div class="pricing-position-price">
+          3.800 €
+          <small>/ Monat</small>
+        </div>
+      </div>
+
+      <div class="pricing-monthly-row">
+        <p class="pricing-monthly-label">Wiederkehrend für 6 Monate</p>
+        <div class="pricing-monthly-amount">3.800 € <small>/ Monat</small></div>
+      </div>
+
+      <!-- OPTIONAL BLOCK -->
+      <p class="pricing-optional-header">Optional buchbar</p>
+
+      <div class="pricing-position" style="border-bottom:none;">
+        <div class="pricing-position-info">
+          <p class="pricing-position-title">Fertig erstellte LinkedIn Posts</p>
+          <p class="pricing-position-desc">Mindestabnahme 12 Stück. Preis auf Anfrage.</p>
+        </div>
+        <div class="pricing-position-price" style="font-size:15px;color:var(--text-muted);">Auf Anfrage</div>
+      </div>
+
+      <div class="pricing-position" style="border-bottom:none;padding-bottom:0;">
+        <div class="pricing-position-info">
+          <p class="pricing-position-title">Designtool & KI-Tools Durchsprache</p>
+          <p class="pricing-position-desc">Canva, Figma oder KI-Tools für Content-Erstellung. Auf Wunsch buchbar.</p>
+        </div>
+        <div class="pricing-position-price" style="font-size:15px;color:var(--text-muted);">Auf Anfrage</div>
+      </div>
+
+      <p class="pricing-optional-note">Optional-Positionen sind nicht im Gesamtpreis enthalten.</p>
+
+      <!-- BENEFITS -->
+      <div class="pricing-benefits" style="margin-top:32px;">
+        <p class="pricing-benefits-header">Was ihr davon habt</p>
+        <ul class="pricing-benefits-list">
+          <li>Sales-Tools (LinkedIn Sales Navigator, Lusha, lemlist u. a.) sowie eine EU-Flatrate-Nummer sind im monatlichen Preis enthalten</li>
+          <li>Vollständige Transparenz durch CRM-Dokumentation aller Aktivitäten und Kontakte</li>
+          <li>Monatliche Kündigung mit 30 Tagen Frist — keine langfristige Bindung über die 6 Monate hinaus</li>
+        </ul>
+      </div>
+
+      <!-- CONTRACT DETAILS -->
+      <div class="pricing-contract">
+        <ul class="pricing-contract-list">
+          <li>Setup & Corporate Influencer Programm fällig mit Auftragseingang, ohne Abzug</li>
+          <li>Sales-Done-4-You wird monatlich auf Basis eines Leistungsnachweises abgerechnet</li>
+          <li>Laufzeit: 6 Monate zu je 3.800 € (Tagessatz 950 € für 8 Stunden), ab 1. Juli 2026</li>
+          <li>Monatliche Kündigung mit 30 Tagen Frist möglich</li>
+          <li>Angebot gültig 30 Tage ab Angebotsdatum</li>
+        </ul>
+      </div>
+
+      <a href="https://sales-culture.de/david" class="pricing-conditions-link">
+        Die vollständigen Konditionen findet ihr im Angebot →
+      </a>
+
+      <p class="pricing-validity">Angebot gültig bis: 11. Juli 2026</p>
+    </div>
+    <p class="netto-hint">Alle Preise netto, zzgl. gesetzlicher USt.</p>
+  </div>
+</section>
+
+<!-- SECTION 06 — CTA -->
+<section id="section-06" style="padding:128px 0;">
+  <div class="container">
+    <div class="cta-card glow-card reveal-on-scroll-strong">
+      <svg class="cta-decorative" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="80" r="200" stroke="currentColor" stroke-width="1"/>
+        <circle cx="700" cy="320" r="150" stroke="currentColor" stroke-width="1"/>
+        <line x1="0" y1="200" x2="800" y2="200" stroke="currentColor" stroke-width="1" stroke-dasharray="8 12"/>
+        <line x1="400" y1="0" x2="400" y2="400" stroke="currentColor" stroke-width="1" stroke-dasharray="8 12"/>
+      </svg>
+      <div class="cta-inner">
+        <p class="cta-eyebrow">Bereit loszulegen?</p>
+        <h2>Wir legen los, sobald ihr grünes Licht gebt</h2>
+        <p class="cta-subline">Klickt auf "Angebot annehmen" und wir koordinieren Setup-Termin und Kick-off für den 1. Juli.</p>
+        <div class="cta-buttons">
+          <a href="https://sales-culture.de/david" class="btn-primary magnetic">Angebot annehmen</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin buchen</a>
+        </div>
+        <div class="cta-contacts">
+          <a href="mailto:david@sales-culture.de" class="cta-contact-link">✉️ david@sales-culture.de</a>
+          <a href="tel:+491796996683" class="cta-contact-link">📞 +49 179 699 66 83</a>
+          <a href="https://sales-culture.de/david" class="cta-contact-link">📅 Kalender buchen</a>
+        </div>
+      </div>
+      <span class="section-06-label">06</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-company">Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050</p>
+      <p class="footer-disclaimer">Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL FALLBACK ──
+if (!CSS.supports('animation-timeline','view()')) {
+  document.documentElement.classList.add('js-scroll-fallback');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+  document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-strong').forEach((el) => io.observe(el));
+
+  const bar = document.createElement('div');
+  bar.className = 'js-scroll-progress';
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    bar.style.transform = `scaleX(${pct})`;
+  }, { passive: true });
+
+  // Timeline connector fallback
+  const timelineEl = document.querySelector('.timeline-wrapper');
+  const connectorLine = document.querySelector('.connector-line');
+  if (timelineEl && connectorLine) {
+    const tio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { connectorLine.classList.add('is-drawn'); tio.unobserve(e.target); } });
+    }, { threshold: 0.2 });
+    tio.observe(timelineEl);
+  }
+}
+
+// ── MOUSE SPOTLIGHT ──
+const heroEl = document.querySelector('.hero');
+const spotEl = document.querySelector('.hero-spotlight');
+if (heroEl && spotEl) {
+  heroEl.addEventListener('pointermove', (e) => {
+    const rect = heroEl.getBoundingClientRect();
+    spotEl.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+    spotEl.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+  });
+}
+
+// ── COUNT-UP ──
+const counters = document.querySelectorAll('[data-count-to]');
+const runCount = (el) => {
+  const target = parseFloat(el.dataset.countTo);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1200;
+  const start = performance.now();
+  const step = (now) => {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const value = target % 1 === 0 ? Math.round(target * eased) : (target * eased).toFixed(1);
+    el.textContent = value + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
+const counterIO = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    runCount(entry.target);
+    counterIO.unobserve(entry.target);
+  });
+}, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+counters.forEach((c) => counterIO.observe(c));
+
+// ── 3D CARD TILT ──
+document.querySelectorAll('.deliverable-card').forEach((card) => {
+  card.addEventListener('pointermove', (e) => {
+    if (window.matchMedia('(hover: none)').matches) return;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(900px) rotateX(${y * -4}deg) rotateY(${x * 6}deg) translateY(-4px)`;
+  });
+  card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+});
+
+// ── READING INDICATOR ──
+const sections = document.querySelectorAll('section[id^="section-"]');
+const links = document.querySelectorAll('.reading-indicator a');
+const sectionIO = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      links.forEach((l) => { l.classList.toggle('is-active', l.getAttribute('href') === '#' + id); });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach((s) => sectionIO.observe(s));
+
+// ── STICKY CTA ──
+const stickyCta = document.querySelector('.sticky-cta');
+const heroDom = document.querySelector('.hero');
+const pricingDom = document.querySelector('#section-05');
+if (stickyCta && heroDom) {
+  const showFromY = heroDom.offsetTop + heroDom.offsetHeight - 80;
+  const hideAfterY = pricingDom ? (pricingDom.offsetTop + pricingDom.offsetHeight) : Infinity;
+  const onScroll = () => {
+    const y = window.scrollY;
+    stickyCta.classList.toggle('is-visible', y > showFromY && y < hideAfterY);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+// ── CURSOR AURA ──
+const aura = document.querySelector('.cursor-aura');
+if (aura && window.matchMedia('(hover: hover)').matches) {
+  let tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+  let cx = tx, cy = ty;
+  window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
+  const loop = () => {
+    cx += (tx - cx) * 0.18;
+    cy += (ty - cy) * 0.18;
+    aura.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  };
+  loop();
+}
+
+// ── MAGNETIC BUTTON ──
+document.querySelectorAll('.magnetic').forEach((btn) => {
+  btn.addEventListener('pointermove', (e) => {
+    if (window.matchMedia('(hover: none)').matches) return;
+    const rect = btn.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+    const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+    btn.style.transform = `translate(${x * 8}px, ${y * 6}px) scale(1.02)`;
+  });
+  btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+});
+</script>
+</body>
+</html>
