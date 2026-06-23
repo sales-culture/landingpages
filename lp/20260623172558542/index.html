@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angebot für bsk büro + designhaus GmbH – Sales Culture</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245,245,247,0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77,142,255,0.12);
+  --primary-border: rgba(77,142,255,0.25);
+  --accent: #4d8eff;
+  --border: rgba(245,245,247,0.08);
+  --border-strong: rgba(245,245,247,0.16);
+  --glow-line: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 67% 32%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 28% 71%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 89% 84%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 45% 50%, var(--primary-dim) 0, transparent 2px);
+  animation: gridNodes 8s ease-in-out infinite;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 999;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: view()) {
+  body::before {
+    animation: scrollProgress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes scrollProgress { to { transform: scaleX(1); } }
+@keyframes gridNodes { 0%,100% { opacity: 0.35; } 50% { opacity: 0.85; } }
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes drawLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes slowFloat { 0%,100% { transform: translate(0,0); } 33% { transform: translate(30px,-20px); } 66% { transform: translate(-20px,20px); } }
+@keyframes glow { 0%,100% { box-shadow: 0 0 20px var(--primary-dim); } 50% { box-shadow: 0 0 40px rgba(77,142,255,0.3); } }
+@keyframes glowPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+@keyframes glowTrace { 0% { background-position: -100% 0; opacity: 0.3; } 50% { background-position: 100% 0; opacity: 0.9; } 100% { background-position: 200% 0; opacity: 0.3; } }
+@keyframes wordReveal { to { opacity: 1; transform: translateY(0); } }
+@keyframes numberPulse { 0% { transform: scale(0.85) rotate(-2deg); opacity: 0.4; } 40% { transform: scale(1) rotate(0deg); opacity: 1; } 100% { transform: scale(1.05) rotate(0deg); opacity: 1; } }
+@keyframes drawConnector { to { stroke-dasharray: 100 0; } }
+@keyframes rotateBackground { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* SCROLL REVEAL */
+.reveal-on-scroll, .reveal-on-scroll-strong { opacity: 1; transform: none; }
+
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation: revealOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .reveal-on-scroll-strong {
+    animation: revealOnScrollStrong linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+  .hero-glow {
+    animation: heroGlowParallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+}
+
+@keyframes revealOnScroll { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes revealOnScrollStrong { from { opacity: 0; transform: translateY(80px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes heroGlowParallax { to { transform: translateY(40vh) scale(1.4); opacity: 0; } }
+
+.js-scroll-fallback .reveal-on-scroll { opacity: 0; transform: translateY(60px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.js-scroll-fallback .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+.js-scroll-fallback .reveal-on-scroll-strong { opacity: 0; transform: translateY(80px) scale(0.96); transition: opacity 0.9s ease-out, transform 0.9s ease-out; }
+.js-scroll-fallback .reveal-on-scroll-strong.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+.js-scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--glow-line); transform-origin: left center; transform: scaleX(0); z-index: 999; pointer-events: none; }
+
+/* SECTION NUMBER SCROLL SCALE */
+.section-number { display: inline-block; transform-origin: left center; }
+@supports (animation-timeline: view()) {
+  .section-number {
+    animation: numberPulse linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 80%;
+  }
+}
+
+/* GLOW CARD */
+.glow-card { position: relative; }
+.glow-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1px;
+  background: var(--glow-line);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.glow-card::after {
+  content: "";
+  position: absolute;
+  top: -40px; left: 30%; right: 30%;
+  height: 80px;
+  background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+/* HEADER */
+.site-header {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-header a.header-email {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.site-header a.header-email:hover { color: var(--text-secondary); }
+
+/* STICKY CTA */
+.sticky-cta {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  z-index: 90;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+.sticky-cta-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.sticky-cta-label { font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em; }
+.sticky-cta-buttons { display: flex; gap: 12px; }
+.sticky-cta-primary {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: filter 0.2s, transform 0.2s;
+}
+.sticky-cta-primary:hover { filter: brightness(1.1); transform: scale(1.02); }
+.sticky-cta-secondary {
+  color: var(--text-secondary);
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-strong);
+  transition: border-color 0.2s, color 0.2s;
+}
+.sticky-cta-secondary:hover { border-color: var(--primary); color: var(--text); }
+@media (max-width: 640px) { .sticky-cta-label { display: none; } }
+
+/* READING INDICATOR */
+.reading-indicator {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 50;
+}
+.reading-indicator a {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+  position: relative;
+  display: block;
+}
+.reading-indicator a:hover { transform: scale(1.4); }
+.reading-indicator a.is-active { background: var(--primary); box-shadow: 0 0 12px var(--primary-dim); }
+.reading-indicator a:hover::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding: 4px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+@media (max-width: 1100px) { .reading-indicator { display: none; } }
+
+/* CURSOR AURA */
+.cursor-aura {
+  position: fixed;
+  top: 0; left: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77,142,255,0.10) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 2;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) { .cursor-aura { opacity: 1; } }
+
+/* HERO */
+.hero {
+  padding: 96px 0 128px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(600px circle at var(--mx,50%) var(--my,30%), rgba(77,142,255,0.10) 0%, transparent 50%);
+  transition: background 0.15s ease-out;
+}
+.hero-glow {
+  position: absolute;
+  top: -200px;
+  right: -100px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse at center, rgba(77,142,255,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: slowFloat 20s ease-in-out infinite;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; gap: 48px; }
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s both;
+}
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+  animation: fadeInUp 0.8s 0.05s both;
+}
+.hero h1 .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: wordReveal 0.7s cubic-bezier(0.2,0.8,0.2,1) both;
+}
+.hero h1 .word:nth-child(1) { animation-delay: 0.10s; }
+.hero h1 .word:nth-child(2) { animation-delay: 0.18s; }
+.hero h1 .word:nth-child(3) { animation-delay: 0.26s; }
+.hero h1 .word:nth-child(4) { animation-delay: 0.34s; }
+.hero h1 .word:nth-child(5) { animation-delay: 0.42s; }
+.hero h1 .word:nth-child(6) { animation-delay: 0.50s; }
+.hero h1 .word:nth-child(7) { animation-delay: 0.58s; }
+.hero h1 .word:nth-child(8) { animation-delay: 0.66s; }
+
+.hero-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 52ch;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s 0.15s both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background: var(--primary);
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  transition: filter 0.2s, transform 0.2s;
+  box-shadow: 0 0 24px rgba(77,142,255,0.25);
+}
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+.btn-primary:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-secondary);
+  padding: 16px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid var(--border-strong);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s 1s ease-in-out infinite;
+}
+.btn-secondary:hover { border-color: var(--primary); color: var(--text); transform: scale(1.02); }
+
+/* HERO CARD */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  animation: fadeInUp 0.8s 0.4s both, float 6s 1.2s ease-in-out infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.hero-card-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+.hero-card-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.hero-card-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.hero-card-bullets li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.hero-card-footer {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* SECTION LAYOUT */
+.section {
+  padding: 128px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 768px) { .section { padding: 80px 0; } }
+
+.section-header {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 40px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+@media (max-width: 768px) {
+  .section-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 48px; }
+}
+
+.section-number-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+.section-number {
+  font-size: clamp(72px, 8vw, 112px);
+  font-weight: 200;
+  line-height: 1;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding: 0;
+  animation: fadeInUp 0.6s both;
+}
+.section-accent-line {
+  width: 3px;
+  height: 48px;
+  background: var(--primary);
+  border-radius: 2px;
+  margin-top: 8px;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-h2 {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--text);
+  margin-top: 12px;
+}
+
+/* SECTION 3 — PERSONAL */
+.personal-section {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+.personal-inner {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 720px;
+}
+.personal-accent {
+  width: 3px;
+  min-height: 80px;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.personal-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.personal-text {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.personal-text p + p { margin-top: 14px; }
+
+/* SECTION 4 — WHAT WE UNDERSTOOD */
+.section-04-prose {
+  margin-top: 32px;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 60ch;
+}
+.section-04-prose p + p { margin-top: 16px; }
+
+/* SECTION 5 — STAT CARDS */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 768px) {
+  .stat-grid { grid-template-columns: 1fr; }
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: left;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.stat-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 24px;
+  width: 30%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 1px;
+}
+.stat-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: clamp(48px, 5.5vw, 72px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.stat-value { font-size: 1em; }
+.stat-unit { font-size: 0.45em; font-weight: 500; color: var(--text-secondary); letter-spacing: 0; }
+.stat-caption { font-size: 14px; color: var(--text-muted); line-height: 1.4; }
+
+/* SECTION 6 — DELIVERABLES */
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 16px;
+}
+@media (max-width: 768px) {
+  .deliverables-grid { grid-template-columns: 1fr; }
+}
+.deliverable-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+  will-change: transform;
+}
+.deliverable-card:nth-child(even) {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-elevated) 100%);
+}
+.deliverable-card:hover { border-color: var(--primary); }
+.deliverable-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.deliverable-card-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.deliverable-card-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: transform 0.3s, color 0.3s;
+  display: inline-block;
+}
+.deliverable-card:hover .deliverable-card-arrow { transform: rotate(45deg); color: var(--primary); }
+.deliverable-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.deliverable-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.deliverable-card ul {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.deliverable-card ul li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding-left: 16px;
+  position: relative;
+}
+.deliverable-card ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* OPTIONAL BADGE */
+.optional-badge {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  padding: 2px 10px;
+  background: transparent;
+  flex-shrink: 0;
+}
+.deliverable-card.optional-card { border-color: var(--border); }
+.deliverable-card.optional-card:hover { border-color: var(--border-strong); }
+
+/* SECTION 7 — TIMELINE */
+.timeline-section .section-content { margin-top: 16px; }
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+@media (max-width: 900px) {
+  .timeline { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .timeline { grid-template-columns: 1fr; }
+}
+.timeline-connector-wrap {
+  position: absolute;
+  top: 32px;
+  left: 12%;
+  right: 12%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+.timeline-connector {
+  width: 100%;
+  height: 100%;
+}
+.connector-line {
+  stroke-dashoffset: 100;
+  stroke-dasharray: 0 100;
+}
+@supports (animation-timeline: view()) {
+  .connector-line {
+    animation: drawConnector linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+}
+.js-scroll-fallback .connector-line.is-drawn {
+  animation: drawConnector 1.2s ease-out both;
+}
+
+.timeline-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+.timeline-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--primary);
+  flex-shrink: 0;
+  transition: border-color 0.3s, background 0.3s;
+}
+.timeline-phase:hover .timeline-icon-wrap { border-color: var(--primary); background: var(--surface-elevated); }
+.timeline-phase-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.timeline-phase h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.timeline-phase p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* SECTION 8 — PRICING */
+.pricing-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 56px 48px;
+  width: 100%;
+  max-width: 720px;
+}
+@media (max-width: 640px) { .pricing-card { padding: 40px 28px; } }
+
+.pricing-card.glow-card::before {
+  background: linear-gradient(90deg, transparent 0%, transparent 30%, var(--primary) 50%, transparent 70%, transparent 100%);
+  background-size: 200% 100%;
+  animation: glowTrace 6s ease-in-out infinite;
+}
+
+.pricing-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.pricing-positions {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pricing-position {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-position:last-child { border-bottom: none; }
+.pricing-position-info { flex: 1; }
+.pricing-position-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.pricing-position-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.pricing-position-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-style: italic;
+}
+.pricing-position-price {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.pricing-divider {
+  height: 1px;
+  background: var(--border-strong);
+  margin: 8px 0;
+}
+
+.pricing-total {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 24px 0 8px;
+  gap: 16px;
+}
+.pricing-total-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.pricing-total-label span {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.pricing-total-amount {
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pricing-vat-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  text-align: right;
+}
+
+.pricing-benefits {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.pricing-benefits-header {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.pricing-benefits-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pricing-benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.pricing-benefits-list li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.pricing-contract-details {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.pricing-contract-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pricing-contract-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.pricing-contract-list li::before {
+  content: "·";
+  color: var(--text-muted);
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.pricing-conditions-link {
+  display: block;
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--primary);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.pricing-conditions-link:hover { opacity: 0.8; }
+.pricing-conditions-link .link-arrow {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform 0.2s;
+}
+.pricing-conditions-link:hover .link-arrow { transform: translateX(4px); }
+
+.pricing-validity {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ABSCHLUSS CTA */
+.cta-section {
+  padding: 128px 0;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 768px) { .cta-section { padding: 80px 0; } }
+
+.cta-card {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+@media (max-width: 640px) { .cta-card { padding: 56px 28px; } }
+
+.cta-svg-deco {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  opacity: 0.08;
+  z-index: 0;
+}
+.cta-content { position: relative; z-index: 1; }
+
+.cta-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cta-h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.cta-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 52ch;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.cta-contact-options {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta-contact-item {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.cta-contact-item:hover { color: var(--text-secondary); }
+
+/* SECTION 06 number deco */
+.cta-section-number-deco {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* FOOTER */
+.site-footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.footer-legal {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.footer-disclaimer {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 72ch;
+}
+
+/* SECTION 04 SPECIFICS */
+#section-01 .section-header-inner {
+  display: contents;
+}
+
+/* SVG DECORATOR */
+.svg-deco-bg {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.06;
+  z-index: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="cursor-aura" aria-hidden="true"></div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" aria-hidden="true">
+  <div class="sticky-cta-inner">
+    <span class="sticky-cta-label">Vertrieb für bsk büro + designhaus GmbH</span>
+    <div class="sticky-cta-buttons">
+      <a href="https://sales-culture.de/david" class="sticky-cta-secondary">Termin</a>
+      <a href="https://angebot.sales-culture.de/Salesresearch" class="sticky-cta-primary">Angebot annehmen</a>
+    </div>
+  </div>
+</div>
+
+<!-- READING INDICATOR -->
+<nav class="reading-indicator" aria-hidden="true">
+  <a href="#section-01" data-label="Was wir verstanden haben"></a>
+  <a href="#section-02" data-label="Unser Vorschlag"></a>
+  <a href="#section-03" data-label="Was du bekommst"></a>
+  <a href="#section-04" data-label="Wie wir starten"></a>
+  <a href="#section-05" data-label="Investment"></a>
+  <a href="#section-06" data-label="Loslegen"></a>
+</nav>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height: 48px; width: auto;">
+    <a href="mailto:david@sales-culture.de" class="header-email">david@sales-culture.de</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-spotlight"></div>
+  <div class="hero-glow"></div>
+
+  <svg class="svg-deco-bg" style="top: 40px; right: 80px; width: 300px; height: 300px;" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="150" cy="150" r="120" stroke="rgba(77,142,255,0.3)" stroke-width="1" stroke-dasharray="8 12"/>
+    <circle cx="150" cy="150" r="80" stroke="rgba(77,142,255,0.15)" stroke-width="1" stroke-dasharray="4 8"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        FÜR BSK BÜRO + DESIGNHAUS GMBH
+      </div>
+
+      <h1>
+        <span class="word">Vertrieb</span>&nbsp;<span class="word">für</span>&nbsp;<span class="word">bsk</span>&nbsp;<span class="word">büro</span>&nbsp;<span class="word">+</span>&nbsp;<span class="word">designhaus</span>&nbsp;<span class="word">GmbH</span>
+      </h1>
+
+      <p class="hero-subline">
+        Strukturierter Vertrieb, der Neukundengeschäft aufbaut. Sales Culture übernimmt die Akquise, damit ihr euch auf das Kerngeschäft konzentrieren könnt.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="https://angebot.sales-culture.de/Salesresearch" class="btn-primary magnetic">Angebot annehmen</a>
+        <a href="https://sales-culture.de/david" class="btn-secondary">Termin vereinbaren</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card glow-card">
+        <div class="hero-card-eyebrow">Was du bekommst</div>
+        <h3>Sales Done for You</h3>
+        <ul class="hero-card-bullets">
+          <li>Gezielte Salesresearch und Zielgruppenanalyse</li>
+          <li>Aufbau einer qualifizierten Kontaktliste</li>
+          <li>Aktive Outbound-Akquise in deinem Namen</li>
+          <li>Regelmäßiges Reporting und Pipeline-Tracking</li>
+        </ul>
+        <div class="hero-card-footer">Konditionen im Detail unten</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSÖNLICHE ANSPRACHE -->
+<div class="personal-section reveal-on-scroll">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent"></div>
+      <div>
+        <div class="personal-eyebrow">Hi Christian</div>
+        <div class="personal-text">
+          <p>Neukundengewinnung kostet Zeit, die im laufenden Geschäft selten da ist. Genau da setzen wir an: Sales Culture übernimmt die systematische Akquise für bsk büro + designhaus GmbH, von der ersten Recherche bis zum qualifizierten Gesprächskontakt.</p>
+          <p>Hier ist das Angebot, das wir für dich zusammengestellt haben.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 01 — WAS WIR VERSTANDEN HABEN -->
+<section class="section" id="section-01">
+  <div class="container">
+    <div class="section-header reveal-on-scroll">
+      <div class="section-number-wrap">
+        <div class="section-number">01</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Kontext</div>
+        <h2 class="section-h2">Was wir verstanden haben</h2>
+        <div class="section-04-prose">
+          <p>bsk büro + designhaus GmbH braucht einen verlässlichen Vertriebskanal, der Neukunden systematisch erschließt. Die eigene Kapazität für strukturierte Outbound-Akquise ist begrenzt, während das Potenzial im Markt vorhanden ist.</p>
+          <p>Sales Culture tritt hier als externer Vertriebsarm an, mit klarer Methodik, nachvollziehbaren Prozessen und messbaren Ergebnissen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 — UNSER VORSCHLAG -->
+<section class="section" id="section-02">
+  <div class="container">
+    <div class="section-header reveal-on-scroll">
+      <div class="section-number-wrap">
+        <div class="section-number">02</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Unser Vorschlag</div>
+        <h2 class="section-h2">Strukturiert. Messbar. Wiederkehrend.</h2>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="1">1</span>
+          <span class="stat-unit">Angebot</span>
+        </div>
+        <div class="stat-caption">Dediziertes Vertriebspaket für bsk</div>
+      </div>
+      <div class="stat-card reveal-on-scroll" style="animation-delay: 0.1s">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="4">4</span>
+          <span class="stat-unit">Leistungen</span>
+        </div>
+        <div class="stat-caption">Abgedeckte Vertriebsbereiche im Paket</div>
+      </div>
+      <div class="stat-card reveal-on-scroll" style="animation-delay: 0.2s">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="100">100</span>
+          <span class="stat-unit">% extern</span>
+        </div>
+        <div class="stat-caption">Sales Culture übernimmt die Akquise vollständig</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — WAS DU BEKOMMST -->
+<section class="section" id="section-03">
+  <div class="container">
+    <div class="section-header reveal-on-scroll">
+      <div class="section-number-wrap">
+        <div class="section-number">03</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Leistungsumfang</div>
+        <h2 class="section-h2">Was du bekommst</h2>
+      </div>
+    </div>
+
+    <div class="deliverables-grid">
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="deliverable-card-header">
+          <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <span class="deliverable-card-arrow">↗</span>
+        </div>
+        <h3>Sales Research</h3>
+        <p>Gezielte Recherche und Identifikation relevanter Zielkunden. Wir ermitteln, wen es sich lohnt anzusprechen, bevor der erste Kontakt entsteht.</p>
+      </div>
+
+      <div class="deliverable-card reveal-on-scroll" style="animation-delay: 0.08s">
+        <div class="deliverable-card-header">
+          <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span class="deliverable-card-arrow">↗</span>
+        </div>
+        <h3>Kontaktlisten-Aufbau</h3>
+        <p>Aufbau einer qualifizierten Kontaktliste mit verifizierten Ansprechpartnern, passend zum Zielprofil von bsk büro + designhaus GmbH.</p>
+      </div>
+
+      <div class="deliverable-card reveal-on-scroll" style="animation-delay: 0.16s">
+        <div class="deliverable-card-header">
+          <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.4a16 16 0 0 0 6.29 6.29l.51-.51a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span class="deliverable-card-arrow">↗</span>
+        </div>
+        <h3>Outbound-Akquise</h3>
+        <p>Aktive Ansprache qualifizierter Kontakte in deinem Namen. Cold Calls, strukturierte Erstgespräche und Follow-up-Sequenzen, die Termine erzeugen.</p>
+      </div>
+
+      <div class="deliverable-card reveal-on-scroll" style="animation-delay: 0.24s">
+        <div class="deliverable-card-header">
+          <svg class="deliverable-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
+          </svg>
+          <span class="deliverable-card-arrow">↗</span>
+        </div>
+        <h3>Reporting & Pipeline</h3>
+        <p>Transparentes Reporting über Aktivitäten, Kontakte und Ergebnisse. Du behältst jederzeit den Überblick über den Fortschritt der Akquise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 — WIE WIR STARTEN -->
+<section class="section timeline-section" id="section-04">
+  <div class="container">
+    <div class="section-header reveal-on-scroll">
+      <div class="section-number-wrap">
+        <div class="section-number">04</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Ablauf</div>
+        <h2 class="section-h2">Wie wir starten</h2>
+      </div>
+    </div>
+
+    <div class="section-content">
+      <div class="timeline">
+        <div class="timeline-connector-wrap" aria-hidden="true">
+          <svg class="timeline-connector" viewBox="0 0 1000 60" preserveAspectRatio="none">
+            <line x1="80" y1="28" x2="920" y2="28" stroke="rgba(77,142,255,0.3)" stroke-width="1" stroke-dasharray="6 8" pathLength="100" class="connector-line"/>
+          </svg>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="timeline-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <div class="timeline-phase-eyebrow">Phase I</div>
+          <h3>Briefing</h3>
+          <p>Wir definieren gemeinsam das Zielprofil, die Botschaft und den Akquisefokus für bsk büro + designhaus GmbH.</p>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll" style="animation-delay: 0.1s">
+          <div class="timeline-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </div>
+          <div class="timeline-phase-eyebrow">Phase II</div>
+          <h3>Research</h3>
+          <p>Identifikation und Qualifikation relevanter Zielkunden. Aufbau der initialen Kontaktliste nach euren Kriterien.</p>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll" style="animation-delay: 0.2s">
+          <div class="timeline-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.4a16 16 0 0 0 6.29 6.29l.51-.51a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="timeline-phase-eyebrow">Phase III</div>
+          <h3>Akquise</h3>
+          <p>Aktive Outbound-Aktivitäten starten. Cold Calls, Follow-ups und Terminvereinbarungen laufen in deinem Namen.</p>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll" style="animation-delay: 0.3s">
+          <div class="timeline-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
+            </svg>
+          </div>
+          <div class="timeline-phase-eyebrow">Phase IV</div>
+          <h3>Reporting</h3>
+          <p>Regelmäßige Updates, Pipeline-Übersicht und gemeinsame Abstimmung zur Optimierung der laufenden Akquise.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 — INVESTMENT -->
+<section class="section" id="section-05">
+  <div class="container">
+    <div class="section-header reveal-on-scroll">
+      <div class="section-number-wrap">
+        <div class="section-number">05</div>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Investment</div>
+        <h2 class="section-h2">Hier sind die Konditionen</h2>
+      </div>
+    </div>
+
+    <div class="pricing-wrap">
+      <div class="pricing-card glow-card reveal-on-scroll-strong">
+        <div class="pricing-eyebrow">Dein Angebot · bsk büro + designhaus GmbH</div>
+
+        <div class="pricing-positions">
+          <div class="pricing-position">
+            <div class="pricing-position-info">
+              <h3>Sales Research & Vertrieb</h3>
+              <div class="pricing-position-desc">Gezielte Zielgruppenrecherche, Kontaktlisten-Aufbau, aktive Outbound-Akquise und laufendes Reporting</div>
+            </div>
+            <div class="pricing-position-price">Auf Anfrage</div>
+          </div>
+        </div>
+
+        <div class="pricing-divider"></div>
+
+        <div class="pricing-total">
+          <div class="pricing-total-label">
+            Gesamtinvestment
+            <span>Pflichtumfang</span>
+          </div>
+          <div class="pricing-total-amount">Auf Anfrage</div>
+        </div>
+
+        <div class="pricing-benefits">
+          <div class="pricing-benefits-header">Was du davon hast</div>
+          <ul class="pricing-benefits-list">
+            <li>Sofortige Vertriebskapazität ohne eigene Einstellungen</li>
+            <li>Messbare Pipeline-Aktivität von Beginn an</li>
+            <li>Volle Transparenz über jeden Schritt der Akquise</li>
+          </ul>
+        </div>
+
+        <a href="https://angebot.sales-culture.de/Salesresearch" class="pricing-conditions-link">
+          Die vollständigen Konditionen findest du im Angebot <span class="link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABSCHLUSS CTA -->
+<section class="cta-section" id="section-06">
+  <div class="container">
+    <div class="cta-section-number-deco">06</div>
+    <div class="cta-card glow-card reveal-on-scroll-strong">
+      <svg class="cta-svg-deco" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="400" cy="200" r="300" stroke="rgba(77,142,255,0.4)" stroke-width="1" stroke-dasharray="12 18"/>
+        <circle cx="400" cy="200" r="200" stroke="rgba(77,142,255,0.25)" stroke-width="1" stroke-dasharray="6 10"/>
+        <circle cx="400" cy="200" r="100" stroke="rgba(77,142,255,0.15)" stroke-width="1"/>
+      </svg>
+      <div class="cta-content">
+        <div class="cta-eyebrow">Bereit loszulegen?</div>
+        <h2 class="cta-h2">Wir legen los, sobald du grünes Licht gibst.</h2>
+        <p class="cta-subline">Klick auf "Angebot annehmen" und wir koordinieren den Rest.</p>
+        <div class="cta-buttons">
+          <a href="https://angebot.sales-culture.de/Salesresearch" class="btn-primary magnetic">Angebot annehmen</a>
+          <a href="https://sales-culture.de/david" class="btn-secondary">Termin buchen</a>
+        </div>
+        <div class="cta-contact-options">
+          <a href="mailto:david@sales-culture.de" class="cta-contact-item">✉️ david@sales-culture.de</a>
+          <a href="tel:+4915120184446" class="cta-contact-item">📞 +49 151 201 84 446</a>
+          <a href="https://sales-culture.de/david" class="cta-contact-item">📅 Termin buchen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-legal">
+        Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050
+      </div>
+      <div class="footer-disclaimer">
+        Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+
+  // SCROLL FALLBACK
+  if (!CSS.supports('animation-timeline', 'view()')) {
+    document.documentElement.classList.add('js-scroll-fallback');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-strong').forEach(function(el) { io.observe(el); });
+
+    var bar = document.createElement('div'); bar.className = 'js-scroll-progress'; document.body.appendChild(bar);
+    window.addEventListener('scroll', function() {
+      var h = document.documentElement;
+      var pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      bar.style.transform = 'scaleX(' + pct + ')';
+    }, { passive: true });
+
+    // Timeline connector fallback
+    var timelineEl = document.querySelector('.timeline');
+    if (timelineEl) {
+      var tlIO = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var line = e.target.querySelector('.connector-line');
+            if (line) line.classList.add('is-drawn');
+            tlIO.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      tlIO.observe(timelineEl);
+    }
+  }
+
+  // MOUSE SPOTLIGHT
+  var hero = document.querySelector('.hero');
+  var spot = document.querySelector('.hero-spotlight');
+  if (hero && spot) {
+    hero.addEventListener('pointermove', function(e) {
+      var rect = hero.getBoundingClientRect();
+      spot.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+      spot.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+    });
+  }
+
+  // COUNT UP
+  var counters = document.querySelectorAll('[data-count-to]');
+  var runCount = function(el) {
+    var target = parseFloat(el.dataset.countTo);
+    var suffix = el.dataset.suffix || '';
+    var duration = 1200;
+    var start = performance.now();
+    var step = function(now) {
+      var p = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var value = target % 1 === 0 ? Math.round(target * eased) : (target * eased).toFixed(1);
+      el.textContent = value + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  var counterIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      runCount(entry.target);
+      counterIO.unobserve(entry.target);
+    });
+  }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+  counters.forEach(function(c) { counterIO.observe(c); });
+
+  // 3D CARD TILT
+  document.querySelectorAll('.deliverable-card').forEach(function(card) {
+    card.addEventListener('pointermove', function(e) {
+      if (window.matchMedia('(hover: none)').matches) return;
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(900px) rotateX(' + (y * -4) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('pointerleave', function() { card.style.transform = ''; });
+  });
+
+  // READING INDICATOR
+  var sections = document.querySelectorAll('section[id^="section-"]');
+  var links = document.querySelectorAll('.reading-indicator a');
+  var sectionIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        links.forEach(function(l) { l.classList.toggle('is-active', l.getAttribute('href') === '#' + id); });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(function(s) { sectionIO.observe(s); });
+
+  // STICKY CTA
+  var stickyCta = document.querySelector('.sticky-cta');
+  var heroEl = document.querySelector('.hero');
+  var pricingEl = document.querySelector('#section-05');
+  if (stickyCta && heroEl) {
+    var showFromY = heroEl.offsetTop + heroEl.offsetHeight - 80;
+    var hideAfterY = pricingEl ? (pricingEl.offsetTop + pricingEl.offsetHeight) : Infinity;
+    var onScroll = function() {
+      var y = window.scrollY;
+      stickyCta.classList.toggle('is-visible', y > showFromY && y < hideAfterY);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // CURSOR AURA
+  var aura = document.querySelector('.cursor-aura');
+  if (aura && window.matchMedia('(hover: hover)').matches) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+    var cx = tx, cy = ty;
+    window.addEventListener('pointermove', function(e) { tx = e.clientX; ty = e.clientY; });
+    var loop = function() {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      aura.style.transform = 'translate(' + cx + 'px, ' + cy + 'px) translate(-50%, -50%)';
+      requestAnimationFrame(loop);
+    };
+    loop();
+  }
+
+  // MAGNETIC BUTTON
+  document.querySelectorAll('.magnetic').forEach(function(btn) {
+    btn.addEventListener('pointermove', function(e) {
+      if (window.matchMedia('(hover: none)').matches) return;
+      var rect = btn.getBoundingClientRect();
+      var x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+      var y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+      btn.style.transform = 'translate(' + (x * 8) + 'px, ' + (y * 6) + 'px) scale(1.02)';
+    });
+    btn.addEventListener('pointerleave', function() { btn.style.transform = ''; });
+  });
+
+})();
+</script>
+</body>
+</html>
