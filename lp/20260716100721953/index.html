@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Culture · Angebot für EDAG Group</title>
+<style>
+:root {
+  --bg: #0a0a0b;
+  --bg-elevated: #111114;
+  --surface: #16161a;
+  --surface-elevated: #1c1c22;
+  --text: #f5f5f7;
+  --text-secondary: #c7c7cc;
+  --text-muted: rgba(245,245,247,0.55);
+  --primary: #4d8eff;
+  --primary-bright: #5d9eff;
+  --primary-dim: rgba(77,142,255,0.12);
+  --primary-border: rgba(77,142,255,0.25);
+  --accent: #4d8eff;
+  --border: rgba(245,245,247,0.08);
+  --border-strong: rgba(245,245,247,0.16);
+  --glow-line: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 67% 32%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 28% 71%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 89% 84%, var(--primary-dim) 0, transparent 2px),
+    radial-gradient(circle at 45% 50%, var(--primary-dim) 0, transparent 2px);
+  animation: gridNodes 8s ease-in-out infinite;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+}
+
+/* SCROLL PROGRESS */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 999;
+}
+
+@supports (animation-timeline: view()) {
+  body::before {
+    animation: scrollProgress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* KEYFRAMES */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes drawLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes slowFloat {
+  0%, 100% { transform: translate(0,0); }
+  33% { transform: translate(30px,-20px); }
+  66% { transform: translate(-20px,20px); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--primary-dim); }
+  50% { box-shadow: 0 0 40px rgba(77,142,255,0.3); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+@keyframes rotateBackground {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes wordReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollProgress {
+  to { transform: scaleX(1); }
+}
+@keyframes revealOnScroll {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealOnScrollStrong {
+  from { opacity: 0; transform: translateY(80px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes heroGlowParallax {
+  to { transform: translateY(40vh) scale(1.4); opacity: 0; }
+}
+@keyframes gridNodes {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+@keyframes drawConnector {
+  to { stroke-dasharray: 100 0; }
+}
+@keyframes numberPulse {
+  0% { transform: scale(0.85) rotate(-2deg); opacity: 0.4; }
+  40% { transform: scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1.05) rotate(0deg); opacity: 1; }
+}
+@keyframes glowTrace {
+  0% { background-position: -100% 0; opacity: 0.3; }
+  50% { background-position: 100% 0; opacity: 0.9; }
+  100% { background-position: 200% 0; opacity: 0.3; }
+}
+
+/* REVEAL DEFAULTS */
+.reveal-on-scroll,
+.reveal-on-scroll-strong {
+  opacity: 1;
+  transform: none;
+}
+
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation: revealOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .reveal-on-scroll-strong {
+    animation: revealOnScrollStrong linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 50%;
+  }
+  .hero-glow {
+    animation: heroGlowParallax linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+  .section-number {
+    animation: numberPulse linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 80%;
+  }
+}
+
+/* HEADER */
+.site-header {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header a.contact-link {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.site-header a.contact-link:hover { color: var(--text-secondary); }
+
+/* HERO */
+.hero {
+  padding: 96px 0 128px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(77,142,255,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: slowFloat 20s ease-in-out infinite;
+}
+
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(600px circle at var(--mx,50%) var(--my,30%), rgba(77,142,255,0.10) 0%, transparent 50%);
+  transition: background 0.15s ease-out;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 60fr 40fr;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-grid > div:first-child {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s both;
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 100%;
+  min-width: 0;
+  padding-right: 8px;
+  margin-bottom: 28px;
+  animation: fadeInUp 0.8s 0.05s both;
+}
+
+.hero h1 .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: wordReveal 0.7s cubic-bezier(0.2,0.8,0.2,1) both;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.hero h1 .word:nth-child(1) { animation-delay: 0.10s; }
+.hero h1 .word:nth-child(2) { animation-delay: 0.18s; }
+.hero h1 .word:nth-child(3) { animation-delay: 0.26s; }
+.hero h1 .word:nth-child(4) { animation-delay: 0.34s; }
+.hero h1 .word:nth-child(5) { animation-delay: 0.42s; }
+.hero h1 .word:nth-child(6) { animation-delay: 0.50s; }
+.hero h1 .word:nth-child(7) { animation-delay: 0.58s; }
+.hero h1 .word:nth-child(8) { animation-delay: 0.66s; }
+
+.hero-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 52ch;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s 0.20s both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s 0.35s both;
+}
+
+/* BUTTONS */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, filter 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 20px var(--primary-dim);
+  animation: glow 3s ease-in-out infinite;
+}
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+.btn-primary:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border-strong);
+  transition: transform 0.2s, border-color 0.2s, color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--text);
+  transform: scale(1.02);
+}
+
+/* HERO CARD */
+.hero-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  animation: fadeInUp 0.8s 0.4s both, float 6s 1.2s ease-in-out infinite;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.glow-card {
+  position: relative;
+}
+.glow-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1px;
+  background: var(--glow-line);
+  opacity: 0.7;
+  pointer-events: none;
+  border-radius: 1px;
+}
+.glow-card::after {
+  content: "";
+  position: absolute;
+  top: -40px; left: 30%; right: 30%;
+  height: 80px;
+  background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.hero-card-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.hero-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.hero-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.hero-card ul li {
+  font-size: 15px;
+  color: var(--text-secondary);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.hero-card ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.hero-card-footer {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.04em;
+}
+
+/* SECTION LAYOUT */
+.section {
+  padding: 128px 0;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .section { padding: 80px 0; }
+}
+
+.section-header-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0 48px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .section-header-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+.section-number-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 0;
+}
+
+.section-number {
+  font-size: clamp(88px, 9vw, 112px);
+  font-weight: 200;
+  line-height: 1;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  margin: 0;
+  display: inline-block;
+  transform-origin: left center;
+}
+
+.section-accent-line {
+  width: 3px;
+  height: 60px;
+  background: var(--primary);
+  border-radius: 2px;
+  margin-top: 12px;
+  transform-origin: top;
+  animation: drawLine 1s 0.2s both;
+}
+
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.section-header-grid h2 {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+  margin-top: 12px;
+}
+
+/* SECTION 3 — PERSONAL */
+.personal-section {
+  padding: 96px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.personal-inner {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.personal-accent {
+  width: 3px;
+  min-height: 100%;
+  background: var(--primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.personal-body {
+  flex: 1;
+}
+
+.personal-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.personal-body p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 65ch;
+}
+.personal-body p + p { margin-top: 16px; }
+
+/* SECTION 4 — WAS WIR VERSTANDEN HABEN */
+.section-04-prose {
+  margin-top: 32px;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 60ch;
+}
+.section-04-prose p + p { margin-top: 16px; }
+
+/* STAT CARDS */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+@media (max-width: 768px) {
+  .stat-grid { grid-template-columns: 1fr; }
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+}
+.stat-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 30%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 0 0 0 16px;
+}
+.stat-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: clamp(48px, 5.5vw, 72px);
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.stat-value { font-size: 1em; }
+.stat-unit {
+  font-size: 0.45em;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0;
+}
+.stat-caption {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* SECTION 5 — INTRO TEXT */
+.section-intro-text {
+  margin-top: 32px;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 60ch;
+}
+
+/* DELIVERABLE CARDS */
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+@media (max-width: 768px) {
+  .deliverables-grid { grid-template-columns: 1fr; }
+}
+
+.deliverable-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: default;
+  overflow: hidden;
+}
+.deliverable-card:nth-child(even) {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
+}
+.deliverable-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+.card-icon {
+  margin-bottom: 20px;
+  color: var(--primary);
+  opacity: 0.9;
+}
+
+.card-arrow {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: transform 0.3s, color 0.3s;
+  line-height: 1;
+}
+.deliverable-card:hover .card-arrow {
+  transform: rotate(45deg);
+  color: var(--primary);
+}
+
+.deliverable-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.deliverable-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* TIMELINE */
+.timeline-section { position: relative; }
+
+.timeline-wrapper {
+  position: relative;
+  margin-top: 64px;
+}
+
+.timeline-connector-svg {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.connector-line {
+  stroke-dashoffset: 100;
+  stroke-dasharray: 0 100;
+}
+
+@supports (animation-timeline: view()) {
+  .connector-line {
+    animation: drawConnector linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+}
+
+.timeline-phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .timeline-phases { grid-template-columns: 1fr; }
+  .timeline-connector-svg { display: none; }
+}
+
+.timeline-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.phase-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.phase-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.timeline-phase h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.timeline-phase p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* PRICING */
+.pricing-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 56px;
+}
+
+.pricing-card {
+  width: 100%;
+  max-width: 720px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+}
+
+.pricing-card.glow-card::before {
+  background: linear-gradient(90deg, transparent 0%, transparent 30%, var(--primary) 50%, transparent 70%, transparent 100%);
+  background-size: 200% 100%;
+  animation: glowTrace 6s ease-in-out infinite;
+}
+
+.pricing-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 32px;
+}
+
+.pricing-positions {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pricing-position {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 24px;
+  align-items: start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-position:first-child { padding-top: 0; }
+
+.pricing-pos-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.pricing-pos-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.5;
+  grid-column: 1;
+}
+
+.pricing-pos-price {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.pricing-total-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 28px;
+  padding-top: 24px;
+}
+
+.pricing-total-label {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.pricing-total-amount {
+  font-size: 44px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pricing-benefits {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.pricing-benefits-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.pricing-benefits ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pricing-benefits ul li {
+  font-size: 15px;
+  color: var(--text-secondary);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.pricing-benefits ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.pricing-contract {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.pricing-contract-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.pricing-contract ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pricing-contract ul li {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.pricing-contract ul li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+.pricing-conditions-link {
+  display: block;
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--primary);
+  text-decoration: none;
+  transition: letter-spacing 0.2s;
+}
+.pricing-conditions-link:hover { letter-spacing: 0.02em; }
+
+.pricing-validity {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.pricing-netto {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* CTA SECTION */
+.cta-section {
+  padding: 128px 0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .cta-section { padding: 80px 0; }
+}
+
+.cta-card {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .cta-card { padding: 48px 24px; }
+}
+
+.cta-decorator {
+  position: absolute;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.cta-section-number {
+  font-size: clamp(88px, 9vw, 112px);
+  font-weight: 200;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  position: absolute;
+  top: 24px;
+  left: 48px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.cta-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.cta-card h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+
+.cta-subline {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 48ch;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.cta-contacts {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-contact-link {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.cta-contact-link:hover { color: var(--text-secondary); }
+
+/* FOOTER */
+.site-footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.footer-disclaimer {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* STICKY CTA */
+.sticky-cta {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(10,10,11,0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  z-index: 90;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+.sticky-cta-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.sticky-cta-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.sticky-cta-buttons { display: flex; gap: 12px; }
+.sticky-cta-primary {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sticky-cta-secondary {
+  color: var(--text-secondary);
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-strong);
+}
+@media (max-width: 640px) {
+  .sticky-cta-label { display: none; }
+  .sticky-cta-inner { padding: 14px 24px; }
+}
+
+/* READING INDICATOR */
+.reading-indicator {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 50;
+}
+.reading-indicator a {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transition: background 0.3s, transform 0.3s;
+  position: relative;
+  text-decoration: none;
+}
+.reading-indicator a:hover { transform: scale(1.4); }
+.reading-indicator a.is-active {
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--primary-dim);
+}
+.reading-indicator a:hover::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding: 4px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+@media (max-width: 1100px) {
+  .reading-indicator { display: none; }
+}
+
+/* CURSOR AURA */
+.cursor-aura {
+  position: fixed;
+  top: 0; left: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77,142,255,0.10) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .cursor-aura { opacity: 1; }
+}
+
+/* JS FALLBACK */
+.js-scroll-fallback .reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.js-scroll-fallback .reveal-on-scroll-strong {
+  opacity: 0;
+  transform: translateY(80px) scale(0.96);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.js-scroll-fallback .reveal-on-scroll-strong.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.js-scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--glow-line);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 999;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="cursor-aura" aria-hidden="true"></div>
+
+<!-- READING INDICATOR -->
+<nav class="reading-indicator" aria-hidden="true">
+  <a href="#section-01" data-label="Was wir verstanden haben"></a>
+  <a href="#section-02" data-label="Unser Vorschlag"></a>
+  <a href="#section-03" data-label="Was ihr bekommt"></a>
+  <a href="#section-04" data-label="Wie wir starten"></a>
+  <a href="#section-05" data-label="Investment"></a>
+  <a href="#section-06" data-label="Loslegen"></a>
+</nav>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" aria-hidden="true">
+  <div class="sticky-cta-inner">
+    <span class="sticky-cta-label">Sales Consulting · EDAG Group</span>
+    <div class="sticky-cta-buttons">
+      <a href="https://www.hiexperts.de/florian-weissgerber" class="sticky-cta-secondary">Termin</a>
+      <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="sticky-cta-primary">Angebot annehmen</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height:48px;width:auto;">
+    <a href="mailto:david@sales-culture.de" class="contact-link">david@sales-culture.de</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-spotlight" aria-hidden="true"></div>
+
+  <!-- Decorative SVG -->
+  <svg style="position:absolute;top:10%;left:5%;opacity:0.05;pointer-events:none;animation:rotateBackground 60s linear infinite;" width="320" height="320" viewBox="0 0 320 320" aria-hidden="true">
+    <circle cx="160" cy="160" r="140" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="12 8"/>
+    <circle cx="160" cy="160" r="100" fill="none" stroke="var(--primary)" stroke-width="0.5" stroke-dasharray="6 10"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-grid">
+      <!-- LEFT -->
+      <div>
+        <div class="hero-eyebrow">
+          <span class="eyebrow-dot"></span>
+          FÜR EDAG GROUP
+        </div>
+        <h1 lang="de">
+          <span class="word">Sales</span> <span class="word">Consulting</span> <span class="word">für</span> <span class="word">EDAG</span> <span class="word">Group</span>
+        </h1>
+        <p class="hero-subline">
+          Florian Weißgerber und das Team von Sales Culture haben ein Angebot erarbeitet, das auf die konkreten Anforderungen der EDAG Group eingeht. Ihr findet alle Details auf dieser Seite.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="btn-primary magnetic">Angebot annehmen</a>
+          <a href="https://www.hiexperts.de/florian-weissgerber" class="btn-secondary">Termin vereinbaren</a>
+        </div>
+      </div>
+
+      <!-- RIGHT — HIGHLIGHT CARD -->
+      <div>
+        <div class="hero-card glow-card">
+          <div class="hero-card-eyebrow">Was ihr bekommt</div>
+          <h3>Sales Consulting für die EDAG Group</h3>
+          <ul>
+            <li>Strukturierte Sales-Beratung durch einen festen Ansprechpartner</li>
+            <li>Direkte Zusammenarbeit mit dem Sales-Culture-Team</li>
+            <li>Klarer Projektrahmen mit definierten Leistungsphasen</li>
+          </ul>
+          <div class="hero-card-footer">Details zu Konditionen und Umfang weiter unten</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — PERSÖNLICHE ANSPRACHE -->
+<section class="personal-section reveal-on-scroll">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent"></div>
+      <div class="personal-body">
+        <div class="personal-eyebrow">Hi Kai</div>
+        <p>
+          Florian hat uns den Kontext zur EDAG Group mitgegeben und direkt den nächsten Schritt angestoßen. Dieses Angebot ist das Ergebnis davon.
+        </p>
+        <p>
+          Auf den folgenden Seiten findet ihr alles, was ihr für eine fundierte Entscheidung braucht: den Leistungsumfang, den Ablauf und die Konditionen. Klickt auf den Link zum vollständigen Angebot, wenn ihr mehr Details wollt.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 01 — WAS WIR VERSTANDEN HABEN -->
+<section class="section reveal-on-scroll" id="section-01">
+  <div class="container">
+    <div class="section-header-grid">
+      <div class="section-number-wrap">
+        <span class="section-number">01</span>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Kontext</div>
+        <h2>Was wir verstanden haben</h2>
+        <div class="section-04-prose">
+          <p>
+            Florian Weißgerber hat sich direkt mit dem Angebot für die EDAG Group an uns gewandt. Der Prozess ist bereits in Bewegung: Das Angebot liegt vor und der nächste Schritt ist eure Freigabe.
+          </p>
+          <p>
+            Sales Culture begleitet die EDAG Group im Rahmen einer Sales-Consulting-Zusammenarbeit. Die genauen inhaltlichen Schwerpunkte sind im vollständigen Angebotsdokument dokumentiert, das ihr über den Link am Ende dieser Seite abrufen könnt.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 — UNSER VORSCHLAG -->
+<section class="section reveal-on-scroll" id="section-02">
+  <div class="container">
+    <div class="section-header-grid">
+      <div class="section-number-wrap">
+        <span class="section-number">02</span>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Zahlen</div>
+        <h2>Das Angebot auf einen Blick</h2>
+        <p class="section-intro-text">
+          Die drei Kennzahlen unten sind direkt aus dem Angebot abgeleitet und geben euch einen schnellen Überblick über den Rahmen der Zusammenarbeit.
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="1">1</span>
+          <span class="stat-unit">Angebot</span>
+        </div>
+        <div class="stat-caption">Individuelles Angebot für die EDAG Group</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="5">5</span>
+          <span class="stat-unit">%</span>
+        </div>
+        <div class="stat-caption">Vereinbarter Anteil gemäß Angebot</div>
+      </div>
+      <div class="stat-card reveal-on-scroll">
+        <div class="stat-number">
+          <span class="stat-value" data-count-to="1">1</span>
+          <span class="stat-unit">Ansprechpartner</span>
+        </div>
+        <div class="stat-caption">Fester Ansprechpartner bei Sales Culture</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — WAS IHR BEKOMMT -->
+<section class="section reveal-on-scroll" id="section-03">
+  <div class="container">
+    <div class="section-header-grid">
+      <div class="section-number-wrap">
+        <span class="section-number">03</span>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Leistungsumfang</div>
+        <h2>Was ihr bekommt</h2>
+      </div>
+    </div>
+
+    <div class="deliverables-grid" style="margin-top:56px;">
+
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <span class="card-arrow" aria-hidden="true">↗</span>
+        <h3>Sales Consulting</h3>
+        <p>Ein erfahrener Sales Consultant von Sales Culture begleitet die EDAG Group im Vertriebsprozess. Ihr erhaltet strukturierte Unterstützung durch einen festen Ansprechpartner.</p>
+      </div>
+
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <span class="card-arrow" aria-hidden="true">↗</span>
+        <h3>Erfolgsbeteiligung</h3>
+        <p>Die Zusammenarbeit ist an eine leistungsbasierte Vergütung geknüpft. Der vereinbarte Anteil gemäß Angebot beträgt 5 %. Details findet ihr im vollständigen Angebotsdokument.</p>
+      </div>
+
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+        </div>
+        <span class="card-arrow" aria-hidden="true">↗</span>
+        <h3>Klarer Projektrahmen</h3>
+        <p>Die Zusammenarbeit folgt einem definierten Ablauf mit klar vereinbarten Leistungsphasen. Ihr wisst zu jedem Zeitpunkt, wo der Prozess steht und was als nächstes kommt.</p>
+      </div>
+
+      <div class="deliverable-card reveal-on-scroll">
+        <div class="card-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <span class="card-arrow" aria-hidden="true">↗</span>
+        <h3>Direkter Zugang zum Team</h3>
+        <p>Ihr arbeitet direkt mit Florian Weißgerber und dem Sales-Culture-Team zusammen. Kurze Wege, schnelle Abstimmungen, keine Umwege über Zwischenstellen.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 — WIE WIR STARTEN -->
+<section class="section timeline-section reveal-on-scroll" id="section-04">
+  <div class="container">
+    <div class="section-header-grid">
+      <div class="section-number-wrap">
+        <span class="section-number">04</span>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Ablauf</div>
+        <h2>Wie wir starten</h2>
+      </div>
+    </div>
+
+    <div class="timeline-wrapper">
+      <svg class="timeline-connector-svg" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="80" y1="28" x2="920" y2="28" stroke="var(--primary-border)" stroke-width="1" stroke-dasharray="6 8" pathLength="100" class="connector-line"/>
+      </svg>
+
+      <div class="timeline-phases">
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="phase-eyebrow">Phase 01</div>
+          <h3>Freigabe</h3>
+          <p>Ihr nehmt das Angebot an und gebt das Startsignal. Ab diesem Moment koordinieren wir alle weiteren Schritte.</p>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <line x1="19" y1="8" x2="19" y2="14"/>
+              <line x1="22" y1="11" x2="16" y2="11"/>
+            </svg>
+          </div>
+          <div class="phase-eyebrow">Phase 02</div>
+          <h3>Kick-off</h3>
+          <p>Gemeinsamer Kick-off-Termin mit Florian Weißgerber. Wir stimmen Ziele, Zuständigkeiten und den konkreten Projektrahmen ab.</p>
+        </div>
+
+        <div class="timeline-phase reveal-on-scroll">
+          <div class="phase-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div class="phase-eyebrow">Phase 03</div>
+          <h3>Umsetzung</h3>
+          <p>Das Sales-Culture-Team übernimmt die vereinbarten Leistungen. Ihr behaltet jederzeit den Überblick über den Fortschritt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 — INVESTMENT -->
+<section class="section reveal-on-scroll" id="section-05">
+  <div class="container">
+    <div class="section-header-grid">
+      <div class="section-number-wrap">
+        <span class="section-number">05</span>
+        <div class="section-accent-line"></div>
+      </div>
+      <div>
+        <div class="section-eyebrow">Euer Angebot</div>
+        <h2>Investment &amp; Konditionen</h2>
+      </div>
+    </div>
+
+    <div class="pricing-wrap" style="margin-top:56px;">
+      <div class="pricing-card glow-card reveal-on-scroll-strong">
+        <div class="pricing-eyebrow">Euer Angebot</div>
+
+        <div class="pricing-positions">
+          <div class="pricing-position">
+            <div class="pricing-pos-title">Sales Consulting</div>
+            <div class="pricing-pos-desc">Leistungsbasierte Vergütung auf Basis der vereinbarten Erfolgsbeteiligung</div>
+            <div class="pricing-pos-price">5 %</div>
+          </div>
+        </div>
+
+        <div class="pricing-total-line">
+          <span class="pricing-total-label">Vereinbarter Anteil</span>
+          <span class="pricing-total-amount">5 %</span>
+        </div>
+
+        <div class="pricing-benefits">
+          <div class="pricing-benefits-label">Was ihr davon habt</div>
+          <ul>
+            <li>Leistungsbasiertes Modell: Ihr zahlt im Verhältnis zum erzielten Ergebnis</li>
+            <li>Fester Ansprechpartner für die gesamte Laufzeit der Zusammenarbeit</li>
+            <li>Klarer Ablauf mit definierten Phasen, keine unklaren Leistungsgrenzen</li>
+          </ul>
+        </div>
+
+        <div class="pricing-contract">
+          <div class="pricing-contract-label">Vertragsdetails</div>
+          <ul>
+            <li>5 % Erfolgsbeteiligung gemäß Angebot</li>
+            <li>Vollständige Konditionen im Angebotsdokument</li>
+          </ul>
+        </div>
+
+        <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="pricing-conditions-link">
+          Die vollständigen Konditionen findet ihr im Angebot →
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 06 — ABSCHLUSS CTA -->
+<section class="cta-section reveal-on-scroll-strong" id="section-06">
+  <div class="container">
+    <div class="cta-card glow-card">
+      <div class="cta-section-number" aria-hidden="true">06</div>
+
+      <!-- Decorative SVG strokes -->
+      <svg class="cta-decorator" style="top:-40px;right:-40px;width:300px;height:300px;" viewBox="0 0 300 300" aria-hidden="true">
+        <circle cx="150" cy="150" r="120" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="8 12"/>
+        <circle cx="150" cy="150" r="80" fill="none" stroke="var(--primary)" stroke-width="0.5" stroke-dasharray="4 14"/>
+      </svg>
+      <svg class="cta-decorator" style="bottom:-30px;left:-30px;width:200px;height:200px;" viewBox="0 0 200 200" aria-hidden="true">
+        <rect x="20" y="20" width="160" height="160" rx="16" fill="none" stroke="var(--primary)" stroke-width="0.8" stroke-dasharray="6 10"/>
+      </svg>
+
+      <div class="cta-eyebrow">Bereit loszulegen?</div>
+      <h2>Wir legen los, sobald ihr grünes Licht gebt</h2>
+      <p class="cta-subline">
+        Klickt auf "Angebot annehmen" und wir koordinieren den Rest.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="btn-primary magnetic">Angebot annehmen</a>
+        <a href="https://www.hiexperts.de/florian-weissgerber" class="btn-secondary">Termin buchen</a>
+      </div>
+
+      <div class="cta-contacts">
+        <a href="mailto:david@sales-culture.de" class="cta-contact-link">✉️ david@sales-culture.de</a>
+        <a href="tel:+4991147780201" class="cta-contact-link">📞 +49 911 47780-201</a>
+        <a href="https://www.hiexperts.de/florian-weissgerber" class="cta-contact-link">📅 Termin vereinbaren</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050
+    </div>
+    <div class="footer-disclaimer">
+      Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.
+    </div>
+  </div>
+</footer>
+
+<!-- FEATURE SCRIPTS (inline) -->
+<script>
+  // Mouse spotlight
+  const hero = document.querySelector('.hero');
+  const spot = document.querySelector('.hero-spotlight');
+  if (hero && spot) {
+    hero.addEventListener('pointermove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      spot.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+      spot.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+    });
+  }
+
+  // Count-up
+  const counters = document.querySelectorAll('[data-count-to]');
+  const runCount = (el) => {
+    const target = parseFloat(el.dataset.countTo);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const value = target % 1 === 0 ? Math.round(target * eased) : (target * eased).toFixed(1);
+      el.textContent = value + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      runCount(entry.target);
+      counterIO.unobserve(entry.target);
+    });
+  }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+  counters.forEach((c) => counterIO.observe(c));
+
+  // 3D tilt
+  document.querySelectorAll('.deliverable-card').forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      if (window.matchMedia('(hover: none)').matches) return;
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(900px) rotateX(${y * -4}deg) rotateY(${x * 6}deg) translateY(-4px)`;
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  });
+
+  // Magnetic buttons
+  document.querySelectorAll('.magnetic').forEach((btn) => {
+    btn.addEventListener('pointermove', (e) => {
+      if (window.matchMedia('(hover: none)').matches) return;
+      const rect = btn.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+      const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+      btn.style.transform = `translate(${x * 8}px, ${y * 6}px) scale(1.02)`;
+    });
+    btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+  });
+
+  // Sticky CTA
+  const stickyCta = document.querySelector('.sticky-cta');
+  const heroEl = document.querySelector('.hero');
+  const pricingEl = document.querySelector('#section-05');
+  if (stickyCta && heroEl) {
+    const showFromY = heroEl.offsetTop + heroEl.offsetHeight - 80;
+    const hideAfterY = pricingEl ? (pricingEl.offsetTop + pricingEl.offsetHeight) : Infinity;
+    const onScroll = () => {
+      const y = window.scrollY;
+      stickyCta.classList.toggle('is-visible', y > showFromY && y < hideAfterY);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Reading indicator
+  const sections = document.querySelectorAll('section[id^="section-"]');
+  const links = document.querySelectorAll('.reading-indicator a');
+  const sectionIO = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach((l) => { l.classList.toggle('is-active', l.getAttribute('href') === '#' + id); });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach((s) => sectionIO.observe(s));
+
+  // Cursor aura
+  const aura = document.querySelector('.cursor-aura');
+  if (aura && window.matchMedia('(hover: hover)').matches) {
+    let tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+    let cx = tx, cy = ty;
+    window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
+    const loop = () => {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      aura.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      requestAnimationFrame(loop);
+    };
+    loop();
+  }
+</script>
+
+<!-- IO FALLBACK (single block) -->
+<script>
+  if (!CSS.supports('animation-timeline', 'view()')) {
+    document.documentElement.classList.add('js-scroll-fallback');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-strong').forEach((el) => io.observe(el));
+    const bar = document.createElement('div');
+    bar.className = 'js-scroll-progress';
+    document.body.appendChild(bar);
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      bar.style.transform = `scaleX(${pct})`;
+    }, { passive: true });
+    // Draw connector fallback
+    const connectorIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-drawn'); connectorIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.connector-line').forEach((el) => connectorIO.observe(el));
+  }
+</script>
+
+</body>
+</html>
