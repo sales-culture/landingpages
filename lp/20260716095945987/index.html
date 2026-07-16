@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertriebsoutsourcing für EDAG Group</title>
+<style>
+  :root {
+    --bg: #0a0a0b; --bg-elevated: #111114; --surface: #16161a; --surface-elevated: #1c1c22;
+    --text: #f5f5f7; --text-secondary: #c7c7cc; --text-muted: rgba(245, 245, 247, 0.55);
+    --primary: #4d8eff; --primary-bright: #5d9eff; --primary-dim: rgba(77, 142, 255, 0.12);
+    --primary-border: rgba(77, 142, 255, 0.25); --accent: #4d8eff;
+    --border: rgba(245, 245, 247, 0.08); --border-strong: rgba(245, 245, 247, 0.16);
+    --glow-line: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 12% 18%, var(--primary-dim) 0, transparent 2px),
+      radial-gradient(circle at 67% 32%, var(--primary-dim) 0, transparent 2px),
+      radial-gradient(circle at 28% 71%, var(--primary-dim) 0, transparent 2px),
+      radial-gradient(circle at 89% 84%, var(--primary-dim) 0, transparent 2px),
+      radial-gradient(circle at 45% 50%, var(--primary-dim) 0, transparent 2px);
+    animation: gridNodes 8s ease-in-out infinite;
+  }
+
+  .scroll-progress-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--glow-line);
+    transform-origin: left center;
+    transform: scaleX(0);
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress-bar {
+      animation: scrollProgress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  @keyframes scrollProgress { to { transform: scaleX(1); } }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 24px; }
+  }
+
+  /* Background grid */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(245,245,247,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,245,247,0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* HEADER */
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
+  }
+
+  .site-header .container {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-header a.contact-link {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .site-header a.contact-link:hover { color: var(--text-secondary); }
+
+  /* STICKY CTA */
+  .sticky-cta {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    z-index: 90;
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .sticky-cta.is-visible { transform: translateY(0); }
+
+  .sticky-cta-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .sticky-cta-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .sticky-cta-buttons { display: flex; gap: 12px; }
+
+  .sticky-cta-primary {
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .sticky-cta-secondary {
+    color: var(--text-secondary);
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid var(--border-strong);
+  }
+
+  @media (max-width: 640px) { .sticky-cta-label { display: none; } }
+
+  /* READING INDICATOR */
+  .reading-indicator {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 50;
+  }
+
+  .reading-indicator a {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border-strong);
+    transition: background 0.3s, transform 0.3s;
+    position: relative;
+    display: block;
+  }
+
+  .reading-indicator a:hover { transform: scale(1.4); }
+
+  .reading-indicator a.is-active {
+    background: var(--primary);
+    box-shadow: 0 0 12px var(--primary-dim);
+  }
+
+  .reading-indicator a:hover::before {
+    content: attr(data-label);
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    padding: 4px 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  @media (max-width: 1100px) { .reading-indicator { display: none; } }
+
+  /* CURSOR AURA */
+  .cursor-aura {
+    position: fixed;
+    top: 0; left: 0;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,142,255,0.10) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) { .cursor-aura { opacity: 1; } }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 128px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(77,142,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    animation: slowFloat 20s ease-in-out infinite;
+  }
+
+  .hero-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%), rgba(77,142,255,0.10) 0%, transparent 50%);
+    transition: background 0.15s ease-out;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 60fr 40fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-grid > div:first-child { min-width: 0; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero { padding: 80px 0; }
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .eyebrow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 5.5vw, 72px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 100%;
+    min-width: 0;
+    padding-right: 8px;
+    margin-bottom: 32px;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .hero h1 .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: wordReveal 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .hero h1 .word:nth-child(1) { animation-delay: 0.10s; }
+  .hero h1 .word:nth-child(2) { animation-delay: 0.20s; }
+  .hero h1 .word:nth-child(3) { animation-delay: 0.30s; }
+  .hero h1 .word:nth-child(4) { animation-delay: 0.40s; }
+  .hero h1 .word:nth-child(5) { animation-delay: 0.50s; }
+
+  .hero-subline {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 52ch;
+    margin-bottom: 48px;
+    animation: fadeInUp 0.8s 0.15s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    box-shadow: 0 0 20px var(--primary-dim);
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .btn-primary:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+    box-shadow: 0 0 40px rgba(77,142,255,0.3);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    padding: 16px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    border: 1px solid var(--border-strong);
+    transition: transform 0.2s, border-color 0.2s, color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-secondary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out 1s infinite;
+    pointer-events: none;
+  }
+
+  .btn-secondary:hover {
+    transform: scale(1.02);
+    border-color: var(--primary);
+    color: var(--text);
+  }
+
+  /* HERO CARD */
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    animation: fadeInUp 0.8s 0.4s both, float 6s 1.2s ease-in-out infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .hero-card.glow-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: var(--glow-line);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .hero-card.glow-card::after {
+    content: "";
+    position: absolute;
+    top: -40px; left: 30%; right: 30%;
+    height: 80px;
+    background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+
+  .hero-card-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+
+  .hero-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-card-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .hero-card-bullets li {
+    font-size: 15px;
+    color: var(--text-secondary);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .hero-card-bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+
+  .hero-card-footer {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-inner {
+    padding: 128px 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-inner { padding: 80px 0; }
+  }
+
+  .section-border-top {
+    border-top: 1px solid var(--border);
+  }
+
+  /* SECTION HEADER GRID */
+  .section-header-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+    align-items: start;
+    margin-bottom: 64px;
+  }
+
+  @media (max-width: 768px) {
+    .section-header-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .section-number-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0;
+  }
+
+  .section-number {
+    font-size: clamp(72px, 8vw, 100px);
+    font-weight: 200;
+    line-height: 1;
+    color: var(--primary);
+    letter-spacing: -0.04em;
+    margin: 0;
+    display: inline-block;
+    transform-origin: left center;
+  }
+
+  @supports (animation-timeline: view()) {
+    .section-number {
+      animation: numberPulse linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 80%;
+    }
+  }
+
+  .section-accent-line {
+    width: 3px;
+    height: 48px;
+    background: var(--primary);
+    transform-origin: top;
+    animation: drawLine 1s 0.2s both;
+    margin-top: 8px;
+  }
+
+  .section-header-content { }
+
+  .section-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-header-content h2 {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-top: 12px;
+  }
+
+  /* SECTION 3 — PERSONAL */
+  .personal-section {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .personal-inner {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    max-width: 720px;
+  }
+
+  .personal-accent {
+    width: 3px;
+    min-height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
+  .personal-content { }
+
+  .personal-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .personal-content p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .personal-content p + p { margin-top: 16px; }
+
+  /* SECTION 4 — PROSE */
+  .section-04-prose {
+    margin-top: 32px;
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 60ch;
+  }
+
+  .section-04-prose p + p { margin-top: 16px; }
+
+  /* STAT CARDS */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  @media (max-width: 768px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: left;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+  }
+
+  .stat-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 0 0 0 16px;
+  }
+
+  .stat-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+  }
+
+  .stat-number {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    white-space: nowrap;
+    font-size: clamp(48px, 5.5vw, 72px);
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .stat-value { font-size: 1em; }
+
+  .stat-unit {
+    font-size: 0.45em;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0;
+  }
+
+  .stat-caption {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* SECTION 5 BODY TEXT */
+  .section-body-text {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 60ch;
+    margin-top: 16px;
+  }
+
+  /* DELIVERABLE CARDS */
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .deliverables-grid { grid-template-columns: 1fr; }
+  }
+
+  .deliverable-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+
+  .deliverable-card:nth-child(even) {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
+  }
+
+  .deliverable-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+  }
+
+  .card-icon {
+    width: 32px; height: 32px;
+    color: var(--primary);
+    margin-bottom: 20px;
+    stroke-width: 1.5;
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: 28px; right: 28px;
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform 0.3s, color 0.3s;
+  }
+
+  .deliverable-card:hover .card-arrow {
+    transform: rotate(45deg);
+    color: var(--primary);
+  }
+
+  .deliverable-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .deliverable-card p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .deliverable-card ul {
+    list-style: none;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .deliverable-card ul li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .deliverable-card ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+
+  /* TIMELINE */
+  .timeline-wrapper {
+    position: relative;
+    margin-top: 64px;
+  }
+
+  .timeline-phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-phases { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .timeline-connector {
+    position: absolute;
+    top: 27px;
+    left: 0; right: 0;
+    width: 100%;
+    height: 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .connector-line {
+    stroke-dashoffset: 100;
+    stroke-dasharray: 0 100;
+  }
+
+  @supports (animation-timeline: view()) {
+    .connector-line {
+      animation: drawConnector linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+  }
+
+  @keyframes drawConnector { to { stroke-dasharray: 100 0; stroke-dashoffset: 0; } }
+
+  .phase {
+    padding: 0 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .phase-icon-circle {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--primary-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+    color: var(--primary);
+    position: relative;
+    z-index: 2;
+  }
+
+  .phase:first-child .phase-icon-circle {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px var(--primary-dim);
+  }
+
+  .phase-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .phase h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .phase p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* PRICING */
+  .pricing-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .pricing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 56px;
+    max-width: 720px;
+    width: 100%;
+    position: relative;
+  }
+
+  .pricing-card.glow-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, transparent 30%, var(--primary) 50%, transparent 70%, transparent 100%);
+    background-size: 200% 100%;
+    animation: glowTrace 6s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .pricing-card.glow-card::after {
+    content: "";
+    position: absolute;
+    top: -40px; left: 30%; right: 30%;
+    height: 80px;
+    background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+
+  @media (max-width: 768px) {
+    .pricing-card { padding: 32px 24px; }
+  }
+
+  .pricing-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 32px;
+  }
+
+  .pricing-position {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .pricing-position:first-of-type { border-top: 1px solid var(--border); }
+
+  .pricing-pos-left { flex: 1; }
+
+  .pricing-pos-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .pricing-pos-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .pricing-pos-price {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .pricing-total-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 32px;
+    padding-top: 24px;
+    gap: 16px;
+  }
+
+  .pricing-total-label {
+    font-size: 15px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .pricing-total-value {
+    font-size: clamp(36px, 4vw, 48px);
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .pricing-total-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  .pricing-benefits {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pricing-benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .pricing-benefit-item::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .pricing-contract {
+    margin-top: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .pricing-contract-item {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .pricing-contract-item::before {
+    content: "–";
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .pricing-conditions-link {
+    display: block;
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--primary);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+
+  .pricing-conditions-link:hover { transform: translateX(4px); }
+
+  .netto-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 16px;
+  }
+
+  /* ABSCHLUSS CTA */
+  .cta-section {
+    padding-bottom: 128px;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) { .cta-section { padding-bottom: 80px; } }
+
+  .cta-card {
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .cta-card { padding: 48px 24px; }
+  }
+
+  .cta-card.glow-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: var(--glow-line);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .cta-card.glow-card::after {
+    content: "";
+    position: absolute;
+    top: -40px; left: 30%; right: 30%;
+    height: 80px;
+    background: radial-gradient(ellipse at center top, var(--primary-dim) 0%, transparent 70%);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+
+  .cta-deco-svg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    overflow: hidden;
+  }
+
+  .cta-deco-svg svg {
+    width: 100%; height: 100%;
+    animation: rotateBackground 60s linear infinite;
+    transform-origin: center;
+  }
+
+  .cta-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+
+  .cta-card h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .cta-subline {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 52ch;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .cta-contacts {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .cta-contact-item {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .cta-contact-item:hover { color: var(--text-secondary); }
+
+  /* FOOTER */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-legal {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .footer-disclaimer {
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0.7;
+    line-height: 1.6;
+  }
+
+  /* REVEAL ANIMATIONS */
+  .reveal-on-scroll,
+  .reveal-on-scroll-strong {
+    opacity: 1;
+    transform: none;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal-on-scroll {
+      animation: revealOnScroll linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    .reveal-on-scroll-strong {
+      animation: revealOnScrollStrong linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 50%;
+    }
+
+    .hero-glow {
+      animation: heroGlowParallax linear both, slowFloat 20s ease-in-out infinite;
+      animation-timeline: scroll(root), auto;
+      animation-range: 0 100vh, auto;
+    }
+  }
+
+  /* KEYFRAMES */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes wordReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @keyframes drawLine {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes slowFloat {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(30px, -20px); }
+    66% { transform: translate(-20px, 20px); }
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes rotateBackground {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes gridNodes {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.85; }
+  }
+
+  @keyframes revealOnScroll {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes revealOnScrollStrong {
+    from { opacity: 0; transform: translateY(80px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes heroGlowParallax {
+    to { transform: translateY(40vh) scale(1.4); opacity: 0; }
+  }
+
+  @keyframes glowTrace {
+    0% { background-position: -100% 0; opacity: 0.3; }
+    50% { background-position: 100% 0; opacity: 0.9; }
+    100% { background-position: 200% 0; opacity: 0.3; }
+  }
+
+  @keyframes numberPulse {
+    0% { transform: scale(0.85) rotate(-2deg); opacity: 0.4; }
+    40% { transform: scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1.05) rotate(0deg); opacity: 1; }
+  }
+
+  /* JS FALLBACK */
+  .js-scroll-fallback .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .js-scroll-fallback .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .js-scroll-fallback .reveal-on-scroll-strong {
+    opacity: 0;
+    transform: translateY(80px) scale(0.96);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+  }
+
+  .js-scroll-fallback .reveal-on-scroll-strong.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .js-scroll-progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--glow-line);
+    transform-origin: left center;
+    transform: scaleX(0);
+    z-index: 999;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="cursor-aura" aria-hidden="true"></div>
+<div class="scroll-progress-bar" aria-hidden="true"></div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" aria-hidden="true">
+  <div class="sticky-cta-inner">
+    <span class="sticky-cta-label">Vertriebsoutsourcing · ab 950 € / Tag</span>
+    <div class="sticky-cta-buttons">
+      <a href="https://www.hiexperts.de/florian-weissgerber" class="sticky-cta-secondary">Termin</a>
+      <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="sticky-cta-primary">Angebot annehmen</a>
+    </div>
+  </div>
+</div>
+
+<!-- READING INDICATOR -->
+<nav class="reading-indicator" aria-hidden="true">
+  <a href="#section-01" data-label="Was wir verstanden haben"></a>
+  <a href="#section-02" data-label="Unser Vorschlag"></a>
+  <a href="#section-03" data-label="Was ihr bekommt"></a>
+  <a href="#section-04" data-label="Wie wir starten"></a>
+  <a href="#section-05" data-label="Investment"></a>
+  <a href="#section-06" data-label="Loslegen"></a>
+</nav>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <img src="https://i.imgur.com/ZPIJbzC.png" alt="Sales Culture" style="height: 48px; width: auto;">
+    <a href="mailto:david@sales-culture.de" class="contact-link">david@sales-culture.de</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-spotlight" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- LEFT -->
+      <div>
+        <div class="eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          FÜR EDAG GROUP
+        </div>
+
+        <h1>
+          <span class="word">Vertriebs­outsourcing</span>&#32;<span class="word">für</span>&#32;<span class="word">EDAG</span>&#32;<span class="word">Group</span>
+        </h1>
+
+        <p class="hero-subline">
+          Ein Senior Sales Consultant übernimmt Recherche, Qualifizierung und Erstansprache eurer Zielkunden — operativ und strategisch im Namen der EDAG Group. Ihr investiert eure Zeit in die Termine, die wir vorqualifiziert haben.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="btn-primary magnetic">Angebot annehmen</a>
+          <a href="https://www.hiexperts.de/florian-weissgerber" class="btn-secondary">Termin vereinbaren</a>
+        </div>
+      </div>
+
+      <!-- RIGHT — HIGHLIGHT CARD -->
+      <div>
+        <div class="hero-card glow-card">
+          <p class="hero-card-eyebrow">Was ihr bekommt</p>
+          <h3>Vertrieb, der im Namen der EDAG Group akquiriert</h3>
+          <ul class="hero-card-bullets">
+            <li>Senior Sales Consultant mit Engineering-Erfahrung</li>
+            <li>Strategische und operative Vertriebssteuerung</li>
+            <li>Neukundenakquise und Terminqualifizierung</li>
+            <li>Messbare KPIs als Steuerungsgrundlage</li>
+          </ul>
+          <p class="hero-card-footer">Einmalig + tagessatzbasiert · Konditionen unten</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL SECTION -->
+<section class="personal-section reveal-on-scroll">
+  <div class="container">
+    <div class="personal-inner">
+      <div class="personal-accent" aria-hidden="true"></div>
+      <div class="personal-content">
+        <p class="personal-eyebrow">Hi Kai</p>
+        <p>Im Engineering-Umfeld ist Vertrieb oft das Engpassthema: Das Kerngeschäft bindet die Kapazitäten, die Neukundenansprache bleibt liegen. Wir übernehmen genau diesen Teil — mit einem Consultant, der die Sprache eurer Branche spricht.</p>
+        <p>Das Angebot ist so aufgebaut, dass ihr sofort loslegen könnt, ohne internen Aufwand für Recruiting, Onboarding oder Steuerung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 01 — WAS WIR VERSTANDEN HABEN -->
+<section id="section-01" class="section-border-top reveal-on-scroll">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-header-grid">
+        <div class="section-number-col">
+          <span class="section-number">01</span>
+          <div class="section-accent-line" aria-hidden="true"></div>
+        </div>
+        <div class="section-header-content">
+          <span class="section-eyebrow">Was wir verstanden haben</span>
+          <h2>Vertrieb ist kein Nebenprodukt von Engineering</h2>
+          <div class="section-04-prose">
+            <p>Die EDAG Group steht für Engineering Excellence. Das bedeutet, dass interne Ressourcen konsequent auf das Kerngeschäft ausgerichtet sind — und der systematische Vertriebsaufbau Richtung neuer Zielkunden dabei zurückstellt wird.</p>
+            <p>Wir bringen einen Senior Sales Consultant ein, der den Vertrieb strukturiert aufnimmt: von der Zielkunden-Recherche über die Qualifizierung bis zur Erstansprache — strategisch ausgerichtet, operativ umgesetzt, mit messbaren KPIs als Steuerungsgrundlage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 — UNSER VORSCHLAG -->
+<section id="section-02" class="section-border-top reveal-on-scroll">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-header-grid">
+        <div class="section-number-col">
+          <span class="section-number">02</span>
+          <div class="section-accent-line" aria-hidden="true"></div>
+        </div>
+        <div class="section-header-content">
+          <span class="section-eyebrow">Unser Vorschlag</span>
+          <h2>Vertriebsoutsourcing ab 950 € pro Tag</h2>
+          <p class="section-body-text">Ein Tagessatz-Modell mit Senior-Expertise, Engineering-Erfahrung und messbaren Ergebnissen. Kein Recruiting-Risiko, keine Fixkosten, kein Onboarding-Aufwand.</p>
+        </div>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div class="stat-grid">
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number">
+            <span class="stat-value" data-count-to="950">950</span>
+            <span class="stat-unit">€ / Tag</span>
+          </div>
+          <p class="stat-caption">Einstiegspreis pro Beratertag ab diesem Angebot</p>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number">
+            <span class="stat-value" data-count-to="3">3</span>
+            <span class="stat-unit">Kernziele</span>
+          </div>
+          <p class="stat-caption">Mehr Neukunden, mehr Termine, mehr Wachstum</p>
+        </div>
+
+        <div class="stat-card reveal-on-scroll">
+          <div class="stat-number">
+            <span class="stat-value" data-count-to="1">1</span>
+            <span class="stat-unit">fester Consultant</span>
+          </div>
+          <p class="stat-caption">Senior Sales Consultant mit Engineering-Erfahrung</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — WAS IHR BEKOMMT -->
+<section id="section-03" class="section-border-top reveal-on-scroll">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-header-grid">
+        <div class="section-number-col">
+          <span class="section-number">03</span>
+          <div class="section-accent-line" aria-hidden="true"></div>
+        </div>
+        <div class="section-header-content">
+          <span class="section-eyebrow">Was ihr bekommt</span>
+          <h2>Vier Leistungsfelder, ein Ergebnis</h2>
+        </div>
+      </div>
+
+      <div class="deliverables-grid">
+
+        <!-- CARD 1 -->
+        <div class="deliverable-card reveal-on-scroll">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+          </svg>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+          <h3>Neukundenakquise</h3>
+          <p>Gezieltes Outbound-Prospecting, Recherche qualifizierter Zielkunden und strukturierte Erstansprache per Telefon und E-Mail — im Namen der EDAG Group.</p>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="deliverable-card reveal-on-scroll">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+          <h3>Messbare KPIs</h3>
+          <p>Klare Steuerungsgrundlage durch definierte Kennzahlen: Anzahl kontaktierter Zielkunden, qualifizierte Termine und Conversion-Tracking im laufenden Betrieb.</p>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="deliverable-card reveal-on-scroll">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+          <h3>Strategische Steuerung</h3>
+          <p>Der Consultant agiert nicht nur operativ: Zielgruppendefinition, Positionierung der EDAG Group im Erstgespräch und laufende Anpassung der Ansprache-Strategie.</p>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="deliverable-card reveal-on-scroll">
+          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+            <path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+          <h3>Senior-Expertise</h3>
+          <p>Kein Juniorprofil, kein Anlernprozess. Der eingesetzte Consultant bringt Engineering-Erfahrung mit und spricht die Sprache eurer Zielkunden vom ersten Tag an.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 — WIE WIR STARTEN -->
+<section id="section-04" class="section-border-top reveal-on-scroll">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-header-grid">
+        <div class="section-number-col">
+          <span class="section-number">04</span>
+          <div class="section-accent-line" aria-hidden="true"></div>
+        </div>
+        <div class="section-header-content">
+          <span class="section-eyebrow">Wie wir starten</span>
+          <h2>Von der Freigabe zum ersten Termin</h2>
+        </div>
+      </div>
+
+      <div class="timeline-wrapper">
+        <svg class="timeline-connector" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="80" y1="28" x2="920" y2="28" stroke="var(--primary-border)" stroke-width="1" stroke-dasharray="6 8" pathLength="100" class="connector-line"/>
+        </svg>
+
+        <div class="timeline-phases">
+
+          <div class="phase reveal-on-scroll">
+            <div class="phase-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 11l3 3L22 4"/>
+                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+              </svg>
+            </div>
+            <p class="phase-eyebrow">Phase 01</p>
+            <h3>Freigabe & Briefing</h3>
+            <p>Sobald ihr grünes Licht gebt, klären wir Zielgruppe, Positionierung und Prioritäten in einem strukturierten Kick-off-Gespräch.</p>
+          </div>
+
+          <div class="phase reveal-on-scroll">
+            <div class="phase-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <p class="phase-eyebrow">Phase 02</p>
+            <h3>Recherche & Qualifizierung</h3>
+            <p>Der Consultant recherchiert und qualifiziert Zielkunden, die strategisch zu EDAG passen — bevor die Erstansprache beginnt.</p>
+          </div>
+
+          <div class="phase reveal-on-scroll">
+            <div class="phase-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </div>
+            <p class="phase-eyebrow">Phase 03</p>
+            <h3>Outbound & Terminübergabe</h3>
+            <p>Erstansprache per Telefon und E-Mail, Vorqualifizierung der Interessenten und Übergabe gebuchter Termine an euer Team zum Closing.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 — INVESTMENT -->
+<section id="section-05" class="section-border-top reveal-on-scroll">
+  <div class="container">
+    <div class="section-inner">
+      <div class="section-header-grid">
+        <div class="section-number-col">
+          <span class="section-number">05</span>
+          <div class="section-accent-line" aria-hidden="true"></div>
+        </div>
+        <div class="section-header-content">
+          <span class="section-eyebrow">Investment & Konditionen</span>
+          <h2>Euer Angebot</h2>
+        </div>
+      </div>
+
+      <div class="pricing-wrap">
+        <div class="pricing-card glow-card reveal-on-scroll-strong">
+          <p class="pricing-eyebrow">Euer Angebot</p>
+
+          <!-- POSITION -->
+          <div class="pricing-position">
+            <div class="pricing-pos-left">
+              <p class="pricing-pos-title">Senior Sales Consultant</p>
+              <p class="pricing-pos-desc">Strategisches und operatives Vertriebsoutsourcing im Namen der EDAG Group, mit Engineering-Erfahrung und messbaren KPIs</p>
+            </div>
+            <div class="pricing-pos-price">ab 950 €<span style="font-size:14px;color:var(--text-muted);font-weight:400;"> / Tag</span></div>
+          </div>
+
+          <!-- TOTAL -->
+          <div class="pricing-total-row">
+            <span class="pricing-total-label">Einstieg ab</span>
+            <div style="text-align:right;">
+              <div class="pricing-total-value">950 €</div>
+              <p class="pricing-total-sub">pro Beratertag</p>
+            </div>
+          </div>
+
+          <!-- BENEFITS -->
+          <div class="pricing-benefits">
+            <div class="pricing-benefit-item">Kein Recruiting-Risiko, keine Fixkosten für Headcount</div>
+            <div class="pricing-benefit-item">Senior-Profil mit Engineering-Kontext vom ersten Tag</div>
+            <div class="pricing-benefit-item">Flexibel skalierbar nach Bedarf und Pipeline</div>
+          </div>
+
+          <!-- CONTRACT DETAILS -->
+          <div class="pricing-contract">
+            <div class="pricing-contract-item">Abrechnung auf Tagessatzbasis gemäß Auftragsumfang</div>
+            <div class="pricing-contract-item">Konditionen, Laufzeit und Zahlungsmodalitäten im vollständigen Angebot</div>
+          </div>
+
+          <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="pricing-conditions-link">Die vollständigen Konditionen findet ihr im Angebot →</a>
+        </div>
+      </div>
+
+      <p class="netto-hint">Alle Preise netto, zzgl. gesetzlicher USt.</p>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 06 — ABSCHLUSS CTA -->
+<section id="section-06" class="cta-section reveal-on-scroll-strong">
+  <div class="container">
+    <div class="cta-card glow-card">
+      <div class="cta-deco-svg" aria-hidden="true">
+        <svg viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="400" cy="300" r="250" stroke="rgba(77,142,255,0.4)" stroke-width="1"/>
+          <circle cx="400" cy="300" r="180" stroke="rgba(77,142,255,0.3)" stroke-width="1"/>
+          <circle cx="400" cy="300" r="110" stroke="rgba(77,142,255,0.2)" stroke-width="1"/>
+          <line x1="0" y1="300" x2="800" y2="300" stroke="rgba(77,142,255,0.2)" stroke-width="1" stroke-dasharray="8 12"/>
+          <line x1="400" y1="0" x2="400" y2="600" stroke="rgba(77,142,255,0.2)" stroke-width="1" stroke-dasharray="8 12"/>
+        </svg>
+      </div>
+
+      <p class="cta-eyebrow">Bereit loszulegen?</p>
+      <h2>Wir legen los, sobald ihr grünes Licht gebt</h2>
+      <p class="cta-subline">Klickt auf "Angebot annehmen" und wir koordinieren den nächsten Schritt — inklusive Briefing-Termin und Consultant-Matching für die EDAG Group.</p>
+
+      <div class="cta-buttons">
+        <a href="https://angebot.sales-culture.de/QaWOFcirdBzGlV" class="btn-primary magnetic">Angebot annehmen</a>
+        <a href="https://www.hiexperts.de/florian-weissgerber" class="btn-secondary">Termin buchen</a>
+      </div>
+
+      <div class="cta-contacts">
+        <a href="mailto:david@sales-culture.de" class="cta-contact-item">✉️ david@sales-culture.de</a>
+        <a href="tel:+4991147780201" class="cta-contact-item">📞 +49 911 47780-201</a>
+        <a href="https://www.hiexperts.de/florian-weissgerber" class="cta-contact-item">📅 Kalender</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-legal">Sales Culture GmbH · Theodorstraße 3 · 90489 Nürnberg · Geschäftsführer Marcel Theunissen · HRB 42050</p>
+      <p class="footer-disclaimer">Diese Landingpage wurde mit KI generiert und ersetzt nicht den verbindlichen Inhalt eines unterschriebenen Angebots. Alle Angaben ohne Gewähr.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- INLINE FEATURE SCRIPTS -->
+<script>
+  // Mouse spotlight hero
+  (function(){
+    const hero = document.querySelector('.hero');
+    const spot = document.querySelector('.hero-spotlight');
+    if (hero && spot) {
+      hero.addEventListener('pointermove', function(e) {
+        const rect = hero.getBoundingClientRect();
+        spot.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        spot.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    }
+  })();
+
+  // 3D Card Tilt
+  (function(){
+    document.querySelectorAll('.deliverable-card').forEach(function(card) {
+      card.addEventListener('pointermove', function(e) {
+        if (window.matchMedia('(hover: none)').matches) return;
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = 'perspective(900px) rotateX(' + (y * -4) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
+      });
+      card.addEventListener('pointerleave', function() {
+        card.style.transform = '';
+      });
+    });
+  })();
+
+  // Magnetic buttons
+  (function(){
+    document.querySelectorAll('.magnetic').forEach(function(btn) {
+      btn.addEventListener('pointermove', function(e) {
+        if (window.matchMedia('(hover: none)').matches) return;
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+        const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+        btn.style.transform = 'translate(' + (x * 8) + 'px, ' + (y * 6) + 'px) scale(1.02)';
+      });
+      btn.addEventListener('pointerleave', function() {
+        btn.style.transform = '';
+      });
+    });
+  })();
+
+  // Sticky CTA
+  (function(){
+    const stickyCta = document.querySelector('.sticky-cta');
+    const heroEl = document.querySelector('.hero');
+    const pricingEl = document.querySelector('#section-05');
+    if (stickyCta && heroEl) {
+      const onScroll = function() {
+        const showFromY = heroEl.offsetTop + heroEl.offsetHeight - 80;
+        const hideAfterY = pricingEl ? (pricingEl.offsetTop + pricingEl.offsetHeight) : Infinity;
+        const y = window.scrollY;
+        stickyCta.classList.toggle('is-visible', y > showFromY && y < hideAfterY);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+  })();
+
+  // Cursor aura
+  (function(){
+    const aura = document.querySelector('.cursor-aura');
+    if (aura && window.matchMedia('(hover: hover)').matches) {
+      let tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+      let cx = tx, cy = ty;
+      window.addEventListener('pointermove', function(e) { tx = e.clientX; ty = e.clientY; });
+      const loop = function() {
+        cx += (tx - cx) * 0.18;
+        cy += (ty - cy) * 0.18;
+        aura.style.transform = 'translate(' + cx + 'px, ' + cy + 'px) translate(-50%, -50%)';
+        requestAnimationFrame(loop);
+      };
+      loop();
+    }
+  })();
+
+  // Reading indicator
+  (function(){
+    const sections = document.querySelectorAll('section[id^="section-"]');
+    const links = document.querySelectorAll('.reading-indicator a');
+    const sectionIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          links.forEach(function(l) {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(function(s) { sectionIO.observe(s); });
+  })();
+
+  // Count-up
+  (function(){
+    const counters = document.querySelectorAll('.stat-value[data-count-to]');
+    const runCount = function(el) {
+      const target = parseFloat(el.dataset.countTo);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1200;
+      const start = performance.now();
+      const step = function(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const value = target % 1 === 0 ? Math.round(target * eased) : (target * eased).toFixed(1);
+        el.textContent = value + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const counterIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        runCount(entry.target);
+        counterIO.unobserve(entry.target);
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+    counters.forEach(function(c) { counterIO.observe(c); });
+  })();
+</script>
+
+<!-- IO FALLBACK -->
+<script>
+  if (!CSS.supports('animation-timeline', 'view()')) {
+    document.documentElement.classList.add('js-scroll-fallback');
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal-on-scroll, .reveal-on-scroll-strong').forEach(function(el) {
+      io.observe(el);
+    });
+    const bar = document.createElement('div');
+    bar.className = 'js-scroll-progress';
+    document.body.appendChild(bar);
+    window.addEventListener('scroll', function() {
+      const h = document.documentElement;
+      const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      bar.style.transform = 'scaleX(' + pct + ')';
+    }, { passive: true });
+  }
+</script>
+
+</body>
+</html>
